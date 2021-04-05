@@ -1,0 +1,12 @@
+C:\ConcertTracker\BusinessLayer\bin\Debug\netcoreapp3.1\BusinessLayer.deps.json
+C:\ConcertTracker\BusinessLayer\bin\Debug\netcoreapp3.1\BusinessLayer.dll
+C:\ConcertTracker\BusinessLayer\bin\Debug\netcoreapp3.1\BusinessLayer.pdb
+C:\ConcertTracker\BusinessLayer\bin\Debug\netcoreapp3.1\DataLayer.dll
+C:\ConcertTracker\BusinessLayer\bin\Debug\netcoreapp3.1\DataLayer.pdb
+C:\ConcertTracker\BusinessLayer\obj\Debug\netcoreapp3.1\BusinessLayer.csprojAssemblyReference.cache
+C:\ConcertTracker\BusinessLayer\obj\Debug\netcoreapp3.1\BusinessLayer.AssemblyInfoInputs.cache
+C:\ConcertTracker\BusinessLayer\obj\Debug\netcoreapp3.1\BusinessLayer.AssemblyInfo.cs
+C:\ConcertTracker\BusinessLayer\obj\Debug\netcoreapp3.1\BusinessLayer.csproj.CoreCompileInputs.cache
+C:\ConcertTracker\BusinessLayer\obj\Debug\netcoreapp3.1\BusinessLayer.csproj.CopyComplete
+C:\ConcertTracker\BusinessLayer\obj\Debug\netcoreapp3.1\BusinessLayer.dll
+C:\ConcertTracker\BusinessLayer\obj\Debug\netcoreapp3.1\BusinessLayer.pdb
