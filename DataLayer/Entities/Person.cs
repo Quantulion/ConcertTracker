@@ -17,6 +17,6 @@ namespace DataLayer.Entities
         public string MailAddress { get; set; }
         public List<Comment> Comments { get; set; }
         //public List<Comment> LikedComments { get; set; }
-        public List<Like> Likes { get; set; }
+        public List<PersonComment> Likes { get; set; }
     }
 }

@@ -4,7 +4,7 @@ using System.Text;
 
 namespace DataLayer.Entities
 {
-    public class Like
+    public class PersonComment
     {
         public int PersonId { get; set; }
         public Person Person { get; set; }

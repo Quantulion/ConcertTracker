@@ -9,6 +9,7 @@ namespace DataLayer
 {
     public class ApplicationDbContext : DbContext
     {
+        public DbSet<Person> People { get; set; }
         public DbSet<Viewer> Viewers { get; set; }
         public DbSet<Artist> Artists { get; set; }
         public DbSet<Admin> Admins { get; set; }
@@ -23,13 +24,13 @@ namespace DataLayer
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Like>()
+            modelBuilder.Entity<PersonComment>()
                 .HasKey(x => new { x.PersonId, x.CommentId });
-            modelBuilder.Entity<Like>()
+            modelBuilder.Entity<PersonComment>()
                 .HasOne(x => x.Person)
                 .WithMany(m => m.Likes)
                 .HasForeignKey(x => x.PersonId);
-            modelBuilder.Entity<Like>()
+            modelBuilder.Entity<PersonComment>()
                 .HasOne(x => x.Comment)
                 .WithMany(e => e.Likes)
                 .HasForeignKey(x => x.CommentId);
@@ -45,7 +46,7 @@ namespace DataLayer
         public ApplicationDbContext CreateDbContext(string[] args)
         {
             var optionsBuilder = new DbContextOptionsBuilder<ApplicationDbContext>();
-            optionsBuilder.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=ConcertTrackerDB;Trusted_Connection=True;MultipleActiveResultSets=true", b => b.MigrationsAssembly("DataLayer"));
+            optionsBuilder.UseSqlServer("Server=USER-PC;Database=ConcertTrackerDB;Trusted_Connection=True;MultipleActiveResultSets=true", b => b.MigrationsAssembly("DataLayer"));
             return new ApplicationDbContext(optionsBuilder.Options);
         }
     }

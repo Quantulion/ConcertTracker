@@ -13,7 +13,7 @@ namespace DataLayer.Entities
         public string Content { get; set; }
         [Required]
         public DateTime PublishTime { get; set; }
-        public List<Like> Likes { get; set; }
+        public List<PersonComment> Likes { get; set; }
         //public List<Person> Persons { get; set; }
         public int PersonId { get; set; }
         public Person Person { get; set; }
