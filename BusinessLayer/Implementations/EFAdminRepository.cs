@@ -17,6 +17,14 @@ namespace BusinessLayer.Implementations
         {
             _ctx = ctx;
         }
+        public async Task<List<Admin>> GetAllAdmins()
+        {
+            return await _ctx.Admins.ToListAsync();
+        }
+        public async Task<Admin> GetAdminById(int id)
+        {
+            return await _ctx.Admins.FirstOrDefaultAsync(f => f.Id == id);
+        }
 
         public async Task<Admin> AddAdmin(Admin admin)
         {
@@ -28,16 +36,6 @@ namespace BusinessLayer.Implementations
         public void Dispose()
         {
             _ctx.Dispose();
-        }
-
-        public async Task<Admin> GetAdminById(int id)
-        {
-            return await _ctx.Admins.FirstOrDefaultAsync(f => f.Id == id);
-        }
-
-        public async Task<List<Admin>> GetAllAdmins()
-        {
-            return await _ctx.Admins.ToListAsync();
         }
     }
 }

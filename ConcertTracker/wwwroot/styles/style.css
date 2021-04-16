@@ -1,0 +1,148 @@
+* {
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+  text-decoration: none;
+  color: black;
+}
+
+.firstPage {
+  height: 100vh;
+}
+
+.mainText {
+  font-family: Roboto;
+  font-weight: bold;
+  font-size: 48px;
+  position: absolute;
+  top: 5%;
+  left: 5%;
+}
+
+img.aboutMainImage {
+  position: absolute;
+  top: 0;
+  right: 0;
+  -o-object-fit: cover;
+     object-fit: cover;
+  overflow: hidden;
+  height: 100vh;
+}
+
+img.earthIconAboutPage {
+  position: absolute;
+  top: 90%;
+  left: 8%;
+  -o-object-fit: cover;
+     object-fit: cover;
+  overflow: hidden;
+  -webkit-transform: translate(0, -50%);
+          transform: translate(0, -50%);
+}
+
+img.mapAboutImage {
+  position: absolute;
+  top: 30%;
+  left: 55%;
+}
+
+.aboutText {
+  position: absolute;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  top: 32%;
+  left: 20%;
+}
+
+.aboutText p {
+  font-family: Roboto;
+  font-weight: 400;
+  margin: 1rem;
+  width: 28rem;
+  font-size: 36px;
+}
+
+.secondPage {
+  height: 100vh;
+  position: relative;
+}
+
+.links {
+  position: absolute;
+  top: 90%;
+  left: 70%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  font-family: Roboto;
+}
+
+.links ul {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: 20rem;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+}
+
+.links h2 {
+  font-size: 36px;
+}
+
+.navBar {
+  position: fixed;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  top: 90%;
+  left: 50%;
+  -webkit-transform: translate(-50%, 0%);
+          transform: translate(-50%, 0%);
+  z-index: 1;
+}
+
+.navBar li {
+  background-color: black;
+  height: 3rem;
+  width: 8rem;
+  border: 1px solid #ffffff;
+}
+
+.navBar li.leftPage {
+  border-radius: 15px 0px 0px 15px;
+}
+
+.navBar li.rightPage {
+  border-radius: 0px 15px 15px 0px;
+}
+
+.navBar li a {
+  font-family: Roboto;
+  color: white;
+  font-size: 24px;
+  height: 100%;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.container {
+  height: 100vh;
+  background-color: white;
+}
+/*# sourceMappingURL=style.css.map */

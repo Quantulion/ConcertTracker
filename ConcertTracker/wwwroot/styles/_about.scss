@@ -1,0 +1,72 @@
+.firstPage {
+  height: 100vh;
+}
+
+.mainText {
+  font-family: Roboto;
+  font-weight: bold;
+  font-size: 48px;
+  position: absolute;
+  top: 5%;
+  left: 5%;
+}
+img {
+  &.aboutMainImage {
+    position: absolute;
+    top: 0;
+    right: 0;
+    object-fit: cover;
+    overflow: hidden;
+    height: 100vh;
+  }
+  &.earthIconAboutPage {
+    position: absolute;
+    top: 90%;
+    left: 8%;
+    object-fit: cover;
+    overflow: hidden;
+    transform: translate(0, -50%);
+  }
+  &.mapAboutImage {
+    position: absolute;
+    top: 30%;
+    left: 55%;
+  }
+}
+
+.aboutText {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  top: 32%;
+  left: 20%;
+  p {
+    font-family: Roboto;
+    font-weight: 400;
+    margin: 1rem;
+    width: 28rem;
+    font-size: 36px;
+  }
+}
+
+.secondPage {
+  height: 100vh;
+  position: relative;
+}
+
+.links {
+  position: absolute;
+  top: 90%;
+  left: 70%;
+  display: flex;
+  align-items: center;
+  font-family: Roboto;
+  ul {
+    display: flex;
+    width: 20rem;
+    justify-content: space-around;
+  }
+  h2 {
+    font-size: 36px;
+  }
+}
