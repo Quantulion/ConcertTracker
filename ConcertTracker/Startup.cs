@@ -36,6 +36,7 @@ namespace ConcertTracker
             services.AddSingleton<WeatherForecastService>();
             services.AddTransient<IAdminRepository, EFAdminRepository>();
             services.AddTransient<IArtistRepository, EFArtistRepository>();
+            services.AddTransient<IConcertHallRepository, EFConcertHallRepository>();
             services.AddScoped<DataManager>();
 
             string cs = Configuration.GetConnectionString("DefaultConnection");

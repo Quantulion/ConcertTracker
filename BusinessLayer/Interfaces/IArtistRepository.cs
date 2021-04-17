@@ -10,7 +10,7 @@ namespace BusinessLayer.Interfaces
     {
         Task<List<Artist>> GetAllArtists();
         Task<Artist> GetArtistById(int Id);
-        Task UpdateArtist(Artist artist);
         Task<Artist> AddArtist(Artist artist);
+        Task UpdateArtist(Artist artist);
     }
 }

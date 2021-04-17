@@ -10,7 +10,7 @@ namespace BusinessLayer.Interfaces
     {
         Task<IEnumerable<Concert>> GetAllConcerts();
         Task<Concert> GetConcertById(int Id);
-        Task UpdateConcert(Concert concert);
         Task<Concert> AddConcert(Concert concert);
+        Task UpdateConcert(Concert concert);
     }
 }

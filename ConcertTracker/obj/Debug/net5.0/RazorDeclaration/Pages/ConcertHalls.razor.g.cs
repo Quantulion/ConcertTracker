@@ -4,7 +4,7 @@
 #pragma warning disable 0649
 #pragma warning disable 0169
 
-namespace ConcertTracker.Shared
+namespace ConcertTracker.Pages
 {
     #line hidden
     using System;
@@ -82,7 +82,43 @@ using ConcertTracker.Shared;
 #line default
 #line hidden
 #nullable disable
-    public partial class NavMenu : Microsoft.AspNetCore.Components.ComponentBase
+#nullable restore
+#line 3 "C:\ConcertTracker\ConcertTracker\Pages\ConcertHalls.razor"
+using Microsoft.EntityFrameworkCore;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 4 "C:\ConcertTracker\ConcertTracker\Pages\ConcertHalls.razor"
+using BusinessLayer.Interfaces;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 5 "C:\ConcertTracker\ConcertTracker\Pages\ConcertHalls.razor"
+using DataLayer.Entities;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 6 "C:\ConcertTracker\ConcertTracker\Pages\ConcertHalls.razor"
+using DataLayer;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 7 "C:\ConcertTracker\ConcertTracker\Pages\ConcertHalls.razor"
+using BusinessLayer;
+
+#line default
+#line hidden
+#nullable disable
+    [Microsoft.AspNetCore.Components.RouteAttribute("/concerthalls")]
+    public partial class ConcertHalls : Microsoft.AspNetCore.Components.ComponentBase
     {
         #pragma warning disable 1998
         protected override void BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder __builder)
@@ -90,20 +126,38 @@ using ConcertTracker.Shared;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 38 "C:\ConcertTracker\ConcertTracker\Shared\NavMenu.razor"
+#line 50 "C:\ConcertTracker\ConcertTracker\Pages\ConcertHalls.razor"
        
-    private bool collapseNavMenu = true;
+    private DataManager DataManager;
 
-    private string NavMenuCssClass => collapseNavMenu ? "collapse" : null;
-
-    private void ToggleNavMenu()
+    private List<ConcertHall> concertHalls;
+    ConcertHall newConcertHall = new ConcertHall();
+    protected override async Task OnInitializedAsync()
     {
-        collapseNavMenu = !collapseNavMenu;
+        concertHalls = await ConcertHallRep.GetAllConcertHalls();
+    }
+    private async Task InsertConcertHall()
+    {
+
+        ConcertHall p = new ConcertHall
+        {
+            Address = newConcertHall.Address,
+            Description = newConcertHall.Description
+        };
+
+        await ConcertHallRep.AddConcertHall(p);
+
+        concertHalls.Add(p);
+
+        newConcertHall = new ConcertHall();
     }
 
 #line default
 #line hidden
 #nullable disable
+        [global::Microsoft.AspNetCore.Components.InjectAttribute] private IConcertHallRepository ConcertHallRep { get; set; }
+        [global::Microsoft.AspNetCore.Components.InjectAttribute] private IDbContextFactory<ApplicationDbContext> ContextFactory { get; set; }
+        [global::Microsoft.AspNetCore.Components.InjectAttribute] private NavigationManager Navigation { get; set; }
     }
 }
 #pragma warning restore 1591

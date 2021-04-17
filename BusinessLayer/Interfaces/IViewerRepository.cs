@@ -10,7 +10,7 @@ namespace BusinessLayer.Interfaces
     {
         Task<IEnumerable<Viewer>> GetAllViewers();
         Task<Viewer> GetViewerById(int Id);
-        Task UpdateViewer(Viewer viewer);
         Task<Genre> AddViewer(Viewer viewer);
+        Task UpdateViewer(Viewer viewer);
     }
 }

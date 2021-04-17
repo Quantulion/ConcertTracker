@@ -10,7 +10,7 @@ namespace BusinessLayer.Interfaces
     {
         Task<IEnumerable<Genre>> GetAllGenres();
         Task<Genre> GetGenreById(int Id);
-        Task UpdateGenre(Genre genre);
         Task<Genre> AddGenre(Genre genre);
+        Task UpdateGenre(Genre genre);
     }
 }
