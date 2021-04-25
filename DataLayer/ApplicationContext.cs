@@ -1,4 +1,5 @@
 ﻿using DataLayer.Entities;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 using System;
@@ -7,9 +8,8 @@ using System.Text;
 
 namespace DataLayer
 {
-    public class ApplicationDbContext : DbContext
+    public class ApplicationDbContext : IdentityDbContext<User>
     {
-        public DbSet<Person> People { get; set; }
         public DbSet<Viewer> Viewers { get; set; }
         public DbSet<Artist> Artists { get; set; }
         public DbSet<Admin> Admins { get; set; }
@@ -24,20 +24,21 @@ namespace DataLayer
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<PersonComment>()
-                .HasKey(x => new { x.PersonId, x.CommentId });
-            modelBuilder.Entity<PersonComment>()
-                .HasOne(x => x.Person)
+            base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<UserComment>()
+                .HasKey(x => new { x.UserId, x.CommentId });
+            modelBuilder.Entity<UserComment>()
+                .HasOne(x => x.User)
                 .WithMany(m => m.Likes)
-                .HasForeignKey(x => x.PersonId);
-            modelBuilder.Entity<PersonComment>()
+                .HasForeignKey(x => x.UserId);
+            modelBuilder.Entity<UserComment>()
                 .HasOne(x => x.Comment)
                 .WithMany(e => e.Likes)
                 .HasForeignKey(x => x.CommentId);
             modelBuilder.Entity<Comment>()
-                .HasOne(x => x.Person)
+                .HasOne(x => x.User)
                 .WithMany(e => e.Comments)
-                .HasForeignKey(x => x.PersonId)
+                .HasForeignKey(x => x.UserId)
                 .OnDelete(DeleteBehavior.Restrict);
         }
     }

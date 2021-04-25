@@ -90,8 +90,6 @@ C:\ConcertTracker\ConcertTracker\obj\Debug\net5.0\ConcertTracker.dll
 C:\ConcertTracker\ConcertTracker\obj\Debug\net5.0\ref\ConcertTracker.dll
 C:\ConcertTracker\ConcertTracker\obj\Debug\net5.0\ConcertTracker.pdb
 C:\ConcertTracker\ConcertTracker\obj\Debug\net5.0\ConcertTracker.genruntimeconfig.cache
-C:\ConcertTracker\ConcertTracker\obj\Debug\net5.0\RazorDeclaration\Pages\Artists.razor.g.cs
-C:\ConcertTracker\ConcertTracker\obj\Debug\net5.0\Razor\Pages\Artists.razor.g.cs
 C:\ConcertTracker\ConcertTracker\bin\Debug\net5.0\Microsoft.AspNetCore.Cryptography.Internal.dll
 C:\ConcertTracker\ConcertTracker\bin\Debug\net5.0\Microsoft.AspNetCore.Cryptography.KeyDerivation.dll
 C:\ConcertTracker\ConcertTracker\bin\Debug\net5.0\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
@@ -99,3 +97,5 @@ C:\ConcertTracker\ConcertTracker\bin\Debug\net5.0\Microsoft.Extensions.Identity.
 C:\ConcertTracker\ConcertTracker\bin\Debug\net5.0\Microsoft.Extensions.Identity.Stores.dll
 C:\ConcertTracker\ConcertTracker\obj\Debug\net5.0\RazorDeclaration\Pages\ConcertHalls.razor.g.cs
 C:\ConcertTracker\ConcertTracker\obj\Debug\net5.0\Razor\Pages\ConcertHalls.razor.g.cs
+C:\ConcertTracker\ConcertTracker\obj\Debug\net5.0\RazorDeclaration\Authentication\RegisterUser.razor.g.cs
+C:\ConcertTracker\ConcertTracker\obj\Debug\net5.0\Razor\Authentication\RegisterUser.razor.g.cs

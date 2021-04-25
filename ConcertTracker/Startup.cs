@@ -15,6 +15,9 @@ using System.Threading.Tasks;
 using BusinessLayer;
 using DataLayer;
 using Microsoft.EntityFrameworkCore;
+using DataLayer.Entities;
+using Microsoft.AspNetCore.Identity;
+using ConcertTracker.Authentication;
 
 namespace ConcertTracker
 {
@@ -38,10 +41,12 @@ namespace ConcertTracker
             services.AddTransient<IArtistRepository, EFArtistRepository>();
             services.AddTransient<IConcertHallRepository, EFConcertHallRepository>();
             services.AddScoped<DataManager>();
-
+            services.AddTransient<IAuth, Auth>();
             string cs = Configuration.GetConnectionString("DefaultConnection");
             services.AddDbContextFactory<ApplicationDbContext>(opt => opt.UseSqlServer(cs));
             services.AddDbContext<ApplicationDbContext>(opt => opt.UseSqlServer(cs));
+            services.AddIdentity<User, IdentityRole>()
+                .AddEntityFrameworkStores<ApplicationDbContext>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

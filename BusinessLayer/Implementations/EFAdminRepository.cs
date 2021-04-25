@@ -21,7 +21,7 @@ namespace BusinessLayer.Implementations
         {
             return await _ctx.Admins.ToListAsync();
         }
-        public async Task<Admin> GetAdminById(int id)
+        public async Task<Admin> GetAdminById(string id)
         {
             return await _ctx.Admins.FirstOrDefaultAsync(f => f.Id == id);
         }

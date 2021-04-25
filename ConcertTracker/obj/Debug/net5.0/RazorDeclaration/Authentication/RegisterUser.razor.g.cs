@@ -4,7 +4,7 @@
 #pragma warning disable 0649
 #pragma warning disable 0169
 
-namespace ConcertTracker.Pages
+namespace ConcertTracker.Authentication
 {
     #line hidden
     using System;
@@ -83,42 +83,21 @@ using ConcertTracker.Shared;
 #line hidden
 #nullable disable
 #nullable restore
-#line 3 "C:\ConcertTracker\ConcertTracker\Pages\Artists.razor"
-using Microsoft.EntityFrameworkCore;
+#line 3 "C:\ConcertTracker\ConcertTracker\Authentication\RegisterUser.razor"
+using ConcertTracker.ViewModels;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 4 "C:\ConcertTracker\ConcertTracker\Pages\Artists.razor"
-using BusinessLayer.Interfaces;
+#line 4 "C:\ConcertTracker\ConcertTracker\Authentication\RegisterUser.razor"
+using ConcertTracker.Authentication;
 
 #line default
 #line hidden
 #nullable disable
-#nullable restore
-#line 5 "C:\ConcertTracker\ConcertTracker\Pages\Artists.razor"
-using DataLayer.Entities;
-
-#line default
-#line hidden
-#nullable disable
-#nullable restore
-#line 6 "C:\ConcertTracker\ConcertTracker\Pages\Artists.razor"
-using DataLayer;
-
-#line default
-#line hidden
-#nullable disable
-#nullable restore
-#line 7 "C:\ConcertTracker\ConcertTracker\Pages\Artists.razor"
-using BusinessLayer;
-
-#line default
-#line hidden
-#nullable disable
-    [Microsoft.AspNetCore.Components.RouteAttribute("/artists")]
-    public partial class Artists : Microsoft.AspNetCore.Components.ComponentBase
+    [Microsoft.AspNetCore.Components.RouteAttribute("/registration")]
+    public partial class RegisterUser : Microsoft.AspNetCore.Components.ComponentBase
     {
         #pragma warning disable 1998
         protected override void BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder __builder)
@@ -126,39 +105,18 @@ using BusinessLayer;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 54 "C:\ConcertTracker\ConcertTracker\Pages\Artists.razor"
+#line 29 "C:\ConcertTracker\ConcertTracker\Authentication\RegisterUser.razor"
        
-    private DataManager DataManager;
-
-    private List<Artist> artists;
-    Artist newArtist = new Artist();
-    protected override async Task OnInitializedAsync()
+    RegisterViewModel user = new RegisterViewModel();
+    private async Task InsertUser()
     {
-        artists = await ArtistRep.GetAllArtists();
-    }
-    private async Task InsertArtist()
-    {
-
-        Artist p = new Artist
-        {
-            Name = newArtist.Name,
-            Pass = newArtist.Pass,
-            MailAddress = newArtist.MailAddress
-        };
-
-        await ArtistRep.AddArtist(p);
-
-        artists.Add(p);
-
-        newArtist = new Artist();
+        await auth.Register(user);
     }
 
 #line default
 #line hidden
 #nullable disable
-        [global::Microsoft.AspNetCore.Components.InjectAttribute] private IArtistRepository ArtistRep { get; set; }
-        [global::Microsoft.AspNetCore.Components.InjectAttribute] private IDbContextFactory<ApplicationDbContext> ContextFactory { get; set; }
-        [global::Microsoft.AspNetCore.Components.InjectAttribute] private NavigationManager Navigation { get; set; }
+        [global::Microsoft.AspNetCore.Components.InjectAttribute] private IAuth auth { get; set; }
     }
 }
 #pragma warning restore 1591

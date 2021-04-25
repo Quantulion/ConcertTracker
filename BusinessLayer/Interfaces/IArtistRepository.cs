@@ -9,7 +9,7 @@ namespace BusinessLayer.Interfaces
     public interface IArtistRepository : IDisposable
     {
         Task<List<Artist>> GetAllArtists();
-        Task<Artist> GetArtistById(int Id);
+        Task<Artist> GetArtistById(string Id);
         Task<Artist> AddArtist(Artist artist);
         Task UpdateArtist(Artist artist);
     }

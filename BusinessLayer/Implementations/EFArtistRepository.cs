@@ -21,7 +21,7 @@ namespace BusinessLayer.Implementations
             return await _ctx.Artists.ToListAsync();
         }
 
-        public async Task<Artist> GetArtistById(int id)
+        public async Task<Artist> GetArtistById(string id)
         {
             return await _ctx.Artists.FirstOrDefaultAsync(f => f.Id == id);
         }

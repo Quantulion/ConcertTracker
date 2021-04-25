@@ -4,8 +4,7 @@ using System.Text;
 
 namespace DataLayer.Entities
 {
-    public class Viewer : Person
+    public class Viewer : User
     {
-        public int Age { get; set; }
     }
 }
