@@ -28,7 +28,7 @@ namespace ConcertTracker.Authentication
                 if (result.Succeeded)
                 {
                     // установка куки
-                    await _signInManager.SignInAsync(user, false);
+                    await _signInManager.PasswordSignInAsync(user.UserName, model.Password, false, lockoutOnFailure: false);
                 }
                 return user;
             }

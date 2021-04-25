@@ -99,3 +99,11 @@ C:\ConcertTracker\ConcertTracker\obj\Debug\net5.0\RazorDeclaration\Pages\Concert
 C:\ConcertTracker\ConcertTracker\obj\Debug\net5.0\Razor\Pages\ConcertHalls.razor.g.cs
 C:\ConcertTracker\ConcertTracker\obj\Debug\net5.0\RazorDeclaration\Authentication\RegisterUser.razor.g.cs
 C:\ConcertTracker\ConcertTracker\obj\Debug\net5.0\Razor\Authentication\RegisterUser.razor.g.cs
+C:\ConcertTracker\ConcertTracker\bin\Debug\net5.0\Microsoft.AspNetCore.Identity.UI.Views.V4.dll
+C:\ConcertTracker\ConcertTracker\bin\Debug\net5.0\Microsoft.AspNetCore.Identity.UI.dll
+C:\ConcertTracker\ConcertTracker\bin\Debug\net5.0\Microsoft.Extensions.FileProviders.Embedded.dll
+C:\ConcertTracker\ConcertTracker\obj\Debug\net5.0\ConcertTracker.MvcApplicationPartsAssemblyInfo.cs
+C:\ConcertTracker\ConcertTracker\obj\Debug\net5.0\RazorDeclaration\Shared\LoginDisplay.razor.g.cs
+C:\ConcertTracker\ConcertTracker\obj\Debug\net5.0\Razor\Shared\LoginDisplay.razor.g.cs
+C:\ConcertTracker\ConcertTracker\obj\Debug\net5.0\Razor\Areas\Identity\Pages\Shared\_LoginPartial.cshtml.g.cs
+C:\ConcertTracker\ConcertTracker\obj\Debug\net5.0\Razor\Areas\Identity\Pages\Account\LogOut.cshtml.g.cs
