@@ -16,7 +16,7 @@ namespace BusinessLayer.Implementations
         {
             _ctx = ctx;
         }
-        public async Task<List<Artist>> GetAllArtists()
+        public async Task<ICollection<Artist>> GetAllArtists()
         {
             return await _ctx.Artists.ToListAsync();
         }

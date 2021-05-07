@@ -17,7 +17,7 @@ namespace BusinessLayer.Implementations
         {
             _ctx = ctx;
         }
-        public async Task<List<Admin>> GetAllAdmins()
+        public async Task<ICollection<Admin>> GetAllAdmins()
         {
             return await _ctx.Admins.ToListAsync();
         }

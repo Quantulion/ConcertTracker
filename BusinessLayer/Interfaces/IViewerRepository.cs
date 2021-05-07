@@ -8,7 +8,7 @@ namespace BusinessLayer.Interfaces
 {
     public interface IViewerRepository : IDisposable
     {
-        Task<IEnumerable<Viewer>> GetAllViewers();
+        Task<ICollection<Viewer>> GetAllViewers();
         Task<Viewer> GetViewerById(string Id);
         Task<Genre> AddViewer(Viewer viewer);
         Task UpdateViewer(Viewer viewer);

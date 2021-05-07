@@ -8,7 +8,7 @@ namespace BusinessLayer.Interfaces
 {
     public interface IConcertHallRepository : IDisposable
     {
-        Task<List<ConcertHall>> GetAllConcertHalls();
+        Task<ICollection<ConcertHall>> GetAllConcertHalls();
         Task<ConcertHall> GetConcertHallById(int Id);
         Task<ConcertHall> AddConcertHall(ConcertHall concertHall);
         Task UpdateConcertHall(ConcertHall concertHall);

@@ -13,6 +13,20 @@ namespace AspNetCore
     using Microsoft.AspNetCore.Mvc.Rendering;
     using Microsoft.AspNetCore.Mvc.ViewFeatures;
 #nullable restore
+#line 2 "C:\ConcertTracker\ConcertTracker\Areas\Identity\Pages\_ViewImports.cshtml"
+using ConcertTracker.Areas.Identity;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 3 "C:\ConcertTracker\ConcertTracker\Areas\Identity\Pages\_ViewImports.cshtml"
+using ConcertTracker.Areas.Identity.Pages;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
 #line 2 "C:\ConcertTracker\ConcertTracker\Areas\Identity\Pages\Account\LogOut.cshtml"
 using Microsoft.AspNetCore.Identity;
 
@@ -34,6 +48,7 @@ using DataLayer.Entities;
 #line hidden
 #nullable disable
     [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"b9ed7fa8cd3554d8a0061dffbf701d595880e87c", @"/Areas/Identity/Pages/Account/LogOut.cshtml")]
+    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"2cc1efcd957d7f6d1dfcf27837a2187dd678d957", @"/Areas/Identity/Pages/_ViewImports.cshtml")]
     public class Areas_Identity_Pages_Account_LogOut : global::Microsoft.AspNetCore.Mvc.RazorPages.Page
     {
         #pragma warning disable 1998

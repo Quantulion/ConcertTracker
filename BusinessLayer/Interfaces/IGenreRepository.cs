@@ -8,7 +8,7 @@ namespace BusinessLayer.Interfaces
 {
     public interface IGenreRepository : IDisposable
     {
-        Task<IEnumerable<Genre>> GetAllGenres();
+        Task<ICollection<Genre>> GetAllGenres();
         Task<Genre> GetGenreById(int Id);
         Task<Genre> AddGenre(Genre genre);
         Task UpdateGenre(Genre genre);

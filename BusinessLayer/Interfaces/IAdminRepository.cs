@@ -8,7 +8,7 @@ namespace BusinessLayer.Interfaces
 {
     public interface IAdminRepository : IDisposable
     {
-        Task<List<Admin>> GetAllAdmins();
+        Task<ICollection<Admin>> GetAllAdmins();
         Task<Admin> GetAdminById(string Id);
         Task<Admin> AddAdmin(Admin admin);
     }

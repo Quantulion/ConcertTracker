@@ -12,7 +12,6 @@ using DataLayer;
 using Microsoft.EntityFrameworkCore;
 using DataLayer.Entities;
 using Microsoft.AspNetCore.Identity;
-using ConcertTracker.Authentication;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.Server;
 
@@ -42,7 +41,6 @@ namespace ConcertTracker
             services.AddTransient<IArtistRepository, EFArtistRepository>();
             services.AddTransient<IConcertHallRepository, EFConcertHallRepository>();
             services.AddScoped<DataManager>();
-            services.AddTransient<IAuth, Auth>();
             services.AddDefaultIdentity<User>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddScoped<AuthenticationStateProvider, ServerAuthenticationStateProvider>();

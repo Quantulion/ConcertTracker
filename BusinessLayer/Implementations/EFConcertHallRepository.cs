@@ -28,7 +28,7 @@ namespace BusinessLayer.Implementations
             _ctx.Dispose();
         }
 
-        public async Task<List<ConcertHall>> GetAllConcertHalls()
+        public async Task<ICollection<ConcertHall>> GetAllConcertHalls()
         {
             return await _ctx.ConcertHalls.ToListAsync();
         }

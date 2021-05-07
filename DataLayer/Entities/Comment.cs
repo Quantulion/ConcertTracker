@@ -14,7 +14,6 @@ namespace DataLayer.Entities
         [Required]
         public DateTime PublishTime { get; set; }
         public List<UserComment> Likes { get; set; }
-        //public List<Person> Persons { get; set; }
         public string UserId { get; set; }
         public User User { get; set; }
     }

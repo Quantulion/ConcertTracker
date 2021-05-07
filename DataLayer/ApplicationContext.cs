@@ -17,11 +17,7 @@ namespace DataLayer
         public DbSet<ConcertHall> ConcertHalls { get; set; }
         public DbSet<Comment> Comments { get; set; }
         public DbSet<Genre> Genres { get; set; }
-        public ApplicationDbContext (DbContextOptions<ApplicationDbContext> options): base(options) {
-            /*Database.EnsureDeleted();
-            Database.EnsureCreated();*/
-            //Database.Migrate();
-        }
+        public ApplicationDbContext (DbContextOptions<ApplicationDbContext> options): base(options) { }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
