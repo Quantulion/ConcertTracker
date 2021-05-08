@@ -115,3 +115,5 @@ C:\ConcertTracker\ConcertTracker\bin\Debug\net5.0\System.Linq.Dynamic.Core.dll
 C:\ConcertTracker\ConcertTracker\obj\Debug\net5.0\Razor\Pages\Map.razor.g.cs
 C:\ConcertTracker\ConcertTracker\bin\Debug\net5.0\Humanizer.dll
 C:\ConcertTracker\ConcertTracker\bin\Debug\net5.0\Microsoft.EntityFrameworkCore.Design.dll
+C:\ConcertTracker\ConcertTracker\obj\Debug\net5.0\RazorDeclaration\Pages\About.razor.g.cs
+C:\ConcertTracker\ConcertTracker\obj\Debug\net5.0\Razor\Pages\About.razor.g.cs
