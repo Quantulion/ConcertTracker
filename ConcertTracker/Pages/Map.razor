@@ -4,7 +4,7 @@
 
 <div class="row">
     <div class="col-xl-6">
-        <RadzenGoogleMap Style="height:100vh;" Zoom="@zoom" Center="@(new GoogleMapPosition() { Lat=55.7491, Lng = 37.6258})" MapClick="@OnMapClick" MarkerClick="@OnMarkerClick">
+        <RadzenGoogleMap Style="height:100vh; overflow:hidden;" Zoom="@zoom" Center="@(new GoogleMapPosition() { Lat=55.7491, Lng = 37.6258})" MapClick="@OnMapClick" MarkerClick="@OnMarkerClick">
             <Markers>
                 <RadzenGoogleMapMarker Title="London" Label="London" Position="@(new GoogleMapPosition() { Lat=51.5074, Lng = 0.1278})"></RadzenGoogleMapMarker>
             </Markers>

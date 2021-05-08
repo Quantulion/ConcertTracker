@@ -24,4 +24,11 @@
     <Folder Include="wwwroot\Images\ProfilePics\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Include="Areas\Identity\Pages\Account\LogOut.cshtml" />
+    <None Include="Areas\Identity\Pages\Account\Register.cshtml" />
+    <None Include="Areas\Identity\Pages\Shared\_LoginPartial.cshtml" />
+    <None Include="Areas\Identity\Pages\_ViewImports.cshtml" />
+  </ItemGroup>
+
 </Project>
