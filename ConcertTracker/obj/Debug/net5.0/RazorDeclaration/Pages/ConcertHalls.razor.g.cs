@@ -137,7 +137,7 @@ using BusinessLayer;
        
     private DataManager DataManager;
 
-    private List<ConcertHall> concertHalls;
+    private ICollection<ConcertHall> concertHalls;
     ConcertHall newConcertHall = new ConcertHall();
     protected override async Task OnInitializedAsync()
     {

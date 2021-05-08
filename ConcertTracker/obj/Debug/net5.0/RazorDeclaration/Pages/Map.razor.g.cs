@@ -105,9 +105,9 @@ using Radzen;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 15 "C:\ConcertTracker\ConcertTracker\Pages\Map.razor"
+#line 19 "C:\ConcertTracker\ConcertTracker\Pages\Map.razor"
        
-    int zoom = 3;
+    int zoom = 6;
     string clickedPosition = "";
 
     void OnMapClick(GoogleMapClickEventArgs args)

@@ -7,13 +7,20 @@
   <ItemGroup>
     <PackageReference Include="BlazorGoogleMaps" Version="1.0.15" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="5.0.5" />
-    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="5.0.2" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="5.0.5">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
     <PackageReference Include="Radzen.Blazor" Version="3.2.8" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\BusinessLayer\BusinessLayer.csproj" />
     <ProjectReference Include="..\DataLayer\DataLayer.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\Images\ProfilePics\" />
   </ItemGroup>
 
 </Project>

@@ -2,4 +2,5 @@
   <ContentRoot BasePath="/" Path="C:\ConcertTracker\ConcertTracker\obj\Debug\net5.0\scopedcss\bundle\" />
   <ContentRoot BasePath="/Identity" Path="C:\Users\Professional\.nuget\packages\microsoft.aspnetcore.identity.ui\5.0.5\staticwebassets\V4\" />
   <ContentRoot BasePath="_content/BlazorGoogleMaps" Path="C:\Users\Professional\.nuget\packages\blazorgooglemaps\1.0.15\build\..\staticwebassets\" />
+  <ContentRoot BasePath="_content/Radzen.Blazor" Path="C:\Users\Professional\.nuget\packages\radzen.blazor\3.2.8\build\..\staticwebassets\" />
 </StaticWebAssets>

@@ -113,9 +113,11 @@
               "target": "Package",
               "version": "[5.0.5, )"
             },
-            "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
+            "Microsoft.EntityFrameworkCore.Design": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
               "target": "Package",
-              "version": "[5.0.2, )"
+              "version": "[5.0.5, )"
             },
             "Radzen.Blazor": {
               "target": "Package",
