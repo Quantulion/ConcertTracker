@@ -39,7 +39,9 @@ namespace ConcertTracker
             services.AddSingleton<WeatherForecastService>();
             services.AddTransient<IAdminRepository, EFAdminRepository>();
             services.AddTransient<IArtistRepository, EFArtistRepository>();
+            services.AddTransient<IUserRepository, EFUserRepository>();
             services.AddTransient<IConcertHallRepository, EFConcertHallRepository>();
+            services.AddTransient<IPhotoManager, PhotoManager>();
             services.AddScoped<DataManager>();
 
             services.AddDefaultIdentity<User>()

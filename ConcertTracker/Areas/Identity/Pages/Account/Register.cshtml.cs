@@ -55,6 +55,14 @@ namespace ConcertTracker.Areas.Identity.Pages.Account
             public string Email { get; set; }
 
             [Required]
+            [StringLength(40, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 4)]
+            [Display(Name = "Username")]
+            public string Name { get; set; }
+
+            [Display(Name = "Age")]
+            public int Age { get; set; }
+
+            [Required]
             [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
             [DataType(DataType.Password)]
             [Display(Name = "Password")]
@@ -84,9 +92,9 @@ namespace ConcertTracker.Areas.Identity.Pages.Account
                 User user;
                 if (Input.isArtist)
                 {
-                    user = new Artist { UserName = Input.Email, Email = Input.Email };
+                    user = new Artist { UserName = Input.Name, Email = Input.Email, Age = Input.Age };
                 }
-                else { user = new User { UserName = Input.Email, Email = Input.Email }; }
+                else { user = new User { UserName = Input.Name, Email = Input.Email, Age = Input.Age }; }
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
                 {

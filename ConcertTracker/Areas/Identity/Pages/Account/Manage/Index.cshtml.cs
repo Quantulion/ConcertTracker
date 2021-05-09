@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
+using BusinessLayer.Interfaces;
 using DataLayer.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -14,6 +15,7 @@ namespace ConcertTracker.Areas.Identity.Pages.Account.Manage
     {
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
+        private readonly IUserRepository _userRepository;
 
         public IndexModel(
             UserManager<User> userManager,
@@ -36,18 +38,24 @@ namespace ConcertTracker.Areas.Identity.Pages.Account.Manage
             [Phone]
             [Display(Name = "Phone number")]
             public string PhoneNumber { get; set; }
+
+            [Display(Name = "Age")]
+            public int Age { get; set; }
         }
 
         private async Task LoadAsync(User user)
         {
             var userName = await _userManager.GetUserNameAsync(user);
             var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
+            var age = user.Age;
+            var email = user.Email;
 
             Username = userName;
 
             Input = new InputModel
             {
-                PhoneNumber = phoneNumber
+                PhoneNumber = phoneNumber,
+                Age = age
             };
         }
 
@@ -84,6 +92,18 @@ namespace ConcertTracker.Areas.Identity.Pages.Account.Manage
                 if (!setPhoneResult.Succeeded)
                 {
                     StatusMessage = "Unexpected error when trying to set phone number.";
+                    return RedirectToPage();
+                }
+            }
+
+            var age = user.Age;
+            if (Input.Age != age)
+            {
+                user.Age = Input.Age;
+                var setAgeResult = await _userManager.UpdateAsync(user);
+                if (!setAgeResult.Succeeded)
+                {
+                    StatusMessage = "Unexpected error when trying to set Age.";
                     return RedirectToPage();
                 }
             }
