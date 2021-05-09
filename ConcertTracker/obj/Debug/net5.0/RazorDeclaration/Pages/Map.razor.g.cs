@@ -103,6 +103,13 @@ using BusinessLayer.Interfaces;
 #line default
 #line hidden
 #nullable disable
+#nullable restore
+#line 5 "C:\ConcertTracker\ConcertTracker\Pages\Map.razor"
+using DataLayer.Entities;
+
+#line default
+#line hidden
+#nullable disable
     [Microsoft.AspNetCore.Components.RouteAttribute("/map")]
     public partial class Map : Microsoft.AspNetCore.Components.ComponentBase
     {
@@ -112,14 +119,19 @@ using BusinessLayer.Interfaces;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 21 "C:\ConcertTracker\ConcertTracker\Pages\Map.razor"
+#line 28 "C:\ConcertTracker\ConcertTracker\Pages\Map.razor"
        
     int zoom = 6;
     string clickedPosition = "";
 
+    Concert newConcert = new Concert();
+    GoogleMapPosition pos = new GoogleMapPosition() { Lat = 55.7491, Lng = 37.6258 };
+
     void OnMapClick(GoogleMapClickEventArgs args)
     {
         clickedPosition = $"Map clicked LAT: {args.Position.Lat}, LNG: {args.Position.Lng}";
+        pos.Lat = args.Position.Lat;
+        pos.Lng = args.Position.Lng;
     }
     void OnMarkerClick(RadzenGoogleMapMarker args)
     {

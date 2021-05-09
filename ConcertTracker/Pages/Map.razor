@@ -1,34 +1,42 @@
 ﻿@page "/map"
 
 @using Radzen
-@using BusinessLayer.Interfaces 
+@using BusinessLayer.Interfaces
+@using DataLayer.Entities
 @inject IConcertHallRepository ConcertHallRepository
 
-<div class="row">
-    <div class="col-xl-6">
-        <EditForm Model="@newConcertHall" OnValidSubmit="@InsertConcertHall">
-            <RadzenGoogleMap Style="height:100vh; overflow:hidden;" Zoom="@zoom" Center="@(new GoogleMapPosition() { Lat=55.7491, Lng = 37.6258})" MapClick="@OnMapClick" MarkerClick="@OnMarkerClick">
+<div class="mapPage">
+    <a href="" class="mainText">ConcertTracker</a>
+    <div class="mapContainer">
+        <div class="map">
+            <RadzenGoogleMap Style="width:auto; height:100%;" Zoom="@zoom" Center="@(new GoogleMapPosition() { Lat=55.7491, Lng = 37.6258})" MapClick="@OnMapClick" MarkerClick="@OnMarkerClick">
                 <Markers>
                     <RadzenGoogleMapMarker Title="London" Label="London" Position="@(new GoogleMapPosition() { Lat=51.5074, Lng = 0.1278})"></RadzenGoogleMapMarker>
+                    <RadzenGoogleMapMarker Title="User" Label="Current Marker" Position="@(new GoogleMapPosition() { Lat=pos.Lat, Lng = pos.Lng})"></RadzenGoogleMapMarker>
                 </Markers>
             </RadzenGoogleMap>
-        </EditForm>
+        </div>
+        <div class="concertInfo">
+            <a class="hdr">Дата концерта:</a>
+            <a class="dateInput"></a>
+            <a class="hdr">Описание концерта:</a>
+            <a class="descInput"></a>
+        </div>
     </div>
-</div>
-
-<div class="col-xl-6">
-    <label>Position: </label> @clickedPosition
 </div>
 
 @code {
     int zoom = 6;
     string clickedPosition = "";
 
-
+    Concert newConcert = new Concert();
+    GoogleMapPosition pos = new GoogleMapPosition() { Lat = 55.7491, Lng = 37.6258 };
 
     void OnMapClick(GoogleMapClickEventArgs args)
     {
         clickedPosition = $"Map clicked LAT: {args.Position.Lat}, LNG: {args.Position.Lng}";
+        pos.Lat = args.Position.Lat;
+        pos.Lng = args.Position.Lng;
     }
     void OnMarkerClick(RadzenGoogleMapMarker args)
     {
