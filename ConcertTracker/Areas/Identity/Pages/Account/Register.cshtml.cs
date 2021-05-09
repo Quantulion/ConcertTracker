@@ -14,12 +14,15 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
 using DataLayer.Entities;
+using Microsoft.AspNetCore.Http;
+using BusinessLayer.Interfaces;
 
 namespace ConcertTracker.Areas.Identity.Pages.Account
 {
     [AllowAnonymous]
     public class RegisterModel : PageModel
     {
+        private readonly IPhotoManager _photoManager;
         private readonly SignInManager<User> _signInManager;
         private readonly UserManager<User> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
@@ -27,12 +30,14 @@ namespace ConcertTracker.Areas.Identity.Pages.Account
         private readonly IEmailSender _emailSender;
 
         public RegisterModel(
+            IPhotoManager photoManager,
             UserManager<User> userManager,
             SignInManager<User> signInManager,
             RoleManager<IdentityRole> roleManager,
             ILogger<RegisterModel> logger,
             IEmailSender emailSender)
         {
+            _photoManager = photoManager;
             _userManager = userManager;
             _signInManager = signInManager;
             _roleManager = roleManager;
@@ -49,6 +54,8 @@ namespace ConcertTracker.Areas.Identity.Pages.Account
 
         public class InputModel
         {
+            [Display(Name = "Photo")]
+            public string PhotoPath { get; set; }
             [Required]
             [EmailAddress]
             [Display(Name = "Email")]
@@ -83,18 +90,19 @@ namespace ConcertTracker.Areas.Identity.Pages.Account
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
         }
 
-        public async Task<IActionResult> OnPostAsync(string returnUrl = null)
+        public async Task<IActionResult> OnPostAsync(IFormFile file, string returnUrl = null)
         {
             returnUrl ??= Url.Content("~/");
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
             {
+                _photoManager.UploadImage(file);
                 User user;
                 if (Input.isArtist)
                 {
-                    user = new Artist { UserName = Input.Name, Email = Input.Email, Age = Input.Age };
+                    user = new Artist { UserName = Input.Name, Email = Input.Email, Age = Input.Age, Photo = file.FileName };
                 }
-                else { user = new User { UserName = Input.Name, Email = Input.Email, Age = Input.Age }; }
+                else { user = new User { UserName = Input.Name, Email = Input.Email, Age = Input.Age, Photo = file.FileName }; }
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
                 {

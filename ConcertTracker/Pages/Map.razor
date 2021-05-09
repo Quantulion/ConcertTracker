@@ -1,14 +1,18 @@
 ﻿@page "/map"
 
 @using Radzen
+@using BusinessLayer.Interfaces 
+@inject IConcertHallRepository ConcertHallRepository
 
 <div class="row">
     <div class="col-xl-6">
-        <RadzenGoogleMap Style="height:100vh; overflow:hidden;" Zoom="@zoom" Center="@(new GoogleMapPosition() { Lat=55.7491, Lng = 37.6258})" MapClick="@OnMapClick" MarkerClick="@OnMarkerClick">
-            <Markers>
-                <RadzenGoogleMapMarker Title="London" Label="London" Position="@(new GoogleMapPosition() { Lat=51.5074, Lng = 0.1278})"></RadzenGoogleMapMarker>
-            </Markers>
-        </RadzenGoogleMap>
+        <EditForm Model="@newConcertHall" OnValidSubmit="@InsertConcertHall">
+            <RadzenGoogleMap Style="height:100vh; overflow:hidden;" Zoom="@zoom" Center="@(new GoogleMapPosition() { Lat=55.7491, Lng = 37.6258})" MapClick="@OnMapClick" MarkerClick="@OnMarkerClick">
+                <Markers>
+                    <RadzenGoogleMapMarker Title="London" Label="London" Position="@(new GoogleMapPosition() { Lat=51.5074, Lng = 0.1278})"></RadzenGoogleMapMarker>
+                </Markers>
+            </RadzenGoogleMap>
+        </EditForm>
     </div>
 </div>
 
@@ -19,6 +23,8 @@
 @code {
     int zoom = 6;
     string clickedPosition = "";
+
+
 
     void OnMapClick(GoogleMapClickEventArgs args)
     {

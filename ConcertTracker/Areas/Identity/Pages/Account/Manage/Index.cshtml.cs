@@ -15,7 +15,6 @@ namespace ConcertTracker.Areas.Identity.Pages.Account.Manage
     {
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
-        private readonly IUserRepository _userRepository;
 
         public IndexModel(
             UserManager<User> userManager,
@@ -24,7 +23,8 @@ namespace ConcertTracker.Areas.Identity.Pages.Account.Manage
             _userManager = userManager;
             _signInManager = signInManager;
         }
-
+        [Display(Name = "Photo")]
+        public string PhotoPath { get; set; }
         public string Username { get; set; }
 
         [TempData]
@@ -51,6 +51,7 @@ namespace ConcertTracker.Areas.Identity.Pages.Account.Manage
             var email = user.Email;
 
             Username = userName;
+            PhotoPath = user.Photo;
 
             Input = new InputModel
             {

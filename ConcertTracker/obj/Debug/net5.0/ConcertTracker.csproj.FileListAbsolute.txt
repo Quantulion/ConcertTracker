@@ -156,3 +156,6 @@ C:\ConcertTracker\ConcertTracker\obj\Debug\net5.0\Razor\Areas\Identity\Pages\Acc
 C:\ConcertTracker\ConcertTracker\obj\Debug\net5.0\Razor\Areas\Identity\Pages\Account\_ViewImports.cshtml.g.cs
 C:\ConcertTracker\ConcertTracker\obj\Debug\net5.0\Razor\Areas\Identity\Pages\Error.cshtml.g.cs
 C:\ConcertTracker\ConcertTracker\obj\Debug\net5.0\Razor\Areas\Identity\Pages\_ViewStart.cshtml.g.cs
+C:\ConcertTracker\ConcertTracker\bin\Debug\net5.0\Microsoft.AspNetCore.Http.Features.dll
+C:\ConcertTracker\ConcertTracker\bin\Debug\net5.0\Microsoft.Extensions.Primitives.dll
+C:\ConcertTracker\ConcertTracker\bin\Debug\net5.0\System.IO.Pipelines.dll

@@ -96,6 +96,13 @@ using Radzen;
 #line default
 #line hidden
 #nullable disable
+#nullable restore
+#line 4 "C:\ConcertTracker\ConcertTracker\Pages\Map.razor"
+using BusinessLayer.Interfaces;
+
+#line default
+#line hidden
+#nullable disable
     [Microsoft.AspNetCore.Components.RouteAttribute("/map")]
     public partial class Map : Microsoft.AspNetCore.Components.ComponentBase
     {
@@ -105,7 +112,7 @@ using Radzen;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 19 "C:\ConcertTracker\ConcertTracker\Pages\Map.razor"
+#line 21 "C:\ConcertTracker\ConcertTracker\Pages\Map.razor"
        
     int zoom = 6;
     string clickedPosition = "";
@@ -122,6 +129,7 @@ using Radzen;
 #line default
 #line hidden
 #nullable disable
+        [global::Microsoft.AspNetCore.Components.InjectAttribute] private IConcertHallRepository ConcertHallRepository { get; set; }
     }
 }
 #pragma warning restore 1591
