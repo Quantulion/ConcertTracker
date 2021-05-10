@@ -11,6 +11,8 @@ namespace BusinessLayer.Interfaces
         Task<ICollection<Concert>> GetAllConcerts();
         Task<Concert> GetConcertById(int Id);
         Task<Concert> AddConcert(Concert concert);
+        Task<Concert> AddArtistToConcert(Artist artist, Concert concert);
+        Task<List<Artist>> GetArtistsOfConcert(Concert concert);
         Task UpdateConcert(Concert concert);
     }
 }

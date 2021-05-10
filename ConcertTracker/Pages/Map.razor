@@ -3,8 +3,15 @@
 @using Radzen
 @using BusinessLayer.Interfaces
 @using DataLayer.Entities
+@using System.Security.Claims
+@using Microsoft.AspNetCore.Components.Authorization
+@using Microsoft.AspNetCore.Identity;
+
+@inject UserManager<User> userManager
 @inject IConcertRepository ConcertRepository
 @inject IConcertHallRepository ConcertHallRep
+@inject IUserRepository UserRepository
+@inject AuthenticationStateProvider AuthenticationStateProvider
 
 <div class="mapPage">
     <a href="" class="mainText">ConcertTracker</a>
@@ -12,7 +19,7 @@
         <div class="map">
             <RadzenGoogleMap Style="width:auto; height:100%;" Zoom="@zoom" Center="@(pos)" MapClick="@OnMapClick" MarkerClick="@OnMarkerClick">
                 <Markers>
-                    <RadzenGoogleMapMarker Title="User" Label="Current Marker" Position="@(new GoogleMapPosition() { Lat = pos.Lat, Lng = pos.Lng })" ></RadzenGoogleMapMarker>
+                    <RadzenGoogleMapMarker Title="User" Label="Current Marker" Position="@(new GoogleMapPosition() { Lat = pos.Lat, Lng = pos.Lng })"></RadzenGoogleMapMarker>
                     @if (concerts != null)
                         foreach (var concert in concerts)
                         {
@@ -22,11 +29,31 @@
             </RadzenGoogleMap>
         </div>
         <EditForm Model="@newConcert" OnValidSubmit="@InsertConcert" class="concertInfo">
-            <a class="hdr">Дата концерта:</a>
-            <InputDate class="myDate" id="date" @bind-Value="@newConcert.Date" />
-            <a class="hdr">Описание концерта:</a>
-            <InputTextArea Style="font-size:20px; padding: 0.5rem;" id="desc" @bind-Value="@newConcert.Description" class="descInput" />
-            <button type="submit" class="btn btn-primary">Подтвердить</button>
+            @if (isArtist && concertArtists.Contains(artist))
+            {
+                <a class="hdr">Дата концерта:</a>
+                <InputDate class="myDate" id="date" @bind-Value="@newConcert.Date" />
+                <a class="hdr">Артисты:</a>
+                foreach (var artist in concertArtists)
+                {
+                    <a class="hdr" style="font-size:18px;">@artist.UserName</a>
+                }
+                <a class="hdr">Описание концерта:</a>
+                <InputTextArea Style="font-size:20px; padding: 0.5rem;" id="desc" @bind-Value="@newConcert.Description" class="descInput" />
+                <button type="submit" class="btn btn-primary">Подтвердить</button>
+            }
+            else
+            {
+                <a class="hdr">Дата концерта:</a>
+                <InputDate class="myDate" id="date" @bind-Value="@newConcert.Date" disabled />
+                <a class="hdr">Артисты:</a>
+                foreach (var artist in concertArtists)
+                {
+                    <a class="hdr">@artist.UserName</a>
+                }
+                <a class="hdr">Описание концерта:</a>
+                <InputTextArea Style="font-size:20px; padding: 0.5rem;" id="desc" @bind-Value="@newConcert.Description" class="descInput" disabled />
+            }
         </EditForm>
     </div>
 </div>
@@ -37,6 +64,9 @@
 
     private ICollection<ConcertHall> concertHalls;
     private ICollection<Concert> concerts;
+    private bool isArtist;
+    private List<Artist> concertArtists = new List<Artist>();
+    Artist artist;
     Concert newConcert = new Concert();
     GoogleMapPosition pos = new GoogleMapPosition() { Lat = 55.7491, Lng = 37.6258 };
 
@@ -44,6 +74,11 @@
     {
         concertHalls = await ConcertHallRep.GetAllConcertHalls();
         concerts = await ConcertRepository.GetAllConcerts();
+        var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        var auser = authState.User;
+        var user = await userManager.GetUserAsync(auser);
+        artist = (Artist)user;
+        isArtist = auser.IsInRole("Artist");
     }
     void OnMapClick(GoogleMapClickEventArgs args)
     {
@@ -57,11 +92,15 @@
         clickedPosition = $"Map {args.Title} clicked LAT: {args.Position.Lat}, LNG: {args.Position.Lng}";
         var foundConcert = await ConcertRepository.GetConcertById(Convert.ToInt32(args.Title));
         newConcert = foundConcert;
-
+        concertArtists = await ConcertRepository.GetArtistsOfConcert(foundConcert);
     }
     private async Task InsertConcert()
     {
         var concertHall = await ConcertHallRep.GetConcertHallByAddress("Street Concert");
+        var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        var user = await userManager.GetUserAsync(authState.User);
+        artist = (Artist)user;
+
         newConcert.Position = pos;
         Concert concert = new Concert
         {
@@ -69,8 +108,10 @@
             Date = newConcert.Date,
             Position = newConcert.Position,
             ConcertHall = concertHall,
-            ConcertHallId = concertHall.Id
+            ConcertHallId = concertHall.Id,
+            Artists = new List<Artist>()
         };
+        concert.Artists.Add(artist);
 
         await ConcertRepository.AddConcert(concert);
 

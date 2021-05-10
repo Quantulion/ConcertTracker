@@ -27,13 +27,6 @@ using Microsoft.AspNetCore.Authorization;
 #line hidden
 #nullable disable
 #nullable restore
-#line 3 "C:\ConcertTracker\ConcertTracker\_Imports.razor"
-using Microsoft.AspNetCore.Components.Authorization;
-
-#line default
-#line hidden
-#nullable disable
-#nullable restore
 #line 4 "C:\ConcertTracker\ConcertTracker\_Imports.razor"
 using Microsoft.AspNetCore.Components.Forms;
 
@@ -110,6 +103,27 @@ using DataLayer.Entities;
 #line default
 #line hidden
 #nullable disable
+#nullable restore
+#line 6 "C:\ConcertTracker\ConcertTracker\Pages\Map.razor"
+using System.Security.Claims;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 7 "C:\ConcertTracker\ConcertTracker\Pages\Map.razor"
+using Microsoft.AspNetCore.Components.Authorization;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 8 "C:\ConcertTracker\ConcertTracker\Pages\Map.razor"
+using Microsoft.AspNetCore.Identity;
+
+#line default
+#line hidden
+#nullable disable
     [Microsoft.AspNetCore.Components.RouteAttribute("/map")]
     public partial class Map : Microsoft.AspNetCore.Components.ComponentBase
     {
@@ -119,13 +133,16 @@ using DataLayer.Entities;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 34 "C:\ConcertTracker\ConcertTracker\Pages\Map.razor"
+#line 61 "C:\ConcertTracker\ConcertTracker\Pages\Map.razor"
        
     int zoom = 6;
     string clickedPosition = "";
 
     private ICollection<ConcertHall> concertHalls;
     private ICollection<Concert> concerts;
+    private bool isArtist;
+    private List<Artist> concertArtists = new List<Artist>();
+    Artist artist;
     Concert newConcert = new Concert();
     GoogleMapPosition pos = new GoogleMapPosition() { Lat = 55.7491, Lng = 37.6258 };
 
@@ -133,6 +150,11 @@ using DataLayer.Entities;
     {
         concertHalls = await ConcertHallRep.GetAllConcertHalls();
         concerts = await ConcertRepository.GetAllConcerts();
+        var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        var auser = authState.User;
+        var user = await userManager.GetUserAsync(auser);
+        artist = (Artist)user;
+        isArtist = auser.IsInRole("Artist");
     }
     void OnMapClick(GoogleMapClickEventArgs args)
     {
@@ -146,11 +168,15 @@ using DataLayer.Entities;
         clickedPosition = $"Map {args.Title} clicked LAT: {args.Position.Lat}, LNG: {args.Position.Lng}";
         var foundConcert = await ConcertRepository.GetConcertById(Convert.ToInt32(args.Title));
         newConcert = foundConcert;
-
+        concertArtists = await ConcertRepository.GetArtistsOfConcert(foundConcert);
     }
     private async Task InsertConcert()
     {
         var concertHall = await ConcertHallRep.GetConcertHallByAddress("Street Concert");
+        var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        var user = await userManager.GetUserAsync(authState.User);
+        artist = (Artist)user;
+
         newConcert.Position = pos;
         Concert concert = new Concert
         {
@@ -158,8 +184,10 @@ using DataLayer.Entities;
             Date = newConcert.Date,
             Position = newConcert.Position,
             ConcertHall = concertHall,
-            ConcertHallId = concertHall.Id
+            ConcertHallId = concertHall.Id,
+            Artists = new List<Artist>()
         };
+        concert.Artists.Add(artist);
 
         await ConcertRepository.AddConcert(concert);
 
@@ -174,8 +202,11 @@ using DataLayer.Entities;
 #line default
 #line hidden
 #nullable disable
+        [global::Microsoft.AspNetCore.Components.InjectAttribute] private AuthenticationStateProvider AuthenticationStateProvider { get; set; }
+        [global::Microsoft.AspNetCore.Components.InjectAttribute] private IUserRepository UserRepository { get; set; }
         [global::Microsoft.AspNetCore.Components.InjectAttribute] private IConcertHallRepository ConcertHallRep { get; set; }
         [global::Microsoft.AspNetCore.Components.InjectAttribute] private IConcertRepository ConcertRepository { get; set; }
+        [global::Microsoft.AspNetCore.Components.InjectAttribute] private UserManager<User> userManager { get; set; }
     }
 }
 #pragma warning restore 1591
