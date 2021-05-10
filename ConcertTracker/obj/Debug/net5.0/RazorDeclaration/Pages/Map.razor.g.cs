@@ -105,20 +105,13 @@ using DataLayer.Entities;
 #nullable disable
 #nullable restore
 #line 6 "C:\ConcertTracker\ConcertTracker\Pages\Map.razor"
-using System.Security.Claims;
-
-#line default
-#line hidden
-#nullable disable
-#nullable restore
-#line 7 "C:\ConcertTracker\ConcertTracker\Pages\Map.razor"
 using Microsoft.AspNetCore.Components.Authorization;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 8 "C:\ConcertTracker\ConcertTracker\Pages\Map.razor"
+#line 7 "C:\ConcertTracker\ConcertTracker\Pages\Map.razor"
 using Microsoft.AspNetCore.Identity;
 
 #line default
@@ -133,7 +126,7 @@ using Microsoft.AspNetCore.Identity;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 68 "C:\ConcertTracker\ConcertTracker\Pages\Map.razor"
+#line 67 "C:\ConcertTracker\ConcertTracker\Pages\Map.razor"
        
     int zoom = 6;
     string clickedPosition = "";
@@ -156,6 +149,7 @@ using Microsoft.AspNetCore.Identity;
         artist = (Artist)user;
         isArtist = auser.IsInRole("Artist");
     }
+
     void OnMapClick(GoogleMapClickEventArgs args)
     {
         clickedPosition = $"Map clicked LAT: {args.Position.Lat}, LNG: {args.Position.Lng}";
@@ -163,6 +157,7 @@ using Microsoft.AspNetCore.Identity;
         pos.Lng = args.Position.Lng;
         newConcert = new Concert();
     }
+
     private async Task OnMarkerClick(RadzenGoogleMapMarker args)
     {
         clickedPosition = $"Map {args.Title} clicked LAT: {args.Position.Lat}, LNG: {args.Position.Lng}";
@@ -170,6 +165,7 @@ using Microsoft.AspNetCore.Identity;
         newConcert = foundConcert;
         concertArtists = await ConcertRepository.GetArtistsOfConcert(foundConcert);
     }
+
     private async Task InsertConcert()
     {
         var concertHall = await ConcertHallRep.GetConcertHallByAddress("Street Concert");
@@ -178,6 +174,7 @@ using Microsoft.AspNetCore.Identity;
         artist = (Artist)user;
 
         newConcert.Position = pos;
+
         Concert concert = new Concert
         {
             Description = newConcert.Description,
@@ -187,6 +184,7 @@ using Microsoft.AspNetCore.Identity;
             ConcertHallId = concertHall.Id,
             Artists = new List<Artist>()
         };
+
         concert.Artists.Add(artist);
 
         await ConcertRepository.AddConcert(concert);
@@ -195,8 +193,6 @@ using Microsoft.AspNetCore.Identity;
 
         pos = new GoogleMapPosition() { Lat = 55.7491, Lng = 37.6258 };
         newConcert = new Concert();
-
-
     }
 
 #line default

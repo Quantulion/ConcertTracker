@@ -3,7 +3,6 @@
 @using Radzen
 @using BusinessLayer.Interfaces
 @using DataLayer.Entities
-@using System.Security.Claims
 @using Microsoft.AspNetCore.Components.Authorization
 @using Microsoft.AspNetCore.Identity;
 
@@ -87,6 +86,7 @@
         artist = (Artist)user;
         isArtist = auser.IsInRole("Artist");
     }
+
     void OnMapClick(GoogleMapClickEventArgs args)
     {
         clickedPosition = $"Map clicked LAT: {args.Position.Lat}, LNG: {args.Position.Lng}";
@@ -94,6 +94,7 @@
         pos.Lng = args.Position.Lng;
         newConcert = new Concert();
     }
+
     private async Task OnMarkerClick(RadzenGoogleMapMarker args)
     {
         clickedPosition = $"Map {args.Title} clicked LAT: {args.Position.Lat}, LNG: {args.Position.Lng}";
@@ -101,6 +102,7 @@
         newConcert = foundConcert;
         concertArtists = await ConcertRepository.GetArtistsOfConcert(foundConcert);
     }
+
     private async Task InsertConcert()
     {
         var concertHall = await ConcertHallRep.GetConcertHallByAddress("Street Concert");
@@ -109,6 +111,7 @@
         artist = (Artist)user;
 
         newConcert.Position = pos;
+
         Concert concert = new Concert
         {
             Description = newConcert.Description,
@@ -118,6 +121,7 @@
             ConcertHallId = concertHall.Id,
             Artists = new List<Artist>()
         };
+
         concert.Artists.Add(artist);
 
         await ConcertRepository.AddConcert(concert);
@@ -126,7 +130,5 @@
 
         pos = new GoogleMapPosition() { Lat = 55.7491, Lng = 37.6258 };
         newConcert = new Concert();
-
-
     }
 }

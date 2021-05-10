@@ -1,0 +1,36 @@
+﻿@page "/search"
+
+@using BusinessLayer.Interfaces
+@using DataLayer.Entities
+
+@inject IConcertHallRepository ConcertHallRepository
+@inject IArtistRepository ArtistRepository
+@inject IGenreRepository GenreRepository
+
+    <div class="searchPage">
+        <a href="" class="mainText">ConcertTracker</a>
+        <div class="searchContainer">
+            <div class="leftPart">
+                <div class="foundItems">
+                    <div class="foundItem"></div>
+                    <div class="foundItem"></div>
+                    <div class="foundItem"></div>
+                </div>
+            </div>
+            <div class="rightPart"></div>
+        </div>
+    </div>
+
+@code {
+    private ICollection<ConcertHall> concertHalls;
+    private ICollection<Genre> genres;
+    private ICollection<Artist> artists;
+    private string searchText= "";
+
+    protected override async Task OnInitializedAsync()
+    {
+        concertHalls = await ConcertHallRepository.GetAllConcertHalls();
+        genres = await GenreRepository.GetAllGenres();
+        artists = await ArtistRepository.GetAllArtists();
+    }
+}
