@@ -10,7 +10,8 @@
         "dependencies": {
           "DataLayer": "1.0.0",
           "Microsoft.AspNetCore.Hosting.Abstractions": "2.2.0",
-          "Microsoft.AspNetCore.Http.Features": "5.0.5"
+          "Microsoft.AspNetCore.Http.Features": "5.0.5",
+          "Radzen.Blazor": "3.2.8"
         },
         "runtime": {
           "BusinessLayer.dll": {}

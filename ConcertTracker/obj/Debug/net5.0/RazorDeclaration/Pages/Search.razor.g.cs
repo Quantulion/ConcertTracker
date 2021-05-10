@@ -154,6 +154,7 @@ using DataLayer.Entities;
                 x.Add(item);
         }
         searchModel.list = x;
+        i = 0;
     }
 
     public void incI()
@@ -167,7 +168,7 @@ using DataLayer.Entities;
     {
         if (i > 5)
             i -= 6;
-        else i = searchModel.list.Count() - 6;
+        else i = (searchModel.list.Count() / 6) * 6;
     }
 
     protected override async Task OnInitializedAsync()

@@ -28,12 +28,15 @@
             </RadzenGoogleMap>
         </div>
         <EditForm Model="@newConcert" OnValidSubmit="@InsertConcert" class="concertInfo">
-            @if (isArtist && concertArtists.Contains(artist))
+            @if (isArtist && (concertArtists.Contains(artist) || concertArtists.Count == 0))
             {
                 <a class="hdr">Дата концерта:</a>
                 <InputDate class="myDate" id="date" @bind-Value="@newConcert.Date" />
-                <a class="hdr">Концертная площадка:</a>
-                <a class="hdr" Style="font-size:18px;">@newConcert.ConcertHall.Address</a>
+                if (newConcert.ConcertHall != null)
+                {
+                    <a class="hdr">Концертная площадка:</a>
+                    <a class="hdr" Style="font-size:18px;">@newConcert.ConcertHall.Address</a>
+                }
                 <a class="hdr">Артисты:</a>
                 foreach (var artist in concertArtists)
                 {
@@ -83,8 +86,10 @@
         var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
         var auser = authState.User;
         var user = await userManager.GetUserAsync(auser);
-        artist = (Artist)user;
         isArtist = auser.IsInRole("Artist");
+
+        if (isArtist)
+            artist = (Artist)user;
     }
 
     void OnMapClick(GoogleMapClickEventArgs args)
@@ -93,6 +98,7 @@
         pos.Lat = args.Position.Lat;
         pos.Lng = args.Position.Lng;
         newConcert = new Concert();
+        concertArtists = new List<Artist>();
     }
 
     private async Task OnMarkerClick(RadzenGoogleMapMarker args)
@@ -101,14 +107,14 @@
         var foundConcert = await ConcertRepository.GetConcertById(Convert.ToInt32(args.Title));
         newConcert = foundConcert;
         concertArtists = await ConcertRepository.GetArtistsOfConcert(foundConcert);
+        pos.Lat = foundConcert.Position.Lat;
+        pos.Lng = foundConcert.Position.Lng;
     }
 
     private async Task InsertConcert()
     {
         var concertHall = await ConcertHallRep.GetConcertHallByAddress("Street Concert");
-        var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
-        var user = await userManager.GetUserAsync(authState.User);
-        artist = (Artist)user;
+        var conc = await ConcertRepository.GetConcertByPosition(pos);
 
         newConcert.Position = pos;
 
@@ -122,11 +128,19 @@
             Artists = new List<Artist>()
         };
 
-        concert.Artists.Add(artist);
+        if (conc != null)
+        {
+            await ConcertRepository.UpdateConcert(conc);
+        }
 
-        await ConcertRepository.AddConcert(concert);
+        else
+        {
+            concert.Artists.Add(artist);
 
-        concerts.Add(concert);
+            await ConcertRepository.AddConcert(concert);
+
+            concerts.Add(concert);
+        }
 
         pos = new GoogleMapPosition() { Lat = 55.7491, Lng = 37.6258 };
         newConcert = new Concert();

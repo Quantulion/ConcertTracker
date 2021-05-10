@@ -82,6 +82,7 @@
                 x.Add(item);
         }
         searchModel.list = x;
+        i = 0;
     }
 
     public void incI()
@@ -95,7 +96,7 @@
     {
         if (i > 5)
             i -= 6;
-        else i = searchModel.list.Count() - 6;
+        else i = (searchModel.list.Count() / 6) * 6;
     }
 
     protected override async Task OnInitializedAsync()

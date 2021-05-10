@@ -126,7 +126,7 @@ using Microsoft.AspNetCore.Identity;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 67 "C:\ConcertTracker\ConcertTracker\Pages\Map.razor"
+#line 70 "C:\ConcertTracker\ConcertTracker\Pages\Map.razor"
        
     int zoom = 6;
     string clickedPosition = "";
@@ -146,8 +146,10 @@ using Microsoft.AspNetCore.Identity;
         var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
         var auser = authState.User;
         var user = await userManager.GetUserAsync(auser);
-        artist = (Artist)user;
         isArtist = auser.IsInRole("Artist");
+
+        if (isArtist)
+            artist = (Artist)user;
     }
 
     void OnMapClick(GoogleMapClickEventArgs args)
@@ -156,6 +158,7 @@ using Microsoft.AspNetCore.Identity;
         pos.Lat = args.Position.Lat;
         pos.Lng = args.Position.Lng;
         newConcert = new Concert();
+        concertArtists = new List<Artist>();
     }
 
     private async Task OnMarkerClick(RadzenGoogleMapMarker args)
@@ -164,14 +167,14 @@ using Microsoft.AspNetCore.Identity;
         var foundConcert = await ConcertRepository.GetConcertById(Convert.ToInt32(args.Title));
         newConcert = foundConcert;
         concertArtists = await ConcertRepository.GetArtistsOfConcert(foundConcert);
+        pos.Lat = foundConcert.Position.Lat;
+        pos.Lng = foundConcert.Position.Lng;
     }
 
     private async Task InsertConcert()
     {
         var concertHall = await ConcertHallRep.GetConcertHallByAddress("Street Concert");
-        var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
-        var user = await userManager.GetUserAsync(authState.User);
-        artist = (Artist)user;
+        var conc = await ConcertRepository.GetConcertByPosition(pos);
 
         newConcert.Position = pos;
 
@@ -185,11 +188,19 @@ using Microsoft.AspNetCore.Identity;
             Artists = new List<Artist>()
         };
 
-        concert.Artists.Add(artist);
+        if (conc != null)
+        {
+            await ConcertRepository.UpdateConcert(conc);
+        }
 
-        await ConcertRepository.AddConcert(concert);
+        else
+        {
+            concert.Artists.Add(artist);
 
-        concerts.Add(concert);
+            await ConcertRepository.AddConcert(concert);
+
+            concerts.Add(concert);
+        }
 
         pos = new GoogleMapPosition() { Lat = 55.7491, Lng = 37.6258 };
         newConcert = new Concert();

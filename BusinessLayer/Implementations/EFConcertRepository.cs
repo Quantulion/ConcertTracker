@@ -2,6 +2,7 @@
 using DataLayer;
 using DataLayer.Entities;
 using Microsoft.EntityFrameworkCore;
+using Radzen;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -40,19 +41,27 @@ namespace BusinessLayer.Implementations
         {
             return await _ctx.Concerts.FirstOrDefaultAsync(c => c.Id == Id);
         }
+
+        public async Task<Concert> GetConcertByPosition(GoogleMapPosition position)
+        {
+            return await _ctx.Concerts.FirstOrDefaultAsync(c => c.Position.Lat == position.Lat && c.Position.Lng == position.Lng);
+        }
+
         public async Task<List<Artist>> GetArtistsOfConcert(Concert concert)
         {
             var full = _ctx.Concerts.Include(c => c.Artists);
             var artists = await full.FirstOrDefaultAsync(c => c.Id == concert.Id);
             return artists.Artists;
         }
-        public Task UpdateConcert(Concert concert)
+        public async Task UpdateConcert(Concert concert)
         {
-            throw new NotImplementedException();
+            _ctx.Concerts.Update(concert);
+            await _ctx.SaveChangesAsync();
         }
         public void Dispose()
         {
             _ctx.Dispose();
         }
+
     }
 }
