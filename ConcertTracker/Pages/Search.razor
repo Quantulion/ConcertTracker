@@ -7,30 +7,85 @@
 @inject IArtistRepository ArtistRepository
 @inject IGenreRepository GenreRepository
 
-    <div class="searchPage">
-        <a href="" class="mainText">ConcertTracker</a>
-        <div class="searchContainer">
-            <div class="leftPart">
-                <div class="foundItems">
-                    <div class="foundItem"></div>
-                    <div class="foundItem"></div>
-                    <div class="foundItem"></div>
-                </div>
+<EditForm Model="@searchModel" OnValidSubmit="@doSomething" class="searchPage">
+    <a href="" class="mainText">ConcertTracker</a>
+    <div class="searchContainer">
+        <div class="leftPart">
+            <InputText Style="font-size: 24px; padding-left: 20px;" class="searchInput" id="searchText" @bind-Value="@searchModel.SearchText" />
+            <div class="foundItems">
+                @for (int j = 0; j < 6; j++)
+                {
+                    if (i + j < searchModel.GetAllObjects().Count)
+                    {
+                        <div class="foundItem">@searchModel.GetAllObjects()[i+j].ToString()</div>
+                    }
+                }
             </div>
-            <div class="rightPart"></div>
+        </div>
+        <div class="rightPart">
+            @*<InputRadioGroup @bind-Value="@currentGenre" Name="Genre">
+                @if (searchModel.genres != null)
+                    foreach (var genre in searchModel.genres)
+                    {
+                        <InputRadio Name="Genre" Value="@genre"></InputRadio>
+                    }
+            </InputRadioGroup>*@
+            
         </div>
     </div>
+    <div class="arrows">
+        <img @onclick="@decI" src="Images/next 1.svg" alt="" />
+        <img @onclick="@incI" src="Images/next.svg" alt="" />
+    </div>
+</EditForm>
 
 @code {
-    private ICollection<ConcertHall> concertHalls;
-    private ICollection<Genre> genres;
-    private ICollection<Artist> artists;
-    private string searchText= "";
+
+    public class SearchModel
+    {
+        public string SearchText { get; set; }
+
+        public ICollection<ConcertHall> concertHalls;
+
+        public ICollection<Genre> genres;
+
+        public ICollection<Artist> artists;
+
+        public List<object> GetAllObjects()
+        {
+            List<object> list = new List<object>();
+            if(concertHalls != null)
+                list.AddRange(concertHalls);
+            if (artists != null)
+                list.AddRange(artists);
+            return list;
+        }
+    }
+
+    private SearchModel searchModel = new SearchModel();
+
+    private Genre currentGenre;
+
+    private int i = 0;
+
+    public void doSomething()
+    {
+    }
+
+    public void incI()
+    {
+        i += 6;
+    }
+
+    public void decI()
+    {
+        i -= 6;
+    }
 
     protected override async Task OnInitializedAsync()
     {
-        concertHalls = await ConcertHallRepository.GetAllConcertHalls();
-        genres = await GenreRepository.GetAllGenres();
-        artists = await ArtistRepository.GetAllArtists();
+        searchModel.concertHalls = await ConcertHallRepository.GetAllConcertHalls();
+        searchModel.genres = await GenreRepository.GetAllGenres();
+        searchModel.artists = await ArtistRepository.GetAllArtists();
     }
 }

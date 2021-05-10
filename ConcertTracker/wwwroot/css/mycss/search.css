@@ -1,65 +1,87 @@
 ﻿.searchPage {
-  height: 100vh;
-  width: 100vw;
-  position: relative;
+    height: 100vh;
+    width: 100vw;
+    position: relative;
+    box-sizing: border-box;
 }
 
-.searchPage .searchContainer {
-  position: relative;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  left: 5%;
-  width: 90%;
-  top: 17%;
-  height: 66%;
-}
+    .searchPage .searchContainer {
+        position: relative;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        left: 5%;
+        width: 90%;
+        top: 17%;
+        height: 66%;
+    }
 
-.searchPage .searchContainer .leftPart {
-  height: 100%;
-  width: 80%;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
-}
+        .searchPage .searchContainer .leftPart {
+            height: 100%;
+            width: 80%;
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            -webkit-box-orient: vertical;
+            -webkit-box-direction: normal;
+            -ms-flex-direction: column;
+            flex-direction: column;
+            -webkit-box-pack: justify;
+            -ms-flex-pack: justify;
+            justify-content: space-between;
+        }
 
-.searchPage .searchContainer .leftPart .searchInput {
-  width: 30%;
-  height: 8%;
-}
+            .searchPage .searchContainer .leftPart .searchInput {
+                width: 30%;
+                height: 8%;
+            }
 
-.searchPage .searchContainer .leftPart .foundItems {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
-  width: 100%;
-  height: 80%;
-}
+            .searchPage .searchContainer .leftPart .foundItems {
+                display: -webkit-box;
+                display: -ms-flexbox;
+                display: flex;
+                -webkit-box-orient: vertical;
+                -webkit-box-direction: normal;
+                -ms-flex-direction: column;
+                flex-direction: column;
+                -webkit-box-pack: justify;
+                -ms-flex-pack: justify;
+                justify-content: space-between;
+                width: 100%;
+                height: 80%;
+            }
 
-.searchPage .searchContainer .leftPart .foundItems .foundItem {
-  width: 100%;
-  height: 28%;
-}
+                .searchPage .searchContainer .leftPart .foundItems .foundItem {
+                    display: flex;
+                    align-items: center;
+                    font-size: 28px;
+                    font-family: Roboto;
+                    width: 100%;
+                    height: 12%;
+                    background-color: White;
+                    border: 3px solid #000000;
+                    padding-left: 2rem;
+                    box-sizing: border-box;
+                }
 
-.searchPage .searchContainer .rightPart {
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  width: 20%;
-  height: 80%;
-}
+        .searchPage .searchContainer .rightPart {
+            position: -webkit-sticky;
+            position: sticky;
+            bottom: 0;
+            right: 0;
+            width: 20%;
+            height: 80%;
+        }
+
+    .searchPage .arrows {
+        position: absolute;
+        top: 85%;
+        left: 10%;
+    }
+
+        .searchPage .arrows img {
+            margin-left: 20px;
+            width: 40px;
+            cursor: pointer;
+        }
 /*# sourceMappingURL=asd.css.map */

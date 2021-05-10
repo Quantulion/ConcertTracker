@@ -112,18 +112,55 @@ using DataLayer.Entities;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 24 "C:\ConcertTracker\ConcertTracker\Pages\Search.razor"
+#line 42 "C:\ConcertTracker\ConcertTracker\Pages\Search.razor"
        
-    private ICollection<ConcertHall> concertHalls;
-    private ICollection<Genre> genres;
-    private ICollection<Artist> artists;
-    private string searchText= "";
+
+    public class SearchModel
+    {
+        public string SearchText { get; set; }
+
+        public ICollection<ConcertHall> concertHalls;
+
+        public ICollection<Genre> genres;
+
+        public ICollection<Artist> artists;
+
+        public List<object> GetAllObjects()
+        {
+            List<object> list = new List<object>();
+            if(concertHalls != null)
+                list.AddRange(concertHalls);
+            if (artists != null)
+                list.AddRange(artists);
+            return list;
+        }
+    }
+
+    private SearchModel searchModel = new SearchModel();
+
+    private Genre currentGenre;
+
+    private int i = 0;
+
+    public void doSomething()
+    {
+    }
+
+    public void incI()
+    {
+        i += 6;
+    }
+
+    public void decI()
+    {
+        i -= 6;
+    }
 
     protected override async Task OnInitializedAsync()
     {
-        concertHalls = await ConcertHallRepository.GetAllConcertHalls();
-        genres = await GenreRepository.GetAllGenres();
-        artists = await ArtistRepository.GetAllArtists();
+        searchModel.concertHalls = await ConcertHallRepository.GetAllConcertHalls();
+        searchModel.genres = await GenreRepository.GetAllGenres();
+        searchModel.artists = await ArtistRepository.GetAllArtists();
     }
 
 #line default

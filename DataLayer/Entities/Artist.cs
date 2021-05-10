@@ -8,5 +8,10 @@ namespace DataLayer.Entities
     {
         public List<Concert> Concerts { get; set; }
         public List<Genre> Genres { get; set; }
+
+        public override string ToString()
+        {
+            return $"Artist: {UserName}, Age: {Age}, Email: {Email}, About: {Description}";
+        }
     }
 }

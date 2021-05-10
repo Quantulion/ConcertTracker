@@ -133,7 +133,7 @@ using BusinessLayer;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 50 "C:\ConcertTracker\ConcertTracker\Pages\ConcertHalls.razor"
+#line 53 "C:\ConcertTracker\ConcertTracker\Pages\ConcertHalls.razor"
        
     private DataManager DataManager;
 

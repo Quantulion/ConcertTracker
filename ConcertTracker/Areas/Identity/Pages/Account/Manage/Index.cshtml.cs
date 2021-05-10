@@ -41,6 +41,9 @@ namespace ConcertTracker.Areas.Identity.Pages.Account.Manage
 
             [Display(Name = "Age")]
             public int Age { get; set; }
+
+            [Display(Name = "About")]
+            public string Description { get; set; }
         }
 
         private async Task LoadAsync(User user)
@@ -49,6 +52,7 @@ namespace ConcertTracker.Areas.Identity.Pages.Account.Manage
             var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
             var age = user.Age;
             var email = user.Email;
+            var description = user.Description;
 
             Username = userName;
             PhotoPath = user.Photo;
@@ -56,7 +60,8 @@ namespace ConcertTracker.Areas.Identity.Pages.Account.Manage
             Input = new InputModel
             {
                 PhoneNumber = phoneNumber,
-                Age = age
+                Age = age,
+                Description = description
             };
         }
 
@@ -105,6 +110,18 @@ namespace ConcertTracker.Areas.Identity.Pages.Account.Manage
                 if (!setAgeResult.Succeeded)
                 {
                     StatusMessage = "Unexpected error when trying to set Age.";
+                    return RedirectToPage();
+                }
+            }
+
+            var description = user.Description;
+            if (Input.Description != description)
+            {
+                user.Description = Input.Description;
+                var setDescriptionResult = await _userManager.UpdateAsync(user);
+                if (!setDescriptionResult.Succeeded)
+                {
+                    StatusMessage = "Unexpected error when trying to set Description.";
                     return RedirectToPage();
                 }
             }

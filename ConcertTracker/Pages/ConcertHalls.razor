@@ -17,6 +17,7 @@
 
     <InputText id="address" @bind-Value="newConcertHall.Address" />
     <InputText id="description" @bind-Value="newConcertHall.Description" />
+    <InputText id="Name" @bind-Value="newConcertHall.Name" />
     <button type="submit" class="btn btn-primary">Submit</button>
 </EditForm>
 
@@ -33,15 +34,17 @@ else
             <tr>
                 <th>Address</th>
                 <th>Description</th>
+                <th>Name</th>
             </tr>
         </thead>
         <tbody>
             @foreach (var concertHall in concertHalls)
             {
-                <tr>
-                    <td>@concertHall.Address</td>
-                    <td>@concertHall.Description</td>
-                </tr>
+            <tr>
+                <td>@concertHall.Name</td>
+                <td>@concertHall.Name</td>
+                <td>@concertHall.Name</td>
+            </tr>
             }
         </tbody>
     </table>
