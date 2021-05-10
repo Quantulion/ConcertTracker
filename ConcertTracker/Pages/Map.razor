@@ -33,26 +33,33 @@
             {
                 <a class="hdr">Дата концерта:</a>
                 <InputDate class="myDate" id="date" @bind-Value="@newConcert.Date" />
+                <a class="hdr">Концертная площадка:</a>
+                <a class="hdr" Style="font-size:18px;">@newConcert.ConcertHall.Address</a>
                 <a class="hdr">Артисты:</a>
                 foreach (var artist in concertArtists)
                 {
                     <a class="hdr" style="font-size:18px;">@artist.UserName</a>
                 }
                 <a class="hdr">Описание концерта:</a>
-                <InputTextArea Style="font-size:20px; padding: 0.5rem;" id="desc" @bind-Value="@newConcert.Description" class="descInput" />
+                <InputTextArea Style="font-size:18px; padding: 0.5rem;" id="desc" @bind-Value="@newConcert.Description" class="descInput" />
                 <button type="submit" class="btn btn-primary">Подтвердить</button>
             }
             else
             {
                 <a class="hdr">Дата концерта:</a>
                 <InputDate class="myDate" id="date" @bind-Value="@newConcert.Date" disabled />
+                if (newConcert.ConcertHall != null)
+                {
+                    <a class="hdr">Концертная площадка:</a>
+                    <a class="hdr" Style="font-size:18px;">@newConcert.ConcertHall.Address</a>
+                }
                 <a class="hdr">Артисты:</a>
                 foreach (var artist in concertArtists)
                 {
-                    <a class="hdr">@artist.UserName</a>
+                    <a class="hdr" style="font-size:18px;">@artist.UserName</a>
                 }
                 <a class="hdr">Описание концерта:</a>
-                <InputTextArea Style="font-size:20px; padding: 0.5rem;" id="desc" @bind-Value="@newConcert.Description" class="descInput" disabled />
+                <InputTextArea Style="font-size:18px; padding: 0.5rem;" id="desc" @bind-Value="@newConcert.Description" class="descInput" disabled />
             }
         </EditForm>
     </div>
