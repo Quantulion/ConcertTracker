@@ -3,6 +3,7 @@ using DataLayer;
 using DataLayer.Entities;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Linq;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,11 +24,6 @@ namespace BusinessLayer.Implementations
             return concertHall;
         }
 
-        public void Dispose()
-        {
-            _ctx.Dispose();
-        }
-
         public async Task<ICollection<ConcertHall>> GetAllConcertHalls()
         {
             return await _ctx.ConcertHalls.ToListAsync();
@@ -37,10 +33,18 @@ namespace BusinessLayer.Implementations
         {
             throw new NotImplementedException();
         }
+        public async Task<ConcertHall> GetConcertHallByAddress(string address)
+        {
+            return await _ctx.ConcertHalls.FirstOrDefaultAsync(c => c.Address == address);
+        }
 
         public Task UpdateConcertHall(ConcertHall concertHall)
         {
             throw new NotImplementedException();
+        }
+        public void Dispose()
+        {
+            _ctx.Dispose();
         }
     }
 }

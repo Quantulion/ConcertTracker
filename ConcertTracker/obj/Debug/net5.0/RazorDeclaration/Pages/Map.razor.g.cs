@@ -119,29 +119,63 @@ using DataLayer.Entities;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 28 "C:\ConcertTracker\ConcertTracker\Pages\Map.razor"
+#line 34 "C:\ConcertTracker\ConcertTracker\Pages\Map.razor"
        
     int zoom = 6;
     string clickedPosition = "";
 
+    private ICollection<ConcertHall> concertHalls;
+    private ICollection<Concert> concerts;
     Concert newConcert = new Concert();
     GoogleMapPosition pos = new GoogleMapPosition() { Lat = 55.7491, Lng = 37.6258 };
 
+    protected override async Task OnInitializedAsync()
+    {
+        concertHalls = await ConcertHallRep.GetAllConcertHalls();
+        concerts = await ConcertRepository.GetAllConcerts();
+    }
     void OnMapClick(GoogleMapClickEventArgs args)
     {
         clickedPosition = $"Map clicked LAT: {args.Position.Lat}, LNG: {args.Position.Lng}";
         pos.Lat = args.Position.Lat;
         pos.Lng = args.Position.Lng;
+        newConcert = new Concert();
     }
-    void OnMarkerClick(RadzenGoogleMapMarker args)
+    private async Task OnMarkerClick(RadzenGoogleMapMarker args)
     {
         clickedPosition = $"Map {args.Title} clicked LAT: {args.Position.Lat}, LNG: {args.Position.Lng}";
+        var foundConcert = await ConcertRepository.GetConcertById(Convert.ToInt32(args.Title));
+        newConcert = foundConcert;
+
+    }
+    private async Task InsertConcert()
+    {
+        var concertHall = await ConcertHallRep.GetConcertHallByAddress("Street Concert");
+        newConcert.Position = pos;
+        Concert concert = new Concert
+        {
+            Description = newConcert.Description,
+            Date = newConcert.Date,
+            Position = newConcert.Position,
+            ConcertHall = concertHall,
+            ConcertHallId = concertHall.Id
+        };
+
+        await ConcertRepository.AddConcert(concert);
+
+        concerts.Add(concert);
+
+        pos = new GoogleMapPosition() { Lat = 55.7491, Lng = 37.6258 };
+        newConcert = new Concert();
+
+
     }
 
 #line default
 #line hidden
 #nullable disable
-        [global::Microsoft.AspNetCore.Components.InjectAttribute] private IConcertHallRepository ConcertHallRepository { get; set; }
+        [global::Microsoft.AspNetCore.Components.InjectAttribute] private IConcertHallRepository ConcertHallRep { get; set; }
+        [global::Microsoft.AspNetCore.Components.InjectAttribute] private IConcertRepository ConcertRepository { get; set; }
     }
 }
 #pragma warning restore 1591

@@ -125,6 +125,10 @@
               "suppressParent": "All",
               "target": "Package",
               "version": "[5.0.5, )"
+            },
+            "Radzen.Blazor": {
+              "target": "Package",
+              "version": "[3.2.8, )"
             }
           },
           "imports": [

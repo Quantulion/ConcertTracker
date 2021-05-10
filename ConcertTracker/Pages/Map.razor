@@ -3,25 +3,31 @@
 @using Radzen
 @using BusinessLayer.Interfaces
 @using DataLayer.Entities
-@inject IConcertHallRepository ConcertHallRepository
+@inject IConcertRepository ConcertRepository
+@inject IConcertHallRepository ConcertHallRep
 
 <div class="mapPage">
     <a href="" class="mainText">ConcertTracker</a>
     <div class="mapContainer">
         <div class="map">
-            <RadzenGoogleMap Style="width:auto; height:100%;" Zoom="@zoom" Center="@(new GoogleMapPosition() { Lat=55.7491, Lng = 37.6258})" MapClick="@OnMapClick" MarkerClick="@OnMarkerClick">
+            <RadzenGoogleMap Style="width:auto; height:100%;" Zoom="@zoom" Center="@(pos)" MapClick="@OnMapClick" MarkerClick="@OnMarkerClick">
                 <Markers>
-                    <RadzenGoogleMapMarker Title="London" Label="London" Position="@(new GoogleMapPosition() { Lat=51.5074, Lng = 0.1278})"></RadzenGoogleMapMarker>
-                    <RadzenGoogleMapMarker Title="User" Label="Current Marker" Position="@(new GoogleMapPosition() { Lat=pos.Lat, Lng = pos.Lng})"></RadzenGoogleMapMarker>
+                    <RadzenGoogleMapMarker Title="User" Label="Current Marker" Position="@(new GoogleMapPosition() { Lat = pos.Lat, Lng = pos.Lng })" ></RadzenGoogleMapMarker>
+                    @if (concerts != null)
+                        foreach (var concert in concerts)
+                        {
+                            <RadzenGoogleMapMarker Title="@concert.Id.ToString()" Label="@concert.Date.ToString()" Position="@concert.Position"></RadzenGoogleMapMarker>
+                        }
                 </Markers>
             </RadzenGoogleMap>
         </div>
-        <div class="concertInfo">
+        <EditForm Model="@newConcert" OnValidSubmit="@InsertConcert" class="concertInfo">
             <a class="hdr">Дата концерта:</a>
-            <a class="dateInput"></a>
+            <InputDate class="myDate" id="date" @bind-Value="@newConcert.Date" />
             <a class="hdr">Описание концерта:</a>
-            <a class="descInput"></a>
-        </div>
+            <InputTextArea Style="font-size:20px; padding: 0.5rem;" id="desc" @bind-Value="@newConcert.Description" class="descInput" />
+            <button type="submit" class="btn btn-primary">Подтвердить</button>
+        </EditForm>
     </div>
 </div>
 
@@ -29,17 +35,50 @@
     int zoom = 6;
     string clickedPosition = "";
 
+    private ICollection<ConcertHall> concertHalls;
+    private ICollection<Concert> concerts;
     Concert newConcert = new Concert();
     GoogleMapPosition pos = new GoogleMapPosition() { Lat = 55.7491, Lng = 37.6258 };
 
+    protected override async Task OnInitializedAsync()
+    {
+        concertHalls = await ConcertHallRep.GetAllConcertHalls();
+        concerts = await ConcertRepository.GetAllConcerts();
+    }
     void OnMapClick(GoogleMapClickEventArgs args)
     {
         clickedPosition = $"Map clicked LAT: {args.Position.Lat}, LNG: {args.Position.Lng}";
         pos.Lat = args.Position.Lat;
         pos.Lng = args.Position.Lng;
+        newConcert = new Concert();
     }
-    void OnMarkerClick(RadzenGoogleMapMarker args)
+    private async Task OnMarkerClick(RadzenGoogleMapMarker args)
     {
         clickedPosition = $"Map {args.Title} clicked LAT: {args.Position.Lat}, LNG: {args.Position.Lng}";
+        var foundConcert = await ConcertRepository.GetConcertById(Convert.ToInt32(args.Title));
+        newConcert = foundConcert;
+
+    }
+    private async Task InsertConcert()
+    {
+        var concertHall = await ConcertHallRep.GetConcertHallByAddress("Street Concert");
+        newConcert.Position = pos;
+        Concert concert = new Concert
+        {
+            Description = newConcert.Description,
+            Date = newConcert.Date,
+            Position = newConcert.Position,
+            ConcertHall = concertHall,
+            ConcertHallId = concertHall.Id
+        };
+
+        await ConcertRepository.AddConcert(concert);
+
+        concerts.Add(concert);
+
+        pos = new GoogleMapPosition() { Lat = 55.7491, Lng = 37.6258 };
+        newConcert = new Concert();
+
+
     }
 }

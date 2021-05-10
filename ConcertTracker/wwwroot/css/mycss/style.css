@@ -289,13 +289,11 @@ img.mapAboutImage {
             }
 
             .mapPage .mapContainer .concertInfo .dateInput {
-                background-color: cornflowerblue;
                 height: 7.5%;
                 width: 85%;
             }
 
             .mapPage .mapContainer .concertInfo .descInput {
-                background-color: crimson;
                 height: 60%;
                 width: 85%;
             }
@@ -314,4 +312,25 @@ body:not(.rz-default-scrollbars)::-webkit-scrollbar-thumb {
     border: 4px solid rgba(0, 0, 0, 0);
     background-clip: padding-box;
     border-radius: 8px;
+}
+.myButton {
+    color: #fff;
+    display: inline-block;
+    background-color: Black;
+    border-color: Black;
+    text-align: center;
+    vertical-align: middle;
+    border: 1px solid transparent;
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    border-radius: .25rem;
+    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+
+.myDate {
+    display: inline-block;
+    border-color: Black;
+    padding: .375rem .75rem;
+    font-size: 1rem;
 }

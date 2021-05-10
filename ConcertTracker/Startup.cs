@@ -42,6 +42,7 @@ namespace ConcertTracker
             services.AddTransient<IUserRepository, EFUserRepository>();
             services.AddTransient<IConcertHallRepository, EFConcertHallRepository>();
             services.AddTransient<IPhotoManager, PhotoManager>();
+            services.AddTransient<IConcertRepository, EFConcertRepository>();
             services.AddScoped<DataManager>();
 
             services.AddDefaultIdentity<User>()

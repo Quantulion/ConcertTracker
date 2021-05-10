@@ -10,6 +10,7 @@ namespace BusinessLayer.Interfaces
     {
         Task<ICollection<ConcertHall>> GetAllConcertHalls();
         Task<ConcertHall> GetConcertHallById(int Id);
+        Task<ConcertHall> GetConcertHallByAddress(string address);
         Task<ConcertHall> AddConcertHall(ConcertHall concertHall);
         Task UpdateConcertHall(ConcertHall concertHall);
     }

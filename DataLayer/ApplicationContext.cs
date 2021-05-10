@@ -1,4 +1,5 @@
-﻿using DataLayer.Entities;
+﻿using DataLayer.Configuration;
+using DataLayer.Entities;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
@@ -20,7 +21,6 @@ namespace DataLayer
         public ApplicationDbContext (DbContextOptions<ApplicationDbContext> options): base(options) { }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<UserComment>()
                 .HasKey(x => new { x.UserId, x.CommentId });
             modelBuilder.Entity<UserComment>()
@@ -36,6 +36,8 @@ namespace DataLayer
                 .WithMany(e => e.Comments)
                 .HasForeignKey(x => x.UserId)
                 .OnDelete(DeleteBehavior.Restrict);
+            modelBuilder.ApplyConfiguration(new ConcertConfiguration());
+            base.OnModelCreating(modelBuilder);
         }
     }
     public class ApplicationDbContextFactory : IDesignTimeDbContextFactory<ApplicationDbContext>

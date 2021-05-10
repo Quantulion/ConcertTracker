@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Radzen;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
@@ -11,6 +12,7 @@ namespace DataLayer.Entities
         public string Description { get; set; }
         [Required]
         public DateTime Date { get; set; }
+        public GoogleMapPosition Position { get; set; }
         public int ConcertHallId { get; set; }
         public ConcertHall ConcertHall { get; set; }
         public List<Comment> Comments { get; set; }
