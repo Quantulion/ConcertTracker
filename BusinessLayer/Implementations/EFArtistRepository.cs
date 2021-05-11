@@ -26,6 +26,13 @@ namespace BusinessLayer.Implementations
             return await _ctx.Artists.FirstOrDefaultAsync(f => f.Id == id);
         }
 
+        public async Task<List<Concert>> GetConcertsOfArtist(Artist artist)
+        {
+            var full = _ctx.Artists.Include(c => c.Concerts);
+            var concerts = await full.FirstOrDefaultAsync(c => c.Id == artist.Id);
+            return concerts.Concerts;
+        }
+
         public async Task<Artist> AddArtist(Artist artist)
         {
             _ctx.Artists.Add(artist);
@@ -42,7 +49,6 @@ namespace BusinessLayer.Implementations
         {
             _ctx.Dispose();
         }
-
 
     }
 }

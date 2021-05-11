@@ -29,9 +29,9 @@ namespace BusinessLayer.Implementations
             return await _ctx.ConcertHalls.ToListAsync();
         }
 
-        public Task<ConcertHall> GetConcertHallById(int Id)
+        public async Task<ConcertHall> GetConcertHallById(int Id)
         {
-            throw new NotImplementedException();
+            return await _ctx.ConcertHalls.FirstOrDefaultAsync(c => c.Id == Id);
         }
         public async Task<ConcertHall> GetConcertHallByAddress(string address)
         {

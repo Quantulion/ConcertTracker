@@ -10,6 +10,7 @@ namespace BusinessLayer.Interfaces
     {
         Task<ICollection<Artist>> GetAllArtists();
         Task<Artist> GetArtistById(string Id);
+        Task<List<Concert>> GetConcertsOfArtist(Artist artist);
         Task<Artist> AddArtist(Artist artist);
         Task UpdateArtist(Artist artist);
     }

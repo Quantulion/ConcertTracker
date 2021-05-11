@@ -1,0 +1,58 @@
+﻿@page "/concerthall/{Id}"
+
+@using BusinessLayer.Interfaces
+@using DataLayer.Entities
+
+@inject IUserRepository UserRepositiory
+@inject IArtistRepository ArtistRepository
+@inject IConcertHallRepository ConcertHallRepository
+
+<div class="profilePage">
+    <a href="" class="mainText">ConcertTracker</a>
+    <div class="profileContainer">
+        <div class="profileInfo">
+            <div class="higherInfo">
+                @*<img src="/uploads/@foundConcertHall.Photo" alt="" />*@
+                <div class="profileLeftInfo">
+                    <p><strong>Название:</strong> @foundConcertHall.Name</p>
+                    <p><strong>Адрес:</strong> @foundConcertHall.Address</p>
+                    <p><strong>Описание:</strong> @foundConcertHall.Description</p>
+                </div>
+            </div>
+                <div class="concertsList">
+                    <p><strong>Список концертов:</strong></p>
+                    @foreach (var concert in artistConcerts)
+                    {
+                        <p>Дата: @concert.Date    Описание: @concert.Description</p>
+                    }
+                </div>
+        </div>
+        <div class="profileComments">
+            <p id="1" class="hdr">Последний комментарий:</p>
+            <div class="commentContent">
+                <p class="hdr">Публикация:</p>
+                <p>Пользователь Джон Леннон</p>
+                <p class="hdr">Комментарий:</p>
+                <p class="commentText">
+                    Рост популярности группы легко проследить по гонорарам
+                    музыкантов...
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+
+    [Parameter]
+    public string Id { get; set; }
+
+    protected ConcertHall foundConcertHall = new ConcertHall();
+    protected List<Concert> artistConcerts = new List<Concert>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        foundConcertHall = await ConcertHallRepository.GetConcertHallById(Convert.ToInt32(Id));
+    }
+
+}

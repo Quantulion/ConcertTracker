@@ -161,3 +161,6 @@ C:\ConcertTracker\ConcertTracker\bin\Debug\net5.0\Microsoft.Extensions.Primitive
 C:\ConcertTracker\ConcertTracker\bin\Debug\net5.0\System.IO.Pipelines.dll
 C:\ConcertTracker\ConcertTracker\obj\Debug\net5.0\RazorDeclaration\Pages\Search.razor.g.cs
 C:\ConcertTracker\ConcertTracker\obj\Debug\net5.0\Razor\Pages\Search.razor.g.cs
+C:\ConcertTracker\ConcertTracker\obj\Debug\net5.0\RazorDeclaration\Pages\Profile.razor.g.cs
+C:\ConcertTracker\ConcertTracker\obj\Debug\net5.0\Razor\Pages\Profile.razor.g.cs
+C:\ConcertTracker\ConcertTracker\obj\Debug\net5.0\RazorDeclaration\Pages\ConcertHall.razor.g.cs

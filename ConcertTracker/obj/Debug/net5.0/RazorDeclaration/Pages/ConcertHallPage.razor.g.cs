@@ -4,7 +4,7 @@
 #pragma warning disable 0649
 #pragma warning disable 0169
 
-namespace ConcertTracker.Shared
+namespace ConcertTracker.Pages
 {
     #line hidden
     using System;
@@ -22,6 +22,13 @@ using System.Net.Http;
 #nullable restore
 #line 2 "C:\ConcertTracker\ConcertTracker\_Imports.razor"
 using Microsoft.AspNetCore.Authorization;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 3 "C:\ConcertTracker\ConcertTracker\_Imports.razor"
+using Microsoft.AspNetCore.Components.Authorization;
 
 #line default
 #line hidden
@@ -82,44 +89,13 @@ using Radzen.Blazor;
 #line default
 #line hidden
 #nullable disable
-#nullable restore
-#line 1 "C:\ConcertTracker\ConcertTracker\Shared\NavMenu.razor"
-using System.Security.Claims;
-
-#line default
-#line hidden
-#nullable disable
-#nullable restore
-#line 2 "C:\ConcertTracker\ConcertTracker\Shared\NavMenu.razor"
-using Microsoft.AspNetCore.Components.Authorization;
-
-#line default
-#line hidden
-#nullable disable
-    public partial class NavMenu : Microsoft.AspNetCore.Components.ComponentBase
+    public partial class ConcertHallPage : Microsoft.AspNetCore.Components.ComponentBase
     {
         #pragma warning disable 1998
         protected override void BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder __builder)
         {
         }
         #pragma warning restore 1998
-#nullable restore
-#line 48 "C:\ConcertTracker\ConcertTracker\Shared\NavMenu.razor"
-       
-    private bool isLoggedIn;
-
-    protected override async Task OnInitializedAsync()
-    {
-        var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
-        var user = authState.User;
-        if (user.Identity.IsAuthenticated)
-            isLoggedIn = true;
-    }
-
-#line default
-#line hidden
-#nullable disable
-        [global::Microsoft.AspNetCore.Components.InjectAttribute] private AuthenticationStateProvider AuthenticationStateProvider { get; set; }
     }
 }
 #pragma warning restore 1591

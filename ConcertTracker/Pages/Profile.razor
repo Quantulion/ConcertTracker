@@ -1,0 +1,79 @@
+﻿@page "/user/{Id}"
+
+@using BusinessLayer.Interfaces
+@using DataLayer.Entities
+
+@inject IUserRepository UserRepositiory
+@inject IArtistRepository ArtistRepository
+
+<div class="profilePage">
+    <a href="" class="mainText">ConcertTracker</a>
+    <div class="profileContainer">
+        <div class="profileInfo">
+            <div class="higherInfo">
+                <img src="/uploads/@foundUser.Photo" alt="" />
+                <div class="profileLeftInfo">
+                    <p><strong>Имя:</strong> @foundUser.UserName</p>
+                    <p><strong>Возраст:</strong> @foundUser.Age</p>
+                    <p><strong>Описание:</strong> @foundUser.Description</p>
+                    @if (IsArtist())
+                    {
+                        <p>
+                            <strong>Жанры:</strong> Рок, поп, мерсибит, рок-н-ролл,
+                            психоделический рок, хард-рок
+                        </p>
+                    }
+                </div>
+            </div>
+            @if (IsArtist())
+            {
+        <div class="concertsList">
+            <p><strong>Список концертов:</strong></p>
+            @foreach (var concert in artistConcerts)
+            {
+                <p>Дата: @concert.Date    Описание: @concert.Description</p>
+            }
+        </div>
+            }
+        </div>
+        <div class="profileComments">
+            <p id="1" class="hdr">Последний комментарий:</p>
+            <div class="commentContent">
+                <p class="hdr">Публикация:</p>
+                <p>Пользователь Джон Леннон</p>
+                <p class="hdr">Комментарий:</p>
+                <p class="commentText">
+                    Рост популярности группы легко проследить по гонорарам
+                    музыкантов...
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+
+    [Parameter]
+    public string Id { get; set; }
+
+    protected User foundUser = new User();
+    protected List<Concert> artistConcerts = new List<Concert>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        foundUser = await UserRepositiory.GetUserById(Id);
+        if (IsArtist())
+        {
+            artistConcerts = await ArtistRepository.GetConcertsOfArtist((Artist)foundUser);
+        }
+    }
+
+    public bool IsArtist()
+    {
+        bool isArtist;
+        if (ArtistRepository.GetArtistById(Id) != null)
+            isArtist = true;
+        else isArtist = false;
+        return isArtist;
+    }
+}

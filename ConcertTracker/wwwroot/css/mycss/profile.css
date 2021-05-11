@@ -1,0 +1,116 @@
+﻿.profilePage {
+  width: 100vw;
+  height: 100vh;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  position: relative;
+}
+
+.profilePage .profileContainer {
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: 87%;
+  left: 6.5%;
+  top: 20%;
+  height: 60%;
+}
+
+.profilePage .profileContainer .profileInfo {
+  position: relative;
+  width: 75%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.profilePage .profileContainer .profileInfo .higherInfo {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+}
+
+.profilePage .profileContainer .profileInfo .higherInfo .profileLeftInfo {
+  margin-left: 3%;
+  margin-right: 6%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.profilePage .profileContainer .profileInfo .higherInfo Img {
+    width: 250px;
+    height: 300px;
+}
+
+.profilePage .profileContainer .profileInfo .higherInfo .profileLeftInfo p {
+  font-size: 28px;
+  margin-bottom: 1%;
+}
+
+.profilePage .profileContainer .profileInfo .concertsList {
+  margin-top: 3%;
+}
+
+.profilePage .profileContainer .profileInfo .concertsList p {
+  font-size: 28px;
+}
+
+.profilePage .profileContainer .profileComments {
+  border: 3px solid #000000;
+  width: 25%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.profilePage .profileContainer .profileComments .hdr {
+  font-weight: 800;
+  font-size: 28px;
+  margin-top: 5%;
+}
+
+.profilePage .profileContainer .profileComments .commentContent {
+  margin-top: 6%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  width: 100%;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.profilePage .profileContainer .profileComments .commentContent p {
+  font-size: 28px;
+  margin-top: 3%;
+}
+
+.profilePage .profileContainer .profileComments .commentContent .commentText {
+  padding-left: 6%;
+}
+/*# sourceMappingURL=asd.css.map */

@@ -35,12 +35,12 @@
                 if (newConcert.ConcertHall != null)
                 {
                     <a class="hdr">Концертная площадка:</a>
-                    <a class="hdr" Style="font-size:18px;">@newConcert.ConcertHall.Address</a>
+                    <a href="/concerthall/@newConcert.ConcertHall.Id" class="hdr" Style="font-size:18px;">@newConcert.ConcertHall.Address</a>
                 }
                 <a class="hdr">Артисты:</a>
                 foreach (var artist in concertArtists)
                 {
-                    <a class="hdr" style="font-size:18px;">@artist.UserName</a>
+                    <a href="/user/@artist.Id" class="hdr" style="font-size:18px;">@artist.UserName</a>
                 }
                 <a class="hdr">Описание концерта:</a>
                 <InputTextArea Style="font-size:18px; padding: 0.5rem;" id="desc" @bind-Value="@newConcert.Description" class="descInput" />
@@ -53,12 +53,12 @@
                 if (newConcert.ConcertHall != null)
                 {
                     <a class="hdr">Концертная площадка:</a>
-                    <a class="hdr" Style="font-size:18px;">@newConcert.ConcertHall.Address</a>
+                    <a href="/concerthall/@newConcert.ConcertHall.Id" class="hdr" Style="font-size:18px;">@newConcert.ConcertHall.Address</a>
                 }
                 <a class="hdr">Артисты:</a>
                 foreach (var artist in concertArtists)
                 {
-                    <a class="hdr" style="font-size:18px;">@artist.UserName</a>
+                    <a href="/user/@artist.Id" class="hdr" style="font-size:18px;">@artist.UserName</a>
                 }
                 <a class="hdr">Описание концерта:</a>
                 <InputTextArea Style="font-size:18px; padding: 0.5rem;" id="desc" @bind-Value="@newConcert.Description" class="descInput" disabled />

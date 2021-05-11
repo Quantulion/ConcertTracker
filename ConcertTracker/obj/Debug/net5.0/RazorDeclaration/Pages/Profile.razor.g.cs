@@ -4,7 +4,7 @@
 #pragma warning disable 0649
 #pragma warning disable 0169
 
-namespace ConcertTracker.Shared
+namespace ConcertTracker.Pages
 {
     #line hidden
     using System;
@@ -22,6 +22,13 @@ using System.Net.Http;
 #nullable restore
 #line 2 "C:\ConcertTracker\ConcertTracker\_Imports.razor"
 using Microsoft.AspNetCore.Authorization;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 3 "C:\ConcertTracker\ConcertTracker\_Imports.razor"
+using Microsoft.AspNetCore.Components.Authorization;
 
 #line default
 #line hidden
@@ -83,20 +90,21 @@ using Radzen.Blazor;
 #line hidden
 #nullable disable
 #nullable restore
-#line 1 "C:\ConcertTracker\ConcertTracker\Shared\NavMenu.razor"
-using System.Security.Claims;
+#line 3 "C:\ConcertTracker\ConcertTracker\Pages\Profile.razor"
+using BusinessLayer.Interfaces;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 2 "C:\ConcertTracker\ConcertTracker\Shared\NavMenu.razor"
-using Microsoft.AspNetCore.Components.Authorization;
+#line 4 "C:\ConcertTracker\ConcertTracker\Pages\Profile.razor"
+using DataLayer.Entities;
 
 #line default
 #line hidden
 #nullable disable
-    public partial class NavMenu : Microsoft.AspNetCore.Components.ComponentBase
+    [Microsoft.AspNetCore.Components.RouteAttribute("/user/{Id}")]
+    public partial class Profile : Microsoft.AspNetCore.Components.ComponentBase
     {
         #pragma warning disable 1998
         protected override void BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder __builder)
@@ -104,22 +112,38 @@ using Microsoft.AspNetCore.Components.Authorization;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 48 "C:\ConcertTracker\ConcertTracker\Shared\NavMenu.razor"
+#line 54 "C:\ConcertTracker\ConcertTracker\Pages\Profile.razor"
        
-    private bool isLoggedIn;
+
+    [Parameter]
+    public string Id { get; set; }
+
+    protected User foundUser = new User();
+    protected List<Concert> artistConcerts = new List<Concert>();
 
     protected override async Task OnInitializedAsync()
     {
-        var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
-        var user = authState.User;
-        if (user.Identity.IsAuthenticated)
-            isLoggedIn = true;
+        foundUser = await UserRepositiory.GetUserById(Id);
+        if (IsArtist())
+        {
+            artistConcerts = await ArtistRepository.GetConcertsOfArtist((Artist)foundUser);
+        }
+    }
+
+    public bool IsArtist()
+    {
+        bool isArtist;
+        if (ArtistRepository.GetArtistById(Id) != null)
+            isArtist = true;
+        else isArtist = false;
+        return isArtist;
     }
 
 #line default
 #line hidden
 #nullable disable
-        [global::Microsoft.AspNetCore.Components.InjectAttribute] private AuthenticationStateProvider AuthenticationStateProvider { get; set; }
+        [global::Microsoft.AspNetCore.Components.InjectAttribute] private IArtistRepository ArtistRepository { get; set; }
+        [global::Microsoft.AspNetCore.Components.InjectAttribute] private IUserRepository UserRepositiory { get; set; }
     }
 }
 #pragma warning restore 1591
