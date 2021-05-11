@@ -6,6 +6,10 @@
   position: relative;
 }
 
+.profilePage a {
+    display: block;
+}
+
 .profilePage .profileContainer {
   position: relative;
   display: -webkit-box;

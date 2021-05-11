@@ -21,7 +21,7 @@
                     <p><strong>Список концертов:</strong></p>
                     @foreach (var concert in concertHallConcerts)
                     {
-                        <p>Дата: @concert.Date    Описание: @concert.Description</p>
+                        <a href="/concert/@concert.Id">Дата: @concert.Date    Описание: @concert.Description</a>
                     }
                 </div>
         </div>

@@ -1,0 +1,51 @@
+﻿@page "/concert/{Id}"
+
+@using BusinessLayer.Interfaces
+@using DataLayer.Entities
+
+@inject IConcertRepository ConcertRepository
+
+    <a href="" class="mainText">ConcertTracker</a>
+<img src="Images/manhattan-1674404_1920 1.png"
+     alt=""
+     class="concertImage" />
+<div class="concertContainer">
+    <div class="concertItem">
+        <p class="hdr">Концертная площадка:</p>
+        @if (foundConcert.ConcertHall != null)
+        {
+            <a href="/concerthall/@foundConcert.ConcertHall.Id">@foundConcert.ConcertHall.Name</a>
+        }
+    </div>
+    <div class="concertItem">
+        <p class="hdr">Описание:</p>
+        <p>
+            @foundConcert.Description
+        </p>
+    </div>
+    <div class="concertItem">
+        <p class="hdr">Дата:</p>
+        <p>@foundConcert.Date</p>
+    </div>
+    <div class="concertItem">
+        <p class="hdr">Артисты:</p>
+        @foreach (var artist in concertArtists)
+        {
+            <a href="/user/@artist.Id">@artist.UserName</a>
+        }
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public string Id { get; set; }
+
+    protected Concert foundConcert = new Concert();
+    protected List<Artist> concertArtists = new List<Artist>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        foundConcert = await ConcertRepository.GetConcertById(Convert.ToInt32(Id));
+        concertArtists = await ConcertRepository.GetArtistsOfConcert(foundConcert);
+    }
+}

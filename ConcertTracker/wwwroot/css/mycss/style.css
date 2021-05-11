@@ -4,12 +4,19 @@
     list-style-type: none;
     text-decoration: none;
     color: black;
+    box-sizing: border-box;
 }
 
 p {
     font-family: Roboto;
     font-weight: 400;
     font-size: 36px;
+}
+
+a {
+    font-family: Roboto;
+    font-weight: 400;
+    font-size: 28px;
 }
 
 .firstPage {
