@@ -89,6 +89,21 @@ using Radzen.Blazor;
 #line default
 #line hidden
 #nullable disable
+#nullable restore
+#line 3 "C:\ConcertTracker\ConcertTracker\Pages\ConcertHallPage.razor"
+using BusinessLayer.Interfaces;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 4 "C:\ConcertTracker\ConcertTracker\Pages\ConcertHallPage.razor"
+using DataLayer.Entities;
+
+#line default
+#line hidden
+#nullable disable
+    [Microsoft.AspNetCore.Components.RouteAttribute("/concerthall/{Id}")]
     public partial class ConcertHallPage : Microsoft.AspNetCore.Components.ComponentBase
     {
         #pragma warning disable 1998
@@ -96,6 +111,27 @@ using Radzen.Blazor;
         {
         }
         #pragma warning restore 1998
+#nullable restore
+#line 43 "C:\ConcertTracker\ConcertTracker\Pages\ConcertHallPage.razor"
+       
+
+    [Parameter]
+    public string Id { get; set; }
+
+    protected ConcertHall foundConcertHall = new ConcertHall();
+    protected List<Concert> concertHallConcerts = new List<Concert>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        foundConcertHall = await ConcertHallRepository.GetConcertHallById(Convert.ToInt32(Id));
+        concertHallConcerts = await ConcertHallRepository.GetConcertsOfConcertHall(foundConcertHall);
+    }
+
+
+#line default
+#line hidden
+#nullable disable
+        [global::Microsoft.AspNetCore.Components.InjectAttribute] private IConcertHallRepository ConcertHallRepository { get; set; }
     }
 }
 #pragma warning restore 1591

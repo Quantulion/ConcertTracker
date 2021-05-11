@@ -163,4 +163,5 @@ C:\ConcertTracker\ConcertTracker\obj\Debug\net5.0\RazorDeclaration\Pages\Search.
 C:\ConcertTracker\ConcertTracker\obj\Debug\net5.0\Razor\Pages\Search.razor.g.cs
 C:\ConcertTracker\ConcertTracker\obj\Debug\net5.0\RazorDeclaration\Pages\Profile.razor.g.cs
 C:\ConcertTracker\ConcertTracker\obj\Debug\net5.0\Razor\Pages\Profile.razor.g.cs
-C:\ConcertTracker\ConcertTracker\obj\Debug\net5.0\RazorDeclaration\Pages\ConcertHall.razor.g.cs
+C:\ConcertTracker\ConcertTracker\obj\Debug\net5.0\RazorDeclaration\Pages\ConcertHallPage.razor.g.cs
+C:\ConcertTracker\ConcertTracker\obj\Debug\net5.0\Razor\Pages\ConcertHallPage.razor.g.cs

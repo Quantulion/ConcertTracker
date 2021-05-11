@@ -3,8 +3,6 @@
 @using BusinessLayer.Interfaces
 @using DataLayer.Entities
 
-@inject IUserRepository UserRepositiory
-@inject IArtistRepository ArtistRepository
 @inject IConcertHallRepository ConcertHallRepository
 
 <div class="profilePage">
@@ -12,7 +10,7 @@
     <div class="profileContainer">
         <div class="profileInfo">
             <div class="higherInfo">
-                @*<img src="/uploads/@foundConcertHall.Photo" alt="" />*@
+                <img src="/uploads/@foundConcertHall.Photo" alt="" />
                 <div class="profileLeftInfo">
                     <p><strong>Название:</strong> @foundConcertHall.Name</p>
                     <p><strong>Адрес:</strong> @foundConcertHall.Address</p>
@@ -21,7 +19,7 @@
             </div>
                 <div class="concertsList">
                     <p><strong>Список концертов:</strong></p>
-                    @foreach (var concert in artistConcerts)
+                    @foreach (var concert in concertHallConcerts)
                     {
                         <p>Дата: @concert.Date    Описание: @concert.Description</p>
                     }
@@ -48,11 +46,12 @@
     public string Id { get; set; }
 
     protected ConcertHall foundConcertHall = new ConcertHall();
-    protected List<Concert> artistConcerts = new List<Concert>();
+    protected List<Concert> concertHallConcerts = new List<Concert>();
 
     protected override async Task OnInitializedAsync()
     {
         foundConcertHall = await ConcertHallRepository.GetConcertHallById(Convert.ToInt32(Id));
+        concertHallConcerts = await ConcertHallRepository.GetConcertsOfConcertHall(foundConcertHall);
     }
 
 }

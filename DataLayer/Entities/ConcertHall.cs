@@ -13,6 +13,7 @@ namespace DataLayer.Entities
         [Required]
         [MaxLength(50)]
         public string Address { get; set; }
+        public string Photo { get; set; }
         public List<Concert> Concerts { get; set; }
         public override string ToString()
         {

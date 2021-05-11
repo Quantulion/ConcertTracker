@@ -38,6 +38,13 @@ namespace BusinessLayer.Implementations
             return await _ctx.ConcertHalls.FirstOrDefaultAsync(c => c.Address == address);
         }
 
+        public async Task<List<Concert>> GetConcertsOfConcertHall(ConcertHall concertHall)
+        {
+            var full = _ctx.ConcertHalls.Include(c => c.Concerts);
+            var concerts = await full.FirstOrDefaultAsync(c => c.Id == concertHall.Id);
+            return concertHall.Concerts;
+        }
+
         public Task UpdateConcertHall(ConcertHall concertHall)
         {
             throw new NotImplementedException();
@@ -46,5 +53,6 @@ namespace BusinessLayer.Implementations
         {
             _ctx.Dispose();
         }
+
     }
 }
