@@ -22,7 +22,7 @@
                     @if (concerts != null)
                         foreach (var concert in concerts)
                         {
-                            <RadzenGoogleMapMarker Title="@concert.Id.ToString()" Label="@concert.Date.ToString()" Position="@concert.Position"></RadzenGoogleMapMarker>
+                            <RadzenGoogleMapMarker Title="@concert.Id.ToString()" Label="" Position="@concert.Position"></RadzenGoogleMapMarker>
                         }
                 </Markers>
             </RadzenGoogleMap>
@@ -31,7 +31,7 @@
             @if (isArtist && (concertArtists.Contains(artist) || concertArtists.Count == 0))
             {
                 <a class="hdr">Дата концерта:</a>
-                <InputDate class="myDate" id="date" @bind-Value="@newConcert.Date" />
+                <InputDate  class="myDate" id="date" @bind-Value="@newConcert.Date" />
                 if (newConcert.ConcertHall != null)
                 {
                     <a class="hdr">Концертная площадка:</a>
@@ -68,7 +68,7 @@
 </div>
 
 @code {
-    int zoom = 6;
+    int zoom = 15;
     string clickedPosition = "";
 
     private ICollection<ConcertHall> concertHalls;
@@ -76,7 +76,11 @@
     private bool isArtist;
     private List<Artist> concertArtists = new List<Artist>();
     Artist artist;
-    Concert newConcert = new Concert();
+    Concert newConcert = new Concert
+    {
+        Date = DateTime.Now
+    };
+
     GoogleMapPosition pos = new GoogleMapPosition() { Lat = 55.7491, Lng = 37.6258 };
 
     protected override async Task OnInitializedAsync()
@@ -90,6 +94,7 @@
 
         if (isArtist)
             artist = (Artist)user;
+
     }
 
     void OnMapClick(GoogleMapClickEventArgs args)
@@ -97,7 +102,10 @@
         clickedPosition = $"Map clicked LAT: {args.Position.Lat}, LNG: {args.Position.Lng}";
         pos.Lat = args.Position.Lat;
         pos.Lng = args.Position.Lng;
-        newConcert = new Concert();
+        newConcert = new Concert
+        {
+            Date = DateTime.Now
+        };
         concertArtists = new List<Artist>();
     }
 
@@ -143,6 +151,9 @@
         }
 
         pos = new GoogleMapPosition() { Lat = 55.7491, Lng = 37.6258 };
-        newConcert = new Concert();
+        newConcert = new Concert
+        {
+            Date = DateTime.Now
+        };
     }
 }

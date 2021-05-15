@@ -16,7 +16,7 @@
                     <p><strong>Имя:</strong> @foundUser.UserName</p>
                     <p><strong>Возраст:</strong> @foundUser.Age</p>
                     <p><strong>Описание:</strong> @foundUser.Description</p>
-                    @if (IsArtist())
+                    @if (isArtist)
                     {
                         <p>
                             <strong>Жанры:</strong> Рок, поп, мерсибит, рок-н-ролл,
@@ -25,7 +25,7 @@
                     }
                 </div>
             </div>
-            @if (IsArtist())
+            @if (isArtist)
             {
         <div class="concertsList">
             <p><strong>Список концертов:</strong></p>
@@ -58,20 +58,21 @@
 
     protected User foundUser = new User();
     protected List<Concert> artistConcerts = new List<Concert>();
+    public bool isArtist = false;   
 
     protected override async Task OnInitializedAsync()
     {
         foundUser = await UserRepositiory.GetUserById(Id);
-        if (IsArtist())
+        if (await IsArtist())
         {
-            artistConcerts = await ArtistRepository.GetConcertsOfArtist((Artist)foundUser);
+            var artist = (Artist)foundUser;
+            artistConcerts = await ArtistRepository.GetConcertsOfArtist(artist);
         }
     }
 
-    public bool IsArtist()
+    public async Task<bool> IsArtist()
     {
-        bool isArtist;
-        if (ArtistRepository.GetArtistById(Id) != null)
+        if (await ArtistRepository.GetArtistById(Id) != null)
             isArtist = true;
         else isArtist = false;
         return isArtist;

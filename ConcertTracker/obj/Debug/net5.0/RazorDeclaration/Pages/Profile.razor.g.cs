@@ -120,20 +120,21 @@ using DataLayer.Entities;
 
     protected User foundUser = new User();
     protected List<Concert> artistConcerts = new List<Concert>();
+    public bool isArtist = false;   
 
     protected override async Task OnInitializedAsync()
     {
         foundUser = await UserRepositiory.GetUserById(Id);
-        if (IsArtist())
+        if (await IsArtist())
         {
-            artistConcerts = await ArtistRepository.GetConcertsOfArtist((Artist)foundUser);
+            var artist = (Artist)foundUser;
+            artistConcerts = await ArtistRepository.GetConcertsOfArtist(artist);
         }
     }
 
-    public bool IsArtist()
+    public async Task<bool> IsArtist()
     {
-        bool isArtist;
-        if (ArtistRepository.GetArtistById(Id) != null)
+        if (await ArtistRepository.GetArtistById(Id) != null)
             isArtist = true;
         else isArtist = false;
         return isArtist;

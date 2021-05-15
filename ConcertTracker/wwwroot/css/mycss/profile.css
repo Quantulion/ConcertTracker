@@ -56,8 +56,8 @@
 }
 
 .profilePage .profileContainer .profileInfo .higherInfo Img {
-    width: 250px;
-    height: 300px;
+    width: 25%;
+    object-fit:cover;
 }
 
 .profilePage .profileContainer .profileInfo .higherInfo .profileLeftInfo p {

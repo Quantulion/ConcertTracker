@@ -119,7 +119,21 @@ using DataLayer;
 #nullable disable
 #nullable restore
 #line 7 "C:\ConcertTracker\ConcertTracker\Pages\ConcertHalls.razor"
-using BusinessLayer;
+using Microsoft.AspNetCore.Http;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 8 "C:\ConcertTracker\ConcertTracker\Pages\ConcertHalls.razor"
+using System.IO;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 9 "C:\ConcertTracker\ConcertTracker\Pages\ConcertHalls.razor"
+using BlazorInputFile;
 
 #line default
 #line hidden
@@ -133,10 +147,8 @@ using BusinessLayer;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 53 "C:\ConcertTracker\ConcertTracker\Pages\ConcertHalls.razor"
+#line 58 "C:\ConcertTracker\ConcertTracker\Pages\ConcertHalls.razor"
        
-    private DataManager DataManager;
-
     private ICollection<ConcertHall> concertHalls;
     ConcertHall newConcertHall = new ConcertHall();
     protected override async Task OnInitializedAsync()
@@ -148,8 +160,10 @@ using BusinessLayer;
 
         ConcertHall p = new ConcertHall
         {
+            Name = newConcertHall.Name,
             Address = newConcertHall.Address,
-            Description = newConcertHall.Description
+            Description = newConcertHall.Description,
+            Photo = newConcertHall.Photo
         };
 
         await ConcertHallRep.AddConcertHall(p);
@@ -158,12 +172,19 @@ using BusinessLayer;
 
         newConcertHall = new ConcertHall();
     }
+    async Task LoadFile(InputFileChangeEventArgs e)
+    {
+        PhotoManager.UploadImage((IFormFile)e.File);
+        newConcertHall.Photo = e.File.Name;
+    }
+
 
 #line default
 #line hidden
 #nullable disable
         [global::Microsoft.AspNetCore.Components.InjectAttribute] private IConcertHallRepository ConcertHallRep { get; set; }
         [global::Microsoft.AspNetCore.Components.InjectAttribute] private IDbContextFactory<ApplicationDbContext> ContextFactory { get; set; }
+        [global::Microsoft.AspNetCore.Components.InjectAttribute] private IPhotoManager PhotoManager { get; set; }
         [global::Microsoft.AspNetCore.Components.InjectAttribute] private NavigationManager Navigation { get; set; }
     }
 }

@@ -112,7 +112,7 @@ using DataLayer.Entities;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 44 "C:\ConcertTracker\ConcertTracker\Pages\Search.razor"
+#line 59 "C:\ConcertTracker\ConcertTracker\Pages\Search.razor"
        
 
     public class SearchModel
@@ -159,16 +159,16 @@ using DataLayer.Entities;
 
     public void incI()
     {
-        if (i < searchModel.list.Count() - 6)
-            i += 6;
+        if (i < searchModel.list.Count() - 3)
+            i += 3;
         else i = 0;
     }
 
     public void decI()
     {
-        if (i > 5)
-            i -= 6;
-        else i = (searchModel.list.Count() / 6) * 6;
+        if (i > 2)
+            i -= 3;
+        else i = (searchModel.list.Count() / 3) * 3;
     }
 
     protected override async Task OnInitializedAsync()

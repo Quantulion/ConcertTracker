@@ -15,11 +15,26 @@
             <button type="submit" class="btn btn-primary" style="width: 10%; height: 5%; font-size:20px;">Поиск</button>
 
             <div class="foundItems">
-                @for (int j = 0; j < 6; j++)
+                @for (int j = 0; j < 3; j++)
                 {
                     if (i + j < searchModel.list.Count)
                     {
-                        <div class="foundItem">@searchModel.list[i + j].ToString()</div>
+                        if (searchModel.list[i + j].GetType() == typeof(Artist))
+                        {
+                            Artist foundArtist = (Artist)searchModel.list[i + j];
+                            <a href="/user/@foundArtist.Id" class="foundItem">
+                                <img src="/uploads/@foundArtist.Photo" alt="Alternate Text" />
+                                @foundArtist.UserName
+                            </a>
+                        }
+                        else if (searchModel.list[i + j].GetType() == typeof(ConcertHall))
+                        {
+                            ConcertHall foundConcertHall = (ConcertHall)searchModel.list[i + j];
+                            <a href="/concerthall/@foundConcertHall.Id" class="foundItem">
+                                <img src="/uploads/@foundConcertHall.Photo" alt="Alternate Text" />
+                                @foundConcertHall.Name
+                            </a>
+                        }
                     }
                 }
             </div>
@@ -87,16 +102,16 @@
 
     public void incI()
     {
-        if (i < searchModel.list.Count() - 6)
-            i += 6;
+        if (i < searchModel.list.Count() - 3)
+            i += 3;
         else i = 0;
     }
 
     public void decI()
     {
-        if (i > 5)
-            i -= 6;
-        else i = (searchModel.list.Count() / 6) * 6;
+        if (i > 2)
+            i -= 3;
+        else i = (searchModel.list.Count() / 3) * 3;
     }
 
     protected override async Task OnInitializedAsync()

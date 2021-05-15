@@ -128,7 +128,7 @@ using Microsoft.AspNetCore.Identity;
 #nullable restore
 #line 70 "C:\ConcertTracker\ConcertTracker\Pages\Map.razor"
        
-    int zoom = 6;
+    int zoom = 15;
     string clickedPosition = "";
 
     private ICollection<ConcertHall> concertHalls;
@@ -136,7 +136,11 @@ using Microsoft.AspNetCore.Identity;
     private bool isArtist;
     private List<Artist> concertArtists = new List<Artist>();
     Artist artist;
-    Concert newConcert = new Concert();
+    Concert newConcert = new Concert
+    {
+        Date = DateTime.Now
+    };
+
     GoogleMapPosition pos = new GoogleMapPosition() { Lat = 55.7491, Lng = 37.6258 };
 
     protected override async Task OnInitializedAsync()
@@ -150,6 +154,7 @@ using Microsoft.AspNetCore.Identity;
 
         if (isArtist)
             artist = (Artist)user;
+
     }
 
     void OnMapClick(GoogleMapClickEventArgs args)
@@ -157,7 +162,10 @@ using Microsoft.AspNetCore.Identity;
         clickedPosition = $"Map clicked LAT: {args.Position.Lat}, LNG: {args.Position.Lng}";
         pos.Lat = args.Position.Lat;
         pos.Lng = args.Position.Lng;
-        newConcert = new Concert();
+        newConcert = new Concert
+        {
+            Date = DateTime.Now
+        };
         concertArtists = new List<Artist>();
     }
 
@@ -203,7 +211,10 @@ using Microsoft.AspNetCore.Identity;
         }
 
         pos = new GoogleMapPosition() { Lat = 55.7491, Lng = 37.6258 };
-        newConcert = new Concert();
+        newConcert = new Concert
+        {
+            Date = DateTime.Now
+        };
     }
 
 #line default
