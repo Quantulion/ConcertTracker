@@ -119,21 +119,28 @@ using DataLayer;
 #nullable disable
 #nullable restore
 #line 7 "C:\ConcertTracker\ConcertTracker\Pages\ConcertHalls.razor"
-using Microsoft.AspNetCore.Http;
-
-#line default
-#line hidden
-#nullable disable
-#nullable restore
-#line 8 "C:\ConcertTracker\ConcertTracker\Pages\ConcertHalls.razor"
 using System.IO;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
+#line 8 "C:\ConcertTracker\ConcertTracker\Pages\ConcertHalls.razor"
+using Microsoft.AspNetCore.Builder;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
 #line 9 "C:\ConcertTracker\ConcertTracker\Pages\ConcertHalls.razor"
-using BlazorInputFile;
+using Microsoft.AspNetCore.Hosting;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 10 "C:\ConcertTracker\ConcertTracker\Pages\ConcertHalls.razor"
+using Microsoft.AspNetCore.Http;
 
 #line default
 #line hidden
@@ -147,8 +154,9 @@ using BlazorInputFile;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 58 "C:\ConcertTracker\ConcertTracker\Pages\ConcertHalls.razor"
+#line 59 "C:\ConcertTracker\ConcertTracker\Pages\ConcertHalls.razor"
        
+
     private ICollection<ConcertHall> concertHalls;
     ConcertHall newConcertHall = new ConcertHall();
     protected override async Task OnInitializedAsync()
@@ -157,6 +165,8 @@ using BlazorInputFile;
     }
     private async Task InsertConcertHall()
     {
+
+        await GetFileAndSetPhoto();
 
         ConcertHall p = new ConcertHall
         {
@@ -172,10 +182,28 @@ using BlazorInputFile;
 
         newConcertHall = new ConcertHall();
     }
+
+    IReadOnlyList<IBrowserFile> selectedFiles;
+
     async Task LoadFile(InputFileChangeEventArgs e)
     {
-        PhotoManager.UploadImage((IFormFile)e.File);
-        newConcertHall.Photo = e.File.Name;
+        selectedFiles = e.GetMultipleFiles();
+        this.StateHasChanged();
+    }
+
+    private async Task GetFileAndSetPhoto()
+    {
+        foreach (var file in selectedFiles)
+        {
+            Stream stream = file.OpenReadStream();
+            var path = $"{env.WebRootPath}\\uploads\\{file.Name}";
+            newConcertHall.Photo = file.Name;
+            FileStream fs = File.Create(path);
+            await stream.CopyToAsync(fs);
+            stream.Close();
+            fs.Close();
+        }
+        this.StateHasChanged();
     }
 
 
@@ -185,7 +213,7 @@ using BlazorInputFile;
         [global::Microsoft.AspNetCore.Components.InjectAttribute] private IConcertHallRepository ConcertHallRep { get; set; }
         [global::Microsoft.AspNetCore.Components.InjectAttribute] private IDbContextFactory<ApplicationDbContext> ContextFactory { get; set; }
         [global::Microsoft.AspNetCore.Components.InjectAttribute] private IPhotoManager PhotoManager { get; set; }
-        [global::Microsoft.AspNetCore.Components.InjectAttribute] private NavigationManager Navigation { get; set; }
+        [global::Microsoft.AspNetCore.Components.InjectAttribute] private IWebHostEnvironment env { get; set; }
     }
 }
 #pragma warning restore 1591

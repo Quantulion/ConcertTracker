@@ -31,6 +31,14 @@
             justify-content: space-between;
         }
 
+            .searchPage .searchContainer .leftPart button {
+                background-color: black;
+                color: white;
+                border-radius: 1rem;
+                border-color: black;
+                height: 6% !important;
+            }
+
             .searchPage .searchContainer .leftPart .searchInput {
                 width: 30%;
                 height: 8%;
@@ -46,7 +54,7 @@
                 flex-direction: column;
                 -webkit-box-pack: justify;
                 -ms-flex-pack: justify;
-                width: 100%;
+                width: 90%;
                 height: 80%;
             }
 
@@ -55,28 +63,54 @@
                     display: flex;
                     border-radius: 2rem;
                     align-items: center;
-                    font-size: 28px;
-                    font-family: Roboto;
                     width: 100%;
-                    height: 30%;
-                    background-color: White;
+                    height: 28%;
                     border: 3px solid #000000;
                     padding-left: 2rem;
-                    box-sizing: border-box;
-                    color: #676767;
                 }
 
                     .searchPage .searchContainer .leftPart .foundItems .foundItem img {
                         width: 10%;
                     }
 
+                    .searchPage .searchContainer .leftPart .foundItems .foundItem .foundItemText {
+                        display: flex;
+                        flex-direction: column;
+                        margin-left: 2%;
+                    }
+
+                    .searchPage .searchContainer .leftPart .foundItems .foundItem .foundItemText p {
+                        font-size: 24px;
+                    }
+
+                        .searchPage .searchContainer .leftPart .foundItems .foundItem .foundItemText p#Name {
+                            font-size: 32px;
+                        }
+
         .searchPage .searchContainer .rightPart {
             position: -webkit-sticky;
             position: sticky;
-            bottom: 0;
-            right: 0;
             width: 20%;
             height: 80%;
+            display: flex;
+            flex-direction: column;
+            border: 3px solid #000000;
+        }
+
+        .searchPage .searchContainer .rightPart .hdr {
+            text-align: center;
+        }
+
+        .searchPage .searchContainer .rightPart .filterItem {
+            padding: 0.5rem;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+        }
+
+        .searchPage .searchContainer .rightPart .filterItem p {
+            margin-left: 2%;
+            font-size: 24px;
         }
 
     .searchPage .arrows {
@@ -90,4 +124,20 @@
             width: 40px;
             cursor: pointer;
         }
-/*# sourceMappingURL=asd.css.map */
+
+body:not(.rz-default-scrollbars) ::-webkit-scrollbar-thumb {
+    background: black;
+}
+
+.rz-dropdown-item.rz-state-highlight, .rz-state-highlight.rz-menuitem, .rz-state-highlight.rz-autocomplete-list-item, .rz-state-highlight.rz-multiselect-item, .rz-dropdown-items li.rz-state-highlight, .rz-autocomplete-items li.rz-state-highlight, .rz-multiselect-items li.rz-state-highlight {
+    background: white;
+}
+
+span {
+    font-family: Roboto;
+}
+
+.rz-chkbox-box.rz-state-active {
+    background-color: Black;
+}
+    /*# sourceMappingURL=asd.css.map */

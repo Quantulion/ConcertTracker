@@ -94,27 +94,26 @@
   margin-top: 5%;
 }
 
-.profilePage .profileContainer .profileComments .commentContent {
-  margin-top: 6%;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  width: 100%;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-}
+    .profilePage .profileContainer .profileComments .commentContent {
+        margin-top: 6%;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+        flex-direction: column;
+        width: 100%;
+        text-align: center;
+    }
 
 .profilePage .profileContainer .profileComments .commentContent p {
   font-size: 28px;
   margin-top: 3%;
+  text-align: center;
 }
 
-.profilePage .profileContainer .profileComments .commentContent .commentText {
-  padding-left: 6%;
-}
+    .profilePage .profileContainer .profileComments .commentContent .commentText {
+        text-align: center;
+    }
 /*# sourceMappingURL=asd.css.map */

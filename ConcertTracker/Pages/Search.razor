@@ -15,6 +15,8 @@
             <button type="submit" class="btn btn-primary" style="width: 10%; height: 5%; font-size:20px;">Поиск</button>
 
             <div class="foundItems">
+                <p style="opacity:0;">@searchModel.GetAllObjects();</p>
+
                 @for (int j = 0; j < 3; j++)
                 {
                     if (i + j < searchModel.list.Count)
@@ -24,15 +26,21 @@
                             Artist foundArtist = (Artist)searchModel.list[i + j];
                             <a href="/user/@foundArtist.Id" class="foundItem">
                                 <img src="/uploads/@foundArtist.Photo" alt="Alternate Text" />
-                                @foundArtist.UserName
+                                <div class="foundItemText">
+                                    <p id="Name">@foundArtist.UserName</p>
+                                    <p>Description: @foundArtist.Description</p>
+                                </div>
                             </a>
                         }
-                        else if (searchModel.list[i + j].GetType() == typeof(ConcertHall))
+                        if (searchModel.list[i + j].GetType() == typeof(ConcertHall))
                         {
                             ConcertHall foundConcertHall = (ConcertHall)searchModel.list[i + j];
                             <a href="/concerthall/@foundConcertHall.Id" class="foundItem">
                                 <img src="/uploads/@foundConcertHall.Photo" alt="Alternate Text" />
-                                @foundConcertHall.Name
+                                <div class="foundItemText">
+                                    <p id="Name">@foundConcertHall.Name</p>
+                                    <p>Description: @foundConcertHall.Description</p>
+                                </div>
                             </a>
                         }
                     }
@@ -40,14 +48,17 @@
             </div>
         </div>
         <div class="rightPart">
-            @*<InputRadioGroup @bind-Value="@currentGenre" Name="Genre">
-                @if (searchModel.genres != null)
-                    foreach (var genre in searchModel.genres)
-                    {
-                        <InputRadio Name="Genre" Value="@genre"></InputRadio>
-                    }
-            </InputRadioGroup>*@
-            
+            <p class="hdr">Filters:</p>
+            <div class="filterItem">
+                <InputCheckbox DisplayName="Concert Halls" @bind-Value="@searchModel.Filter.AddArtists"></InputCheckbox>
+                <p>Artists</p>
+            </div>
+            <div class="filterItem">
+                <InputCheckbox DisplayName="Concert Halls" @bind-Value="@searchModel.Filter.AddConcertHalls"></InputCheckbox>
+                <p>Concert Halls</p>
+            </div>
+            <RadzenListBox @bind-Value=@selectedGenres Multiple="true" Data=@searchModel.genres
+                           TextProperty="Name" ValueProperty="Name" Change="@OnChange" Style="height:100%" />
         </div>
     </div>
     <div class="arrows">
@@ -58,6 +69,8 @@
 
 @code {
 
+
+
     public class SearchModel
     {
         public string SearchText { get; set; }
@@ -66,25 +79,41 @@
 
         public ICollection<Genre> genres;
 
+        public ICollection<Genre> selectedGenres;
+
         public ICollection<Artist> artists;
+
+        public FilterModel Filter = new FilterModel();
 
         public List<object> list = new List<object>();
 
         public List<object> GetAllObjects()
         {
             List<object> x = new List<object>();
-            if(concertHalls != null)
+            if (concertHalls != null && Filter.AddConcertHalls)
                 x.AddRange(concertHalls);
-            if (artists != null)
+            if (artists != null && Filter.AddArtists)
                 x.AddRange(artists);
             list = x;
             return list;
         }
     }
 
+    public class FilterModel
+    {
+        public FilterModel()
+        {
+            AddArtists = true;
+            AddConcertHalls = true;
+        }
+        public bool AddArtists { get; set; }
+        public bool AddConcertHalls { get; set; }
+
+    }
+
     private SearchModel searchModel = new SearchModel();
 
-    private Genre currentGenre;
+    private IEnumerable<string> selectedGenres = new string[] { "Empty" };
 
     private int i = 0;
 
@@ -120,5 +149,23 @@
         searchModel.genres = await GenreRepository.GetAllGenres();
         searchModel.artists = await ArtistRepository.GetAllArtists();
         searchModel.GetAllObjects();
+
+        List<string> x = new List<string>();
+        foreach (var genre in await GenreRepository.GetAllGenres())
+        {
+            x.Add(genre.Name);
+        }
+        selectedGenres = (IEnumerable<string>)x;
+    }
+
+    private async Task OnChange()
+    {
+        List<Genre> genreList = new List<Genre>();
+        foreach (var genre in selectedGenres)
+        {
+            var x = await GenreRepository.GetGenreByName(genre);
+            genreList.Add(x);
+        }
+        searchModel.selectedGenres = genreList;
     }
 }

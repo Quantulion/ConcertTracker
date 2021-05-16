@@ -126,7 +126,7 @@ using Microsoft.AspNetCore.Identity;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 70 "C:\ConcertTracker\ConcertTracker\Pages\Map.razor"
+#line 72 "C:\ConcertTracker\ConcertTracker\Pages\Map.razor"
        
     int zoom = 15;
     string clickedPosition = "";
@@ -134,8 +134,10 @@ using Microsoft.AspNetCore.Identity;
     private ICollection<ConcertHall> concertHalls;
     private ICollection<Concert> concerts;
     private bool isArtist;
+    private bool isAdmin;
     private List<Artist> concertArtists = new List<Artist>();
     Artist artist;
+    Admin admin = new Admin();
     Concert newConcert = new Concert
     {
         Date = DateTime.Now
@@ -154,6 +156,11 @@ using Microsoft.AspNetCore.Identity;
 
         if (isArtist)
             artist = (Artist)user;
+
+        isAdmin = auser.IsInRole("Admin");
+
+        if (isAdmin)
+            admin = (Admin)user;
 
     }
 
@@ -225,6 +232,7 @@ using Microsoft.AspNetCore.Identity;
         [global::Microsoft.AspNetCore.Components.InjectAttribute] private IConcertHallRepository ConcertHallRep { get; set; }
         [global::Microsoft.AspNetCore.Components.InjectAttribute] private IConcertRepository ConcertRepository { get; set; }
         [global::Microsoft.AspNetCore.Components.InjectAttribute] private UserManager<User> userManager { get; set; }
+        [global::Microsoft.AspNetCore.Components.InjectAttribute] private RoleManager<IdentityRole> roleManager { get; set; }
     }
 }
 #pragma warning restore 1591

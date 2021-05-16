@@ -112,8 +112,10 @@ using DataLayer.Entities;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 59 "C:\ConcertTracker\ConcertTracker\Pages\Search.razor"
+#line 70 "C:\ConcertTracker\ConcertTracker\Pages\Search.razor"
        
+
+
 
     public class SearchModel
     {
@@ -123,25 +125,41 @@ using DataLayer.Entities;
 
         public ICollection<Genre> genres;
 
+        public ICollection<Genre> selectedGenres;
+
         public ICollection<Artist> artists;
+
+        public FilterModel Filter = new FilterModel();
 
         public List<object> list = new List<object>();
 
         public List<object> GetAllObjects()
         {
             List<object> x = new List<object>();
-            if(concertHalls != null)
+            if (concertHalls != null && Filter.AddConcertHalls)
                 x.AddRange(concertHalls);
-            if (artists != null)
+            if (artists != null && Filter.AddArtists)
                 x.AddRange(artists);
             list = x;
             return list;
         }
     }
 
+    public class FilterModel
+    {
+        public FilterModel()
+        {
+            AddArtists = true;
+            AddConcertHalls = true;
+        }
+        public bool AddArtists { get; set; }
+        public bool AddConcertHalls { get; set; }
+
+    }
+
     private SearchModel searchModel = new SearchModel();
 
-    private Genre currentGenre;
+    private IEnumerable<string> selectedGenres = new string[] { "Empty" };
 
     private int i = 0;
 
@@ -177,6 +195,24 @@ using DataLayer.Entities;
         searchModel.genres = await GenreRepository.GetAllGenres();
         searchModel.artists = await ArtistRepository.GetAllArtists();
         searchModel.GetAllObjects();
+
+        List<string> x = new List<string>();
+        foreach (var genre in await GenreRepository.GetAllGenres())
+        {
+            x.Add(genre.Name);
+        }
+        selectedGenres = (IEnumerable<string>)x;
+    }
+
+    private async Task OnChange()
+    {
+        List<Genre> genreList = new List<Genre>();
+        foreach (var genre in selectedGenres)
+        {
+            var x = await GenreRepository.GetGenreByName(genre);
+            genreList.Add(x);
+        }
+        searchModel.selectedGenres = genreList;
     }
 
 #line default

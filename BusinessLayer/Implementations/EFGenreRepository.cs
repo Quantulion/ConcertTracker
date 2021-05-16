@@ -27,9 +27,9 @@ namespace BusinessLayer.Implementations
             return await _ctx.Genres.ToListAsync();
         }
 
-        public Task<Genre> GetGenreById(int Id)
+        public async Task<Genre> GetGenreByName(string name)
         {
-            throw new NotImplementedException();
+            return await _ctx.Genres.FirstOrDefaultAsync(g => g.Name == name);
         }
 
         public Task UpdateGenre(Genre genre)

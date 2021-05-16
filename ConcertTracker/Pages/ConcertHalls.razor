@@ -4,10 +4,12 @@
 @using BusinessLayer.Interfaces
 @using DataLayer.Entities
 @using DataLayer
-@using Microsoft.AspNetCore.Http
 @using System.IO
+@using Microsoft.AspNetCore.Builder;
+@using Microsoft.AspNetCore.Hosting;
+@using Microsoft.AspNetCore.Http;
 
-@inject NavigationManager Navigation
+@inject IWebHostEnvironment env
 @inject IPhotoManager PhotoManager
 @inject IDbContextFactory<ApplicationDbContext> ContextFactory
 @inject IConcertHallRepository ConcertHallRep
@@ -55,6 +57,7 @@ else
 }
 
 @code {
+
     private ICollection<ConcertHall> concertHalls;
     ConcertHall newConcertHall = new ConcertHall();
     protected override async Task OnInitializedAsync()
@@ -63,6 +66,8 @@ else
     }
     private async Task InsertConcertHall()
     {
+
+        await GetFileAndSetPhoto();
 
         ConcertHall p = new ConcertHall
         {
@@ -78,10 +83,28 @@ else
 
         newConcertHall = new ConcertHall();
     }
-    async Task LoadFile(IFormFile e)
+
+    IReadOnlyList<IBrowserFile> selectedFiles;
+
+    async Task LoadFile(InputFileChangeEventArgs e)
     {
-        PhotoManager.UploadImage(e);
-        newConcertHall.Photo = e.File.Name;
+        selectedFiles = e.GetMultipleFiles();
+        this.StateHasChanged();
+    }
+
+    private async Task GetFileAndSetPhoto()
+    {
+        foreach (var file in selectedFiles)
+        {
+            Stream stream = file.OpenReadStream();
+            var path = $"{env.WebRootPath}\\uploads\\{file.Name}";
+            newConcertHall.Photo = file.Name;
+            FileStream fs = File.Create(path);
+            await stream.CopyToAsync(fs);
+            stream.Close();
+            fs.Close();
+        }
+        this.StateHasChanged();
     }
 
 }

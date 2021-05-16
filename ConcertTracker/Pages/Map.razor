@@ -6,6 +6,8 @@
 @using Microsoft.AspNetCore.Components.Authorization
 @using Microsoft.AspNetCore.Identity;
 
+
+@inject RoleManager<IdentityRole> roleManager
 @inject UserManager<User> userManager
 @inject IConcertRepository ConcertRepository
 @inject IConcertHallRepository ConcertHallRep
@@ -28,7 +30,7 @@
             </RadzenGoogleMap>
         </div>
         <EditForm Model="@newConcert" OnValidSubmit="@InsertConcert" class="concertInfo">
-            @if (isArtist && (concertArtists.Contains(artist) || concertArtists.Count == 0))
+            @if (isArtist && (concertArtists.Contains(artist) || concertArtists.Count == 0) || admin.Id != null)
             {
                 <a class="hdr">Дата концерта:</a>
                 <InputDate  class="myDate" id="date" @bind-Value="@newConcert.Date" />
@@ -74,8 +76,10 @@
     private ICollection<ConcertHall> concertHalls;
     private ICollection<Concert> concerts;
     private bool isArtist;
+    private bool isAdmin;
     private List<Artist> concertArtists = new List<Artist>();
     Artist artist;
+    Admin admin = new Admin();
     Concert newConcert = new Concert
     {
         Date = DateTime.Now
@@ -94,6 +98,11 @@
 
         if (isArtist)
             artist = (Artist)user;
+
+        isAdmin = auser.IsInRole("Admin");
+
+        if (isAdmin)
+            admin = (Admin)user;
 
     }
 
