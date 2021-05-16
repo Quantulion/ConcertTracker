@@ -53,6 +53,12 @@ namespace BusinessLayer.Implementations
             var artists = await full.FirstOrDefaultAsync(c => c.Id == concert.Id);
             return artists.Artists;
         }
+        public async Task<List<Comment>> GetCommentsOfConcert(Concert concert)
+        {
+            var full = _ctx.Concerts.Include(c => c.Comments);
+            var comments = await full.FirstOrDefaultAsync(c => c.Id == concert.Id);
+            return comments.Comments;
+        }
         public async Task UpdateConcert(Concert concert)
         {
             _ctx.Concerts.Update(concert);

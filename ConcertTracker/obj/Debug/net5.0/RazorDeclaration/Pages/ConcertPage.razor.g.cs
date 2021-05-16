@@ -27,13 +27,6 @@ using Microsoft.AspNetCore.Authorization;
 #line hidden
 #nullable disable
 #nullable restore
-#line 3 "C:\ConcertTracker\ConcertTracker\_Imports.razor"
-using Microsoft.AspNetCore.Components.Authorization;
-
-#line default
-#line hidden
-#nullable disable
-#nullable restore
 #line 4 "C:\ConcertTracker\ConcertTracker\_Imports.razor"
 using Microsoft.AspNetCore.Components.Forms;
 
@@ -103,6 +96,20 @@ using DataLayer.Entities;
 #line default
 #line hidden
 #nullable disable
+#nullable restore
+#line 5 "C:\ConcertTracker\ConcertTracker\Pages\ConcertPage.razor"
+using Microsoft.AspNetCore.Components.Authorization;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 6 "C:\ConcertTracker\ConcertTracker\Pages\ConcertPage.razor"
+using Microsoft.AspNetCore.Identity;
+
+#line default
+#line hidden
+#nullable disable
     [Microsoft.AspNetCore.Components.RouteAttribute("/concert/{Id}")]
     public partial class ConcertPage : Microsoft.AspNetCore.Components.ComponentBase
     {
@@ -112,18 +119,26 @@ using DataLayer.Entities;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 41 "C:\ConcertTracker\ConcertTracker\Pages\ConcertPage.razor"
+#line 67 "C:\ConcertTracker\ConcertTracker\Pages\ConcertPage.razor"
        
     [Parameter]
     public string Id { get; set; }
 
-    protected Concert foundConcert = new Concert();
-    protected List<Artist> concertArtists = new List<Artist>();
+    private Concert foundConcert = new Concert();
+    private List<Artist> concertArtists = new List<Artist>();
+    private List<Comment> concertComments = new List<Comment>();
+    private User currentUser = new User();
+    private Comment newComment = new Comment();
 
     protected override async Task OnInitializedAsync()
     {
         foundConcert = await ConcertRepository.GetConcertById(Convert.ToInt32(Id));
         concertArtists = await ConcertRepository.GetArtistsOfConcert(foundConcert);
+
+        var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        currentUser = await userManager.GetUserAsync(authState.User);
+
+        await GetAllComments();
     }
 
     private async Task DeleteConcert()
@@ -132,11 +147,28 @@ using DataLayer.Entities;
         NavigationManager.NavigateTo("map");
     }
 
+    private async Task AddComment()
+    {
+        newComment.PublishTime = DateTime.Now;
+        await CommentRepository.AddComment(newComment, currentUser, foundConcert);
+    }
+
+    private async Task<List<Comment>> GetAllComments()
+    {
+        concertComments = await ConcertRepository.GetCommentsOfConcert(foundConcert);
+        return concertComments;
+    }
+
 #line default
 #line hidden
 #nullable disable
         [global::Microsoft.AspNetCore.Components.InjectAttribute] private IConcertRepository ConcertRepository { get; set; }
         [global::Microsoft.AspNetCore.Components.InjectAttribute] private NavigationManager NavigationManager { get; set; }
+        [global::Microsoft.AspNetCore.Components.InjectAttribute] private IUserRepository UserRepository { get; set; }
+        [global::Microsoft.AspNetCore.Components.InjectAttribute] private AuthenticationStateProvider AuthenticationStateProvider { get; set; }
+        [global::Microsoft.AspNetCore.Components.InjectAttribute] private UserManager<User> userManager { get; set; }
+        [global::Microsoft.AspNetCore.Components.InjectAttribute] private RoleManager<IdentityRole> roleManager { get; set; }
+        [global::Microsoft.AspNetCore.Components.InjectAttribute] private ICommentRepository CommentRepository { get; set; }
     }
 }
 #pragma warning restore 1591

@@ -2,58 +2,104 @@
 
 @using BusinessLayer.Interfaces
 @using DataLayer.Entities
+@using Microsoft.AspNetCore.Components.Authorization
+@using Microsoft.AspNetCore.Identity;
 
+@inject ICommentRepository CommentRepository
+@inject RoleManager<IdentityRole> roleManager
+@inject UserManager<User> userManager
+@inject AuthenticationStateProvider AuthenticationStateProvider
+@inject IUserRepository UserRepository
 @inject NavigationManager NavigationManager
 @inject IConcertRepository ConcertRepository
 
-<a href="" class="mainText">ConcertTracker</a>
-<img src="Images/manhattan-1674404_1920 1.png"
-     alt=""
-     class="concertImage" />
-<div class="concertContainer">
-    <div class="concertItem">
-        <p class="hdr">Концертная площадка:</p>
-        @if (foundConcert.ConcertHall != null)
-        {
-            <a href="/concerthall/@foundConcert.ConcertHall.Id">@foundConcert.ConcertHall.Name</a>
-        }
+<div class="concertPage">
+    <a href="" class="mainText">ConcertTracker</a>
+    <img src="Images/manhattan-1674404_1920 1.png"
+         alt=""
+         class="concertImage" />
+    <div class="concertContainer">
+        <div class="concertItem">
+            <p class="hdr">Концертная площадка:</p>
+            @if (foundConcert.ConcertHall != null)
+            {
+                <a href="/concerthall/@foundConcert.ConcertHall.Id">@foundConcert.ConcertHall.Name</a>
+            }
+        </div>
+        <div class="concertItem">
+            <p class="hdr">Описание:</p>
+            <p>
+                @foundConcert.Description
+            </p>
+        </div>
+        <div class="concertItem">
+            <p class="hdr">Дата:</p>
+            <p>@foundConcert.Date</p>
+        </div>
+        <div class="concertItem">
+            <p class="hdr">Артисты:</p>
+            @foreach (var artist in concertArtists)
+            {
+                <a href="/user/@artist.Id">@artist.UserName</a>
+            }
+        </div>
+        <AuthorizeView Roles="Admin"><button @onclick="DeleteConcert">Delete</button></AuthorizeView>
     </div>
-    <div class="concertItem">
-        <p class="hdr">Описание:</p>
-        <p>
-            @foundConcert.Description
-        </p>
-    </div>
-    <div class="concertItem">
-        <p class="hdr">Дата:</p>
-        <p>@foundConcert.Date</p>
-    </div>
-    <div class="concertItem">
-        <p class="hdr">Артисты:</p>
-        @foreach (var artist in concertArtists)
-        {
-            <a href="/user/@artist.Id">@artist.UserName</a>
-        }
-    </div>
-<AuthorizeView Roles="Admin"><button @onclick="DeleteConcert">Delete</button></AuthorizeView>
 </div>
+
+<EditForm Model="@newComment" OnValidSubmit="@AddComment" class="commentSection">
+    <p class="hdr">Comments:</p>
+    <div class="commentInput">
+        <InputTextArea @bind-Value="@newComment.Content"></InputTextArea>
+        <button type="submit">Publish</button>
+    </div>
+    @foreach (var comment in concertComments)
+    {
+        <div class="comment">
+            <img src="/uploads/@comment.User.Photo" alt="">
+            <p>@comment.User.UserName</p>
+            <p>@comment.Content</p>
+            <p>@comment.PublishTime</p>
+        </div>
+    }
+</EditForm>
 
 @code {
     [Parameter]
     public string Id { get; set; }
 
-    protected Concert foundConcert = new Concert();
-    protected List<Artist> concertArtists = new List<Artist>();
+    private Concert foundConcert = new Concert();
+    private List<Artist> concertArtists = new List<Artist>();
+    private List<Comment> concertComments = new List<Comment>();
+    private User currentUser = new User();
+    private Comment newComment = new Comment();
 
     protected override async Task OnInitializedAsync()
     {
         foundConcert = await ConcertRepository.GetConcertById(Convert.ToInt32(Id));
         concertArtists = await ConcertRepository.GetArtistsOfConcert(foundConcert);
+
+        var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        currentUser = await userManager.GetUserAsync(authState.User);
+
+        await GetAllComments();
     }
 
     private async Task DeleteConcert()
     {
         await ConcertRepository.DeleteConcert(foundConcert);
         NavigationManager.NavigateTo("map");
+    }
+
+    private async Task AddComment()
+    {
+        newComment.PublishTime = DateTime.Now;
+        await CommentRepository.AddComment(newComment, currentUser, foundConcert);
+    }
+
+    private async Task<List<Comment>> GetAllComments()
+    {
+        concertComments = await ConcertRepository.GetCommentsOfConcert(foundConcert);
+        return concertComments;
     }
 }

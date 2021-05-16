@@ -8,6 +8,10 @@
     height: 100vh;
 }
 
+.concertPage {
+    height: 100vh;
+}
+
 .concertContainer {
     position: absolute;
     left: 6.5%;

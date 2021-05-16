@@ -20,8 +20,16 @@ namespace BusinessLayer.Implementations
         {
             return await _ctx.Comments.FirstOrDefaultAsync(f => f.Id == id);
         }
-        public async Task<Comment> AddComment(Comment comment)
+        public Task<User> GetAuthor(Comment comment)
         {
+            throw new NotImplementedException();
+        }
+        public async Task<Comment> AddComment(Comment comment, User user, Concert concert)
+        {
+            comment.User = user;
+            comment.UserId = user.Id;
+            comment.Concert = concert;
+            comment.ConcertId = concert.Id;
             _ctx.Comments.Add(comment);
             await _ctx.SaveChangesAsync();
             return comment;

@@ -9,7 +9,8 @@ namespace BusinessLayer.Interfaces
     public interface ICommentRepository : IDisposable
     {
         Task<Comment> GetCommentById(int Id);
-        Task<Comment> AddComment(Comment comment);
+        Task<User> GetAuthor(Comment comment);
+        Task<Comment> AddComment(Comment comment, User user, Concert concert);
         Task UpdateComment(Comment comment);
         Task DeleteComment(Comment comment);
     }
