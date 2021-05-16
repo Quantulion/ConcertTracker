@@ -31,12 +31,17 @@
             justify-content: space-between;
         }
 
-            .searchPage .searchContainer .leftPart button {
+            button {
                 background-color: black;
                 color: white;
                 border-radius: 1rem;
                 border-color: black;
-                height: 6% !important;
+                height: 2rem !important;
+                cursor: pointer;
+                font-size: 20px;
+                text-align: center;
+                padding: 1px 6px;
+                width: 10rem;
             }
 
             .searchPage .searchContainer .leftPart .searchInput {

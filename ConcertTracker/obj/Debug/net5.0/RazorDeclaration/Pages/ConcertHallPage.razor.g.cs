@@ -112,7 +112,7 @@ using DataLayer.Entities;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 43 "C:\ConcertTracker\ConcertTracker\Pages\ConcertHallPage.razor"
+#line 46 "C:\ConcertTracker\ConcertTracker\Pages\ConcertHallPage.razor"
        
 
     [Parameter]
@@ -127,11 +127,18 @@ using DataLayer.Entities;
         concertHallConcerts = await ConcertHallRepository.GetConcertsOfConcertHall(foundConcertHall);
     }
 
+    private async Task DeleteConcertHall()
+    {
+        await ConcertHallRepository.DeleteConcertHall(foundConcertHall);
+        NavigationManager.NavigateTo("map");
+    }
+
 
 #line default
 #line hidden
 #nullable disable
         [global::Microsoft.AspNetCore.Components.InjectAttribute] private IConcertHallRepository ConcertHallRepository { get; set; }
+        [global::Microsoft.AspNetCore.Components.InjectAttribute] private NavigationManager NavigationManager { get; set; }
     }
 }
 #pragma warning restore 1591

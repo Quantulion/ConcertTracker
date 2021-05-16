@@ -1,8 +1,6 @@
-using ConcertTracker.Data;
 using BusinessLayer.Implementations;
 using BusinessLayer.Interfaces;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Identity.UI;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -36,7 +34,6 @@ namespace ConcertTracker
             services.AddDbContext<ApplicationDbContext>(opt => opt.UseSqlServer(cs));
             services.AddServerSideBlazor();
 
-            services.AddSingleton<WeatherForecastService>();
             services.AddTransient<IAdminRepository, EFAdminRepository>();
             services.AddTransient<IArtistRepository, EFArtistRepository>();
             services.AddTransient<IUserRepository, EFUserRepository>();

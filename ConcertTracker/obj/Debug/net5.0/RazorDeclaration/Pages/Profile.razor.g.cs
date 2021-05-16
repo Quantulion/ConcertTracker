@@ -112,7 +112,7 @@ using DataLayer.Entities;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 54 "C:\ConcertTracker\ConcertTracker\Pages\Profile.razor"
+#line 57 "C:\ConcertTracker\ConcertTracker\Pages\Profile.razor"
        
 
     [Parameter]
@@ -120,7 +120,7 @@ using DataLayer.Entities;
 
     protected User foundUser = new User();
     protected List<Concert> artistConcerts = new List<Concert>();
-    public bool isArtist = false;   
+    public bool isArtist = false;
 
     protected override async Task OnInitializedAsync()
     {
@@ -140,11 +140,18 @@ using DataLayer.Entities;
         return isArtist;
     }
 
+    private async Task DeleteUser()
+    {
+        await UserRepositiory.DeleteUser(foundUser);
+        NavigationManager.NavigateTo("map");
+    }
+
 #line default
 #line hidden
 #nullable disable
         [global::Microsoft.AspNetCore.Components.InjectAttribute] private IArtistRepository ArtistRepository { get; set; }
         [global::Microsoft.AspNetCore.Components.InjectAttribute] private IUserRepository UserRepositiory { get; set; }
+        [global::Microsoft.AspNetCore.Components.InjectAttribute] private NavigationManager NavigationManager { get; set; }
     }
 }
 #pragma warning restore 1591

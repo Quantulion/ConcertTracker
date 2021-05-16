@@ -3,9 +3,10 @@
 @using BusinessLayer.Interfaces
 @using DataLayer.Entities
 
+@inject NavigationManager NavigationManager
 @inject IConcertRepository ConcertRepository
 
-    <a href="" class="mainText">ConcertTracker</a>
+<a href="" class="mainText">ConcertTracker</a>
 <img src="Images/manhattan-1674404_1920 1.png"
      alt=""
      class="concertImage" />
@@ -34,6 +35,7 @@
             <a href="/user/@artist.Id">@artist.UserName</a>
         }
     </div>
+<AuthorizeView Roles="Admin"><button @onclick="DeleteConcert">Delete</button></AuthorizeView>
 </div>
 
 @code {
@@ -47,5 +49,11 @@
     {
         foundConcert = await ConcertRepository.GetConcertById(Convert.ToInt32(Id));
         concertArtists = await ConcertRepository.GetArtistsOfConcert(foundConcert);
+    }
+
+    private async Task DeleteConcert()
+    {
+        await ConcertRepository.DeleteConcert(foundConcert);
+        NavigationManager.NavigateTo("map");
     }
 }

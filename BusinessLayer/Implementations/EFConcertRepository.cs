@@ -58,6 +58,11 @@ namespace BusinessLayer.Implementations
             _ctx.Concerts.Update(concert);
             await _ctx.SaveChangesAsync();
         }
+        public async Task DeleteConcert(Concert concert)
+        {
+            _ctx.Concerts.Remove(concert);
+            await _ctx.SaveChangesAsync();
+        }
         public void Dispose()
         {
             _ctx.Dispose();

@@ -12,5 +12,6 @@ namespace BusinessLayer.Interfaces
         Task<User> GetUserById(string Id);
         Task<User> AddUser(User user);
         Task UpdateUser(User user);
+        Task DeleteUser(User user);
     }
 }

@@ -49,6 +49,11 @@ namespace BusinessLayer.Implementations
         {
             throw new NotImplementedException();
         }
+        public async Task DeleteConcertHall(ConcertHall concertHall)
+        {
+            _ctx.ConcertHalls.Remove(concertHall);
+            await _ctx.SaveChangesAsync();
+        }
         public void Dispose()
         {
             _ctx.Dispose();

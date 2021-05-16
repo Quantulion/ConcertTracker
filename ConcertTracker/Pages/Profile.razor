@@ -3,6 +3,7 @@
 @using BusinessLayer.Interfaces
 @using DataLayer.Entities
 
+@inject NavigationManager NavigationManager
 @inject IUserRepository UserRepositiory
 @inject IArtistRepository ArtistRepository
 
@@ -35,6 +36,7 @@
             }
         </div>
             }
+    <AuthorizeView Roles="Admin"><button @onclick="DeleteUser">Delete</button></AuthorizeView>
         </div>
         <div class="profileComments">
             <p id="1" class="hdr">Последний комментарий:</p>
@@ -49,6 +51,7 @@
             </div>
         </div>
     </div>
+    
 </div>
 
 @code {
@@ -58,7 +61,7 @@
 
     protected User foundUser = new User();
     protected List<Concert> artistConcerts = new List<Concert>();
-    public bool isArtist = false;   
+    public bool isArtist = false;
 
     protected override async Task OnInitializedAsync()
     {
@@ -76,5 +79,11 @@
             isArtist = true;
         else isArtist = false;
         return isArtist;
+    }
+
+    private async Task DeleteUser()
+    {
+        await UserRepositiory.DeleteUser(foundUser);
+        NavigationManager.NavigateTo("map");
     }
 }

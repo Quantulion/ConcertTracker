@@ -15,5 +15,6 @@ namespace BusinessLayer.Interfaces
         Task<Concert> AddArtistToConcert(Artist artist, Concert concert);
         Task<List<Artist>> GetArtistsOfConcert(Concert concert);
         Task UpdateConcert(Concert concert);
+        Task DeleteConcert(Concert concert);
     }
 }

@@ -30,6 +30,11 @@ namespace BusinessLayer.Implementations
         {
             throw new NotImplementedException();
         }
+        public async Task DeleteComment(Comment comment)
+        {
+            _ctx.Comments.Remove(comment);
+            await _ctx.SaveChangesAsync();
+        }
 
         public void Dispose()
         {

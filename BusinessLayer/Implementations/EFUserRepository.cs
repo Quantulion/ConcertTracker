@@ -34,9 +34,15 @@ namespace BusinessLayer.Implementations
         {
             throw new NotImplementedException();
         }
+        public async Task DeleteUser(User user)
+        {
+            _ctx.Users.Remove(user);
+            await _ctx.SaveChangesAsync();
+        }
         public void Dispose()
         {
             _ctx.Dispose();
         }
+
     }
 }

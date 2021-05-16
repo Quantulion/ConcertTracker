@@ -126,21 +126,7 @@ using System.IO;
 #nullable disable
 #nullable restore
 #line 8 "C:\ConcertTracker\ConcertTracker\Pages\ConcertHalls.razor"
-using Microsoft.AspNetCore.Builder;
-
-#line default
-#line hidden
-#nullable disable
-#nullable restore
-#line 9 "C:\ConcertTracker\ConcertTracker\Pages\ConcertHalls.razor"
 using Microsoft.AspNetCore.Hosting;
-
-#line default
-#line hidden
-#nullable disable
-#nullable restore
-#line 10 "C:\ConcertTracker\ConcertTracker\Pages\ConcertHalls.razor"
-using Microsoft.AspNetCore.Http;
 
 #line default
 #line hidden
@@ -154,7 +140,7 @@ using Microsoft.AspNetCore.Http;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 59 "C:\ConcertTracker\ConcertTracker\Pages\ConcertHalls.razor"
+#line 57 "C:\ConcertTracker\ConcertTracker\Pages\ConcertHalls.razor"
        
 
     private ICollection<ConcertHall> concertHalls;

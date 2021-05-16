@@ -11,5 +11,6 @@ namespace BusinessLayer.Interfaces
         Task<Comment> GetCommentById(int Id);
         Task<Comment> AddComment(Comment comment);
         Task UpdateComment(Comment comment);
+        Task DeleteComment(Comment comment);
     }
 }

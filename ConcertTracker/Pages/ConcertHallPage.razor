@@ -3,6 +3,7 @@
 @using BusinessLayer.Interfaces
 @using DataLayer.Entities
 
+@inject NavigationManager NavigationManager
 @inject IConcertHallRepository ConcertHallRepository
 
 <div class="profilePage">
@@ -17,13 +18,14 @@
                     <p><strong>Описание:</strong> @foundConcertHall.Description</p>
                 </div>
             </div>
-                <div class="concertsList">
-                    <p><strong>Список концертов:</strong></p>
-                    @foreach (var concert in concertHallConcerts)
-                    {
-                        <a href="/concert/@concert.Id">Дата: @concert.Date    Описание: @concert.Description</a>
-                    }
-                </div>
+            <div class="concertsList">
+                <p><strong>Список концертов:</strong></p>
+                @foreach (var concert in concertHallConcerts)
+                {
+                    <a href="/concert/@concert.Id">Дата: @concert.Date    Описание: @concert.Description</a>
+                }
+            </div>
+<AuthorizeView Roles="Admin"><button @onclick="DeleteConcertHall">Delete</button></AuthorizeView>
         </div>
         <div class="profileComments">
             <p id="1" class="hdr">Последний комментарий:</p>
@@ -40,6 +42,7 @@
     </div>
 </div>
 
+
 @code {
 
     [Parameter]
@@ -52,6 +55,12 @@
     {
         foundConcertHall = await ConcertHallRepository.GetConcertHallById(Convert.ToInt32(Id));
         concertHallConcerts = await ConcertHallRepository.GetConcertsOfConcertHall(foundConcertHall);
+    }
+
+    private async Task DeleteConcertHall()
+    {
+        await ConcertHallRepository.DeleteConcertHall(foundConcertHall);
+        NavigationManager.NavigateTo("map");
     }
 
 }
