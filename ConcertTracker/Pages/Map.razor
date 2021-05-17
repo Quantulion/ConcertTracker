@@ -22,10 +22,12 @@
                 <Markers>
                     <RadzenGoogleMapMarker Title="User" Label="Current Marker" Position="@(new GoogleMapPosition() { Lat = pos.Lat, Lng = pos.Lng })"></RadzenGoogleMapMarker>
                     @if (concerts != null)
+                    {
                         foreach (var concert in concerts)
                         {
                             <RadzenGoogleMapMarker Title="@concert.Id.ToString()" Label="" Position="@concert.Position"></RadzenGoogleMapMarker>
                         }
+                    }
                 </Markers>
             </RadzenGoogleMap>
         </div>
@@ -93,8 +95,8 @@
 
     protected override async Task OnInitializedAsync()
     {
-        concertHalls = await ConcertHallRep.GetAllConcertHalls();
-        concerts = await ConcertRepository.GetAllConcerts();
+        concertHalls = await ConcertHallRep.GetAllConcertHallsAsync();
+        concerts = await ConcertRepository.GetAllConcertsAsync();
         var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
         var auser = authState.User;
         var user = await userManager.GetUserAsync(auser);
@@ -125,17 +127,17 @@
     private async Task OnMarkerClick(RadzenGoogleMapMarker args)
     {
         clickedPosition = $"Map {args.Title} clicked LAT: {args.Position.Lat}, LNG: {args.Position.Lng}";
-        var foundConcert = await ConcertRepository.GetConcertById(Convert.ToInt32(args.Title));
+        var foundConcert = await ConcertRepository.GetConcertByIdAsync(Convert.ToInt32(args.Title));
         newConcert = foundConcert;
-        concertArtists = await ConcertRepository.GetArtistsOfConcert(foundConcert);
+        concertArtists = await ConcertRepository.GetArtistsOfConcertAsync(foundConcert);
         pos.Lat = foundConcert.Position.Lat;
         pos.Lng = foundConcert.Position.Lng;
     }
 
     private async Task InsertConcert()
     {
-        var concertHall = await ConcertHallRep.GetConcertHallByAddress("Street Concert");
-        var conc = await ConcertRepository.GetConcertByPosition(pos);
+        var concertHall = await ConcertHallRep.GetConcertHallByAddressAsync("Street Concert");
+        var conc = await ConcertRepository.GetConcertByPositionAsync(pos);
 
         newConcert.Position = pos;
 
@@ -151,14 +153,14 @@
 
         if (conc != null)
         {
-            await ConcertRepository.UpdateConcert(conc);
+            await ConcertRepository.UpdateConcertAsync(conc);
         }
 
         else
         {
             concert.Artists.Add(artist);
 
-            await ConcertRepository.AddConcert(concert);
+            await ConcertRepository.AddConcertAsync(concert);
 
             concerts.Add(concert);
         }

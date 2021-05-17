@@ -17,39 +17,40 @@ namespace BusinessLayer.Implementations
         {
             _ctx = ctx;
         }
-        public async Task<ConcertHall> AddConcertHall(ConcertHall concertHall)
+        public async Task<ConcertHall> AddConcertHallAsync(ConcertHall concertHall)
         {
             _ctx.ConcertHalls.Add(concertHall);
             await _ctx.SaveChangesAsync();
             return concertHall;
         }
 
-        public async Task<ICollection<ConcertHall>> GetAllConcertHalls()
+        public async Task<ICollection<ConcertHall>> GetAllConcertHallsAsync()
         {
             return await _ctx.ConcertHalls.ToListAsync();
         }
 
-        public async Task<ConcertHall> GetConcertHallById(int Id)
+        public async Task<ConcertHall> GetConcertHallByIdAsync(int Id)
         {
             return await _ctx.ConcertHalls.FirstOrDefaultAsync(c => c.Id == Id);
         }
-        public async Task<ConcertHall> GetConcertHallByAddress(string address)
+        public async Task<ConcertHall> GetConcertHallByAddressAsync(string address)
         {
             return await _ctx.ConcertHalls.FirstOrDefaultAsync(c => c.Address == address);
         }
 
-        public async Task<List<Concert>> GetConcertsOfConcertHall(ConcertHall concertHall)
+        public async Task<List<Concert>> GetConcertsOfConcertHallAsync(ConcertHall concertHall)
         {
             var full = _ctx.ConcertHalls.Include(c => c.Concerts);
             var concerts = await full.FirstOrDefaultAsync(c => c.Id == concertHall.Id);
             return concertHall.Concerts;
         }
 
-        public Task UpdateConcertHall(ConcertHall concertHall)
+        public async Task UpdateConcertHallAsync(ConcertHall concertHall)
         {
-            throw new NotImplementedException();
+            _ctx.ConcertHalls.Update(concertHall);
+            await _ctx.SaveChangesAsync();
         }
-        public async Task DeleteConcertHall(ConcertHall concertHall)
+        public async Task DeleteConcertHallAsync(ConcertHall concertHall)
         {
             _ctx.ConcertHalls.Remove(concertHall);
             await _ctx.SaveChangesAsync();

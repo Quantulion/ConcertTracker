@@ -16,30 +16,30 @@ namespace BusinessLayer.Implementations
         {
             _ctx = ctx;
         }
-        public async Task<ICollection<Artist>> GetAllArtists()
+        public async Task<ICollection<Artist>> GetAllArtistsAsync()
         {
             return await _ctx.Artists.ToListAsync();
         }
 
-        public async Task<Artist> GetArtistById(string id)
+        public async Task<Artist> GetArtistByIdAsync(string id)
         {
             return await _ctx.Artists.FirstOrDefaultAsync(f => f.Id == id);
         }
 
-        public async Task<List<Concert>> GetConcertsOfArtist(Artist artist)
+        public async Task<List<Concert>> GetConcertsOfArtistAsync(Artist artist)
         {
             var full = _ctx.Artists.Include(c => c.Concerts);
             var concerts = await full.FirstOrDefaultAsync(c => c.Id == artist.Id);
             return concerts.Concerts;
         }
 
-        public async Task<Artist> AddArtist(Artist artist)
+        public async Task<Artist> AddArtistAsync(Artist artist)
         {
             _ctx.Artists.Add(artist);
             await _ctx.SaveChangesAsync();
             return artist;
         }
-        public async Task UpdateArtist(Artist artist)
+        public async Task UpdateArtistAsync(Artist artist)
         {
             _ctx.Artists.Update(artist);
             await _ctx.SaveChangesAsync();

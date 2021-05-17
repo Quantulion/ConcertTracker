@@ -8,8 +8,8 @@ namespace BusinessLayer.Interfaces
 {
     public interface IAdminRepository : IDisposable
     {
-        Task<ICollection<Admin>> GetAllAdmins();
-        Task<Admin> GetAdminById(string Id);
-        Task<Admin> AddAdmin(Admin admin);
+        Task<ICollection<Admin>> GetAllAdminsAsync();
+        Task<Admin> GetAdminByIdAsync(string Id);
+        Task<Admin> AddAdminAsync(Admin admin);
     }
 }

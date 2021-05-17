@@ -16,25 +16,25 @@ namespace BusinessLayer.Implementations
         {
             _ctx = ctx;
         }
-        public Task<User> AddUser(User user)
+        public Task<User> AddUserAsync(User user)
         {
             throw new NotImplementedException();
         }
-        public Task<ICollection<User>> GetAllUsers()
+        public Task<ICollection<User>> GetAllUsersAsync()
         {
             throw new NotImplementedException();
         }
 
-        public async Task<User> GetUserById(string Id)
+        public async Task<User> GetUserByIdAsync(string Id)
         {
             return await _ctx.Users.FirstOrDefaultAsync(f => f.Id == Id);
         }
 
-        public Task UpdateUser(User user)
+        public Task UpdateUserAsync(User user)
         {
             throw new NotImplementedException();
         }
-        public async Task DeleteUser(User user)
+        public async Task DeleteUserAsync(User user)
         {
             _ctx.Users.Remove(user);
             await _ctx.SaveChangesAsync();

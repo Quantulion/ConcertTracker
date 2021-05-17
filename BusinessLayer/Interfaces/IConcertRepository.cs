@@ -8,14 +8,14 @@ namespace BusinessLayer.Interfaces
 {
     public interface IConcertRepository : IDisposable
     {
-        Task<ICollection<Concert>> GetAllConcerts();
-        Task<Concert> GetConcertById(int Id);
-        Task<Concert> GetConcertByPosition(GoogleMapPosition position);
-        Task<Concert> AddConcert(Concert concert);
-        Task<Concert> AddArtistToConcert(Artist artist, Concert concert);
-        Task<List<Artist>> GetArtistsOfConcert(Concert concert);
-        Task<List<Comment>> GetCommentsOfConcert(Concert concert);
-        Task UpdateConcert(Concert concert);
-        Task DeleteConcert(Concert concert);
+        Task<ICollection<Concert>> GetAllConcertsAsync();
+        Task<Concert> GetConcertByIdAsync(int Id);
+        Task<Concert> GetConcertByPositionAsync(GoogleMapPosition position);
+        Task<Concert> AddConcertAsync(Concert concert);
+        Task<Concert> AddArtistToConcertAsync(Artist artist, Concert concert);
+        Task<List<Artist>> GetArtistsOfConcertAsync(Concert concert);
+        Task<List<Comment>> GetCommentsOfConcertAsync(Concert concert);
+        Task UpdateConcertAsync(Concert concert);
+        Task DeleteConcertAsync(Concert concert);
     }
 }

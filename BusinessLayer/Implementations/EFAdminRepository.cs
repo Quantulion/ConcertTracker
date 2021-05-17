@@ -17,16 +17,16 @@ namespace BusinessLayer.Implementations
         {
             _ctx = ctx;
         }
-        public async Task<ICollection<Admin>> GetAllAdmins()
+        public async Task<ICollection<Admin>> GetAllAdminsAsync()
         {
             return await _ctx.Admins.ToListAsync();
         }
-        public async Task<Admin> GetAdminById(string id)
+        public async Task<Admin> GetAdminByIdAsync(string id)
         {
             return await _ctx.Admins.FirstOrDefaultAsync(f => f.Id == id);
         }
 
-        public async Task<Admin> AddAdmin(Admin admin)
+        public async Task<Admin> AddAdminAsync(Admin admin)
         {
             _ctx.Admins.Add(admin);
             await _ctx.SaveChangesAsync();

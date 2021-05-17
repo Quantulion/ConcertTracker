@@ -96,7 +96,7 @@ namespace ConcertTracker.Areas.Identity.Pages.Account
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
             {
-                _photoManager.UploadImage(file);
+                _photoManager.UploadImageAsync(file);
                 User user;
                 if (Input.isArtist)
                 {

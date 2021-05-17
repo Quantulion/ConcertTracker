@@ -7,6 +7,6 @@ namespace BusinessLayer.Interfaces
 {
     public interface IPhotoManager
     {
-        void UploadImage(IFormFile file);
+        void UploadImageAsync(IFormFile file);
     }
 }

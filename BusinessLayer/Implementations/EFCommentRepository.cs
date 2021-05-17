@@ -16,15 +16,11 @@ namespace BusinessLayer.Implementations
         {
             _ctx = ctx;
         }
-        public async Task<Comment> GetCommentById(int id)
+        public async Task<Comment> GetCommentByIdAsync(int id)
         {
             return await _ctx.Comments.FirstOrDefaultAsync(f => f.Id == id);
         }
-        public Task<User> GetAuthor(Comment comment)
-        {
-            throw new NotImplementedException();
-        }
-        public async Task<Comment> AddComment(Comment comment, User user, Concert concert)
+        public async Task<Comment> AddCommentAsync(Comment comment, User user, Concert concert)
         {
             comment.User = user;
             comment.UserId = user.Id;
@@ -34,11 +30,12 @@ namespace BusinessLayer.Implementations
             await _ctx.SaveChangesAsync();
             return comment;
         }
-        public Task UpdateComment(Comment comment)
+        public async Task UpdateCommentAsync(Comment comment)
         {
-            throw new NotImplementedException();
+            _ctx.Comments.Update(comment);
+            await _ctx.SaveChangesAsync();
         }
-        public async Task DeleteComment(Comment comment)
+        public async Task DeleteCommentAsync(Comment comment)
         {
             _ctx.Comments.Remove(comment);
             await _ctx.SaveChangesAsync();

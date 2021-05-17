@@ -12,7 +12,7 @@ namespace BusinessLayer.Implementations
         {
             _hostingEnvironment = hostingEnvironment;
         }
-        public async void UploadImage(IFormFile file)
+        public async void UploadImageAsync(IFormFile file)
         {
             long totalBytes = file.Length;
             string filename = file.FileName.Trim('"');

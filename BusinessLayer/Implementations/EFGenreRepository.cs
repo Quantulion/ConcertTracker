@@ -16,25 +16,26 @@ namespace BusinessLayer.Implementations
         {
             _ctx = ctx;
         }
-        public Task<Genre> AddGenre(Genre genre)
+        public Task<Genre> AddGenreAsync(Genre genre)
         {
             throw new NotImplementedException();
         }
 
         
-        public async Task<ICollection<Genre>> GetAllGenres()
+        public async Task<ICollection<Genre>> GetAllGenresAsync()
         {
             return await _ctx.Genres.ToListAsync();
         }
 
-        public async Task<Genre> GetGenreByName(string name)
+        public async Task<Genre> GetGenreByNameAsync(string name)
         {
             return await _ctx.Genres.FirstOrDefaultAsync(g => g.Name == name);
         }
 
-        public Task UpdateGenre(Genre genre)
+        public async Task UpdateGenreAsync(Genre genre)
         {
-            throw new NotImplementedException();
+            _ctx.Genres.Update(genre);
+            await _ctx.SaveChangesAsync();
         }
 
         public void Dispose()

@@ -8,10 +8,10 @@ namespace BusinessLayer.Interfaces
 {
     public interface IUserRepository : IDisposable
     {
-        Task<ICollection<User>> GetAllUsers();
-        Task<User> GetUserById(string Id);
-        Task<User> AddUser(User user);
-        Task UpdateUser(User user);
-        Task DeleteUser(User user);
+        Task<ICollection<User>> GetAllUsersAsync();
+        Task<User> GetUserByIdAsync(string Id);
+        Task<User> AddUserAsync(User user);
+        Task UpdateUserAsync(User user);
+        Task DeleteUserAsync(User user);
     }
 }
