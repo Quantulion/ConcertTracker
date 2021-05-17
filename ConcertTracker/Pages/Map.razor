@@ -32,7 +32,7 @@
             </RadzenGoogleMap>
         </div>
         <EditForm Model="@newConcert" OnValidSubmit="@InsertConcert" class="concertInfo">
-            @if (isArtist && (concertArtists.Contains(artist) || concertArtists.Count == 0) || admin.Id != null)
+            @if (isArtist && (concertArtists.Contains(artist) || concertArtists.Count == 0) || isAdmin)
             {
                 <a class="hdr">Date:</a>
                 <RadzenDatePicker  @bind-Value="@newConcert.Date" />

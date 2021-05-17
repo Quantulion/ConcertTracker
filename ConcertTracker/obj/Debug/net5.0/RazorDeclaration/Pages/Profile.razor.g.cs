@@ -124,17 +124,17 @@ using DataLayer.Entities;
 
     protected override async Task OnInitializedAsync()
     {
-        foundUser = await UserRepositiory.GetUserById(Id);
+        foundUser = await UserRepositiory.GetUserByIdAsync(Id);
         if (await IsArtist())
         {
             var artist = (Artist)foundUser;
-            artistConcerts = await ArtistRepository.GetConcertsOfArtist(artist);
+            artistConcerts = await ArtistRepository.GetConcertsOfArtistAsync(artist);
         }
     }
 
     public async Task<bool> IsArtist()
     {
-        if (await ArtistRepository.GetArtistById(Id) != null)
+        if (await ArtistRepository.GetArtistByIdAsync(Id) != null)
             isArtist = true;
         else isArtist = false;
         return isArtist;
@@ -142,7 +142,7 @@ using DataLayer.Entities;
 
     private async Task DeleteUser()
     {
-        await UserRepositiory.DeleteUser(foundUser);
+        await UserRepositiory.DeleteUserAsync(foundUser);
         NavigationManager.NavigateTo("map");
     }
 

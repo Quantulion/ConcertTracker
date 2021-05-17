@@ -123,13 +123,13 @@ using DataLayer.Entities;
 
     protected override async Task OnInitializedAsync()
     {
-        foundConcertHall = await ConcertHallRepository.GetConcertHallById(Convert.ToInt32(Id));
-        concertHallConcerts = await ConcertHallRepository.GetConcertsOfConcertHall(foundConcertHall);
+        foundConcertHall = await ConcertHallRepository.GetConcertHallByIdAsync(Convert.ToInt32(Id));
+        concertHallConcerts = await ConcertHallRepository.GetConcertsOfConcertHallAsync(foundConcertHall);
     }
 
     private async Task DeleteConcertHall()
     {
-        await ConcertHallRepository.DeleteConcertHall(foundConcertHall);
+        await ConcertHallRepository.DeleteConcertHallAsync(foundConcertHall);
         NavigationManager.NavigateTo("map");
     }
 

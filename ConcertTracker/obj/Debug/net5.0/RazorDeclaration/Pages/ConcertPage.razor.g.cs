@@ -132,8 +132,8 @@ using Microsoft.AspNetCore.Identity;
 
     protected override async Task OnInitializedAsync()
     {
-        foundConcert = await ConcertRepository.GetConcertById(Convert.ToInt32(Id));
-        concertArtists = await ConcertRepository.GetArtistsOfConcert(foundConcert);
+        foundConcert = await ConcertRepository.GetConcertByIdAsync(Convert.ToInt32(Id));
+        concertArtists = await ConcertRepository.GetArtistsOfConcertAsync(foundConcert);
 
         var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
         currentUser = await userManager.GetUserAsync(authState.User);
@@ -143,19 +143,19 @@ using Microsoft.AspNetCore.Identity;
 
     private async Task DeleteConcert()
     {
-        await ConcertRepository.DeleteConcert(foundConcert);
+        await ConcertRepository.DeleteConcertAsync(foundConcert);
         NavigationManager.NavigateTo("map");
     }
 
     private async Task AddComment()
     {
         newComment.PublishTime = DateTime.Now;
-        await CommentRepository.AddComment(newComment, currentUser, foundConcert);
+        await CommentRepository.AddCommentAsync(newComment, currentUser, foundConcert);
     }
 
     private async Task<List<Comment>> GetAllComments()
     {
-        concertComments = await ConcertRepository.GetCommentsOfConcert(foundConcert);
+        concertComments = await ConcertRepository.GetCommentsOfConcertAsync(foundConcert);
         return concertComments;
     }
 

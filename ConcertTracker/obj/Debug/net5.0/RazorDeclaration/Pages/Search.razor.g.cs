@@ -112,7 +112,7 @@ using DataLayer.Entities;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 70 "C:\ConcertTracker\ConcertTracker\Pages\Search.razor"
+#line 68 "C:\ConcertTracker\ConcertTracker\Pages\Search.razor"
        
 
 
@@ -191,13 +191,13 @@ using DataLayer.Entities;
 
     protected override async Task OnInitializedAsync()
     {
-        searchModel.concertHalls = await ConcertHallRepository.GetAllConcertHalls();
-        searchModel.genres = await GenreRepository.GetAllGenres();
-        searchModel.artists = await ArtistRepository.GetAllArtists();
+        searchModel.concertHalls = await ConcertHallRepository.GetAllConcertHallsAsync();
+        searchModel.genres = await GenreRepository.GetAllGenresAsync();
+        searchModel.artists = await ArtistRepository.GetAllArtistsAsync();
         searchModel.GetAllObjects();
 
         List<string> x = new List<string>();
-        foreach (var genre in await GenreRepository.GetAllGenres())
+        foreach (var genre in await GenreRepository.GetAllGenresAsync())
         {
             x.Add(genre.Name);
         }
@@ -209,10 +209,16 @@ using DataLayer.Entities;
         List<Genre> genreList = new List<Genre>();
         foreach (var genre in selectedGenres)
         {
-            var x = await GenreRepository.GetGenreByName(genre);
+            var x = await GenreRepository.GetGenreByNameAsync(genre);
             genreList.Add(x);
         }
         searchModel.selectedGenres = genreList;
+        searchModel.GetAllObjects();
+    }
+
+    private void OnCheckboxChange()
+    {
+        searchModel.GetAllObjects();
     }
 
 #line default

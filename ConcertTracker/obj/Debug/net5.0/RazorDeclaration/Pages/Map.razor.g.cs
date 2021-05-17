@@ -126,7 +126,7 @@ using Microsoft.AspNetCore.Identity;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 76 "C:\ConcertTracker\ConcertTracker\Pages\Map.razor"
+#line 78 "C:\ConcertTracker\ConcertTracker\Pages\Map.razor"
        
     int zoom = 15;
     string clickedPosition = "";
@@ -147,8 +147,8 @@ using Microsoft.AspNetCore.Identity;
 
     protected override async Task OnInitializedAsync()
     {
-        concertHalls = await ConcertHallRep.GetAllConcertHalls();
-        concerts = await ConcertRepository.GetAllConcerts();
+        concertHalls = await ConcertHallRep.GetAllConcertHallsAsync();
+        concerts = await ConcertRepository.GetAllConcertsAsync();
         var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
         var auser = authState.User;
         var user = await userManager.GetUserAsync(auser);
@@ -179,17 +179,17 @@ using Microsoft.AspNetCore.Identity;
     private async Task OnMarkerClick(RadzenGoogleMapMarker args)
     {
         clickedPosition = $"Map {args.Title} clicked LAT: {args.Position.Lat}, LNG: {args.Position.Lng}";
-        var foundConcert = await ConcertRepository.GetConcertById(Convert.ToInt32(args.Title));
+        var foundConcert = await ConcertRepository.GetConcertByIdAsync(Convert.ToInt32(args.Title));
         newConcert = foundConcert;
-        concertArtists = await ConcertRepository.GetArtistsOfConcert(foundConcert);
+        concertArtists = await ConcertRepository.GetArtistsOfConcertAsync(foundConcert);
         pos.Lat = foundConcert.Position.Lat;
         pos.Lng = foundConcert.Position.Lng;
     }
 
     private async Task InsertConcert()
     {
-        var concertHall = await ConcertHallRep.GetConcertHallByAddress("Street Concert");
-        var conc = await ConcertRepository.GetConcertByPosition(pos);
+        var concertHall = await ConcertHallRep.GetConcertHallByAddressAsync("Street Concert");
+        var conc = await ConcertRepository.GetConcertByPositionAsync(pos);
 
         newConcert.Position = pos;
 
@@ -205,14 +205,14 @@ using Microsoft.AspNetCore.Identity;
 
         if (conc != null)
         {
-            await ConcertRepository.UpdateConcert(conc);
+            await ConcertRepository.UpdateConcertAsync(conc);
         }
 
         else
         {
             concert.Artists.Add(artist);
 
-            await ConcertRepository.AddConcert(concert);
+            await ConcertRepository.AddConcertAsync(concert);
 
             concerts.Add(concert);
         }

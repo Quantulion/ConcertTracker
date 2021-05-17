@@ -15,8 +15,6 @@
             <button type="submit" class="btn btn-primary" style="width: 10%; height: 5%; font-size:20px;">Search</button>
 
             <div class="foundItems">
-                <p style="opacity:0;">@searchModel.GetAllObjects();</p>
-
                 @for (int j = 0; j < 3; j++)
                 {
                     if (i + j < searchModel.list.Count)
@@ -50,11 +48,11 @@
         <div class="rightPart">
             <p class="hdr">Filters:</p>
             <div class="filterItem">
-                <RadzenCheckBox DisplayName="Concert Halls" @bind-Value="@searchModel.Filter.AddArtists"></RadzenCheckBox>
+                <RadzenCheckBox TValue="bool" Change=OnCheckboxChange DisplayName="Concert Halls" @bind-Value="@searchModel.Filter.AddArtists" ></RadzenCheckBox>
                 <p>Artists</p>
             </div>
             <div class="filterItem">
-                <RadzenCheckBox DisplayName="Concert Halls" @bind-Value="@searchModel.Filter.AddConcertHalls"></RadzenCheckBox>
+                <RadzenCheckBox TValue="bool" Change=OnCheckboxChange DisplayName="Concert Halls" @bind-Value="@searchModel.Filter.AddConcertHalls"></RadzenCheckBox>
                 <p>Concert Halls</p>
             </div>
             <RadzenListBox @bind-Value=@selectedGenres Multiple="true" Data=@searchModel.genres
@@ -167,5 +165,11 @@
             genreList.Add(x);
         }
         searchModel.selectedGenres = genreList;
+        searchModel.GetAllObjects();
+    }
+
+    private void OnCheckboxChange()
+    {
+        searchModel.GetAllObjects();
     }
 }

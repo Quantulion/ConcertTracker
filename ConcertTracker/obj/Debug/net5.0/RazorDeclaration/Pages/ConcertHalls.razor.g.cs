@@ -147,7 +147,7 @@ using Microsoft.AspNetCore.Hosting;
     ConcertHall newConcertHall = new ConcertHall();
     protected override async Task OnInitializedAsync()
     {
-        concertHalls = await ConcertHallRep.GetAllConcertHalls();
+        concertHalls = await ConcertHallRep.GetAllConcertHallsAsync();
     }
     private async Task InsertConcertHall()
     {
@@ -162,7 +162,7 @@ using Microsoft.AspNetCore.Hosting;
             Photo = newConcertHall.Photo
         };
 
-        await ConcertHallRep.AddConcertHall(p);
+        await ConcertHallRep.AddConcertHallAsync(p);
 
         concertHalls.Add(p);
 
