@@ -57,11 +57,11 @@
     {
         <div class="comment">
             <img src="/uploads/@comment.User.Photo" alt="">
-            <div class="commentData">
+            <a href="/user/@comment.UserId" class="commentData">
                 <p>@comment.User.UserName</p>
                 <p>@comment.Content</p>
                 <p>@comment.PublishTime</p>
-            </div>
+            </a>
         </div>
     }
 </EditForm>
@@ -102,6 +102,13 @@
     private async Task<List<Comment>> GetAllComments()
     {
         concertComments = await ConcertRepository.GetCommentsOfConcertAsync(foundConcert);
+        List<Comment> comments = new List<Comment>();
+        foreach (var comment in concertComments)
+        {
+            var user = await UserRepository.GetUserByIdAsync(comment.UserId);
+            comment.User = user;
+        }
         return concertComments;
     }
+
 }

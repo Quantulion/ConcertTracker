@@ -430,7 +430,7 @@ namespace DataLayer.Migrations
                     b.HasOne("DataLayer.Entities.User", "User")
                         .WithMany("Comments")
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.Navigation("Concert");
 

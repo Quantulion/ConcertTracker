@@ -156,8 +156,15 @@ using Microsoft.AspNetCore.Identity;
     private async Task<List<Comment>> GetAllComments()
     {
         concertComments = await ConcertRepository.GetCommentsOfConcertAsync(foundConcert);
+        List<Comment> comments = new List<Comment>();
+        foreach (var comment in concertComments)
+        {
+            var user = await UserRepository.GetUserByIdAsync(comment.UserId);
+            comment.User = user;
+        }
         return concertComments;
     }
+
 
 #line default
 #line hidden

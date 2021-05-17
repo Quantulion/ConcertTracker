@@ -22,18 +22,7 @@
     </file-type-list>
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="mock://C:/ConcertTracker/ConcertTracker/obj/Debug/net5.0/Razor/Pages/About.razor.g.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/ConcertTracker/ConcertTracker/obj/Debug/net5.0/Razor/Pages/ConcertPage.razor.g.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/ConcertTracker/ConcertTracker/Pages/Map.razor" root0="SKIP_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" root2="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/ConcertTracker/obj/Debug/net5.0/Razor/Pages/Search.razor.g.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/ConcertTracker/ConcertTracker/obj/Debug/net5.0/Razor/Pages/ConcertPage.razor.g.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/ConcertTracker/ConcertTracker/obj/Debug/net5.0/Razor/Pages/Map.razor.g.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/ConcertTracker/ConcertTracker/obj/Debug/net5.0/Razor/Pages/Map.razor.g.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/ConcertTracker/ConcertTracker/Pages/About.razor" root0="SKIP_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" root2="FORCE_HIGHLIGHTING" />
-    <setting file="mock:///Dummy.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/ConcertTracker/ConcertTracker/Pages/Map.razor" root0="SKIP_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" root2="FORCE_HIGHLIGHTING" />
-    <setting file="mock://C:/ConcertTracker/ConcertTracker/Pages/About.razor" root0="SKIP_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" root2="FORCE_HIGHLIGHTING" />
-    <setting file="mock://C:/ConcertTracker/ConcertTracker/obj/Debug/net5.0/Razor/Pages/About.razor.g.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="IdeDocumentHistory">
     <changedPaths>
@@ -44,13 +33,22 @@
       <option value="$PROJECT_DIR$/BusinessLayer/Implementations/EFConcertHallRepository.cs" />
       <option value="$PROJECT_DIR$/BusinessLayer/Implementations/EFConcertRepository.cs" />
       <option value="$PROJECT_DIR$/BusinessLayer/Implementations/EFGenreRepository.cs" />
-      <option value="$PROJECT_DIR$/BusinessLayer/Implementations/EFUserRepository.cs" />
       <option value="$PROJECT_DIR$/BusinessLayer/Interfaces/IViewerRepository.cs" />
       <option value="$PROJECT_DIR$/BusinessLayer/Implementations/PhotoManager.cs" />
       <option value="$PROJECT_DIR$/ConcertTracker/Pages/Map.razor" />
       <option value="$PROJECT_DIR$/ConcertTracker/Pages/Search.razor" />
       <option value="$PROJECT_DIR$/ConcertTracker/wwwroot/css/mycss/search.css" />
       <option value="$PROJECT_DIR$/ConcertTracker/Pages/About.razor" />
+      <option value="$PROJECT_DIR$/ConcertTracker/Startup.cs" />
+      <option value="$PROJECT_DIR$/ConcertTracker/Areas/Identity/Pages/Account/Login.cshtml" />
+      <option value="$PROJECT_DIR$/ConcertTracker/Areas/Identity/Pages/Account/Login.cshtml.cs" />
+      <option value="$PROJECT_DIR$/DataLayer/ApplicationContext.cs" />
+      <option value="$PROJECT_DIR$/BusinessLayer/Implementations/LikeRepository.cs" />
+      <option value="$PROJECT_DIR$/BusinessLayer/Interfaces/ILikeRepository.cs" />
+      <option value="$PROJECT_DIR$/BusinessLayer/Interfaces/IUserCommentRepository.cs" />
+      <option value="$PROJECT_DIR$/BusinessLayer/Implementations/EFUserCommentRepository.cs" />
+      <option value="$PROJECT_DIR$/BusinessLayer/Implementations/EFUserRepository.cs" />
+      <option value="$PROJECT_DIR$/ConcertTracker/Pages/ConcertPage.razor" />
     </changedPaths>
   </component>
   <component name="ProjectId" id="1semW0JOl5OiGGZS0Lz2uDUbQbh" />
@@ -59,12 +57,14 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="DatabaseDriversLRU" value="sqlserver" />
     <property name="DebuggerViewTab_PTCS_FirstProportionKey" value="0.48483208" />
     <property name="DebuggerViewTab_PTCS_LastProportionKey" value="0.0" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="XThreadsFramesViewSplitterKey" value="0.33892617" />
+    <property name="nodejs_package_manager_path" value="npm" />
     <property name="settings.editor.selected.configurable" value="preferences.sourceCode.General" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
@@ -115,7 +115,7 @@
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
-  <component name="UnityProjectConfiguration" hasMinimizedUI="null" />
+  <component name="UnityProjectConfiguration" hasMinimizedUI="false" />
   <component name="UnityUnitTestConfiguration" currentTestLauncher="NUnit" />
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
@@ -127,6 +127,7 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
@@ -135,20 +136,132 @@
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/ConcertTracker/Pages/Search.razor</url>
-          <line>17</line>
-          <properties documentPath="C:\ConcertTracker\ConcertTracker\Pages\Search.razor" initialLine="19" isMultiMethodBreakpoint="true">
-            <option name="multiMethodBreakpoint" value="true" />
+          <url>file://$PROJECT_DIR$/BusinessLayer/Implementations/EFCommentRepository.cs</url>
+          <line>24</line>
+          <properties documentPath="C:\ConcertTracker\BusinessLayer\Implementations\EFCommentRepository.cs" initialLine="24" containingFunctionPresentation="method 'AddCommentAsync'">
             <startOffsets>
-              <option value="-1" />
+              <option value="751" />
             </startOffsets>
             <endOffsets>
-              <option value="-1" />
+              <option value="771" />
             </endOffsets>
           </properties>
-          <option name="timeStamp" value="15" />
+          <option name="timeStamp" value="27" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/BusinessLayer/Implementations/EFCommentRepository.cs</url>
+          <line>28</line>
+          <properties documentPath="C:\ConcertTracker\BusinessLayer\Implementations\EFCommentRepository.cs" initialLine="28" containingFunctionPresentation="method 'AddCommentAsync'">
+            <startOffsets>
+              <option value="905" />
+            </startOffsets>
+            <endOffsets>
+              <option value="932" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="28" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/BusinessLayer/Implementations/EFUserRepository.cs</url>
+          <line>37</line>
+          <properties documentPath="C:\ConcertTracker\BusinessLayer\Implementations\EFUserRepository.cs" initialLine="37" containingFunctionPresentation="method 'DeleteUserAsync'">
+            <startOffsets>
+              <option value="1043" />
+            </startOffsets>
+            <endOffsets>
+              <option value="1044" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="29" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/BusinessLayer/Implementations/EFUserRepository.cs</url>
+          <line>40</line>
+          <properties documentPath="C:\ConcertTracker\BusinessLayer\Implementations\EFUserRepository.cs" initialLine="40" containingFunctionPresentation="method 'DeleteUserAsync'">
+            <startOffsets>
+              <option value="1198" />
+            </startOffsets>
+            <endOffsets>
+              <option value="1243" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="31" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/BusinessLayer/Implementations/EFUserRepository.cs</url>
+          <line>39</line>
+          <properties documentPath="C:\ConcertTracker\BusinessLayer\Implementations\EFUserRepository.cs" initialLine="39" containingFunctionPresentation="method 'DeleteUserAsync'">
+            <startOffsets>
+              <option value="1117" />
+              <option value="1168" />
+            </startOffsets>
+            <endOffsets>
+              <option value="1185" />
+              <option value="1183" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="32" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/BusinessLayer/Implementations/EFUserRepository.cs</url>
+          <line>38</line>
+          <properties documentPath="C:\ConcertTracker\BusinessLayer\Implementations\EFUserRepository.cs" initialLine="38" containingFunctionPresentation="method 'DeleteUserAsync'">
+            <startOffsets>
+              <option value="1057" />
+              <option value="1092" />
+            </startOffsets>
+            <endOffsets>
+              <option value="1104" />
+              <option value="1102" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="33" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/BusinessLayer/Implementations/EFUserRepository.cs</url>
+          <line>41</line>
+          <properties documentPath="C:\ConcertTracker\BusinessLayer\Implementations\EFUserRepository.cs" initialLine="41" containingFunctionPresentation="method 'DeleteUserAsync'">
+            <startOffsets>
+              <option value="1256" />
+            </startOffsets>
+            <endOffsets>
+              <option value="1280" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="34" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/BusinessLayer/Implementations/EFUserRepository.cs</url>
+          <line>42</line>
+          <properties documentPath="C:\ConcertTracker\BusinessLayer\Implementations\EFUserRepository.cs" initialLine="42" containingFunctionPresentation="method 'DeleteUserAsync'">
+            <startOffsets>
+              <option value="1293" />
+            </startOffsets>
+            <endOffsets>
+              <option value="1323" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="35" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/BusinessLayer/Implementations/EFUserRepository.cs</url>
+          <line>43</line>
+          <properties documentPath="C:\ConcertTracker\BusinessLayer\Implementations\EFUserRepository.cs" initialLine="43" containingFunctionPresentation="method 'DeleteUserAsync'">
+            <startOffsets>
+              <option value="1332" />
+            </startOffsets>
+            <endOffsets>
+              <option value="1333" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="36" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
+    <pin-to-top-manager>
+      <pinned-members>
+        <PinnedItemInfo parentTag="Frame#ConcertTracker.Pages.ConcertPage.&lt;BuildRenderTree&gt;b__0_3" memberName="commentUser" />
+      </pinned-members>
+    </pin-to-top-manager>
   </component>
 </project>

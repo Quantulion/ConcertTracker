@@ -44,7 +44,7 @@ namespace ConcertTracker
             services.AddTransient<ICommentRepository, EFCommentRepository>();
             services.AddScoped<DataManager>();
 
-            services.AddDefaultIdentity<User>()
+            services.AddDefaultIdentity<User>(options => options.SignIn.RequireConfirmedAccount = false)
                 .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddScoped<AuthenticationStateProvider, ServerAuthenticationStateProvider>();
