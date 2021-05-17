@@ -20,6 +20,21 @@ namespace BusinessLayer.Implementations
         {
             return await _ctx.Comments.FirstOrDefaultAsync(f => f.Id == id);
         }
+
+        public async Task<List<UserComment>> GetLikesOfCommentAsync(Comment comment)
+        {
+            var full = _ctx.Comments.Include(c => c.Likes);
+            var likes = await full.FirstOrDefaultAsync(c => c.Id == comment.Id);
+            return likes.Likes;
+        }
+
+        public async Task<int> LikesCountAsync(Comment comment)
+        {
+            var full = _ctx.Comments.Include(c => c.Likes);
+            var likes = await full.FirstOrDefaultAsync(c => c.Id == comment.Id);
+            return likes.Likes.Count;
+        }
+
         public async Task<Comment> AddCommentAsync(Comment comment, User user, Concert concert)
         {
             comment.User = user;
@@ -30,6 +45,36 @@ namespace BusinessLayer.Implementations
             await _ctx.SaveChangesAsync();
             return comment;
         }
+
+        public async Task AddLikeAsync(Comment comment, User user)
+        {
+            UserComment userComment = new UserComment
+            {
+                UserId = user.Id,
+                User = user,
+                CommentId = comment.Id,
+                Comment = comment
+            };
+            
+            bool alreadyLiked = false;
+            var full = _ctx.Comments.Include(c => c.Likes);
+            var likes = await full.FirstOrDefaultAsync(c => c.Id == comment.Id);
+            foreach (var like in likes.Likes)
+            {
+                if(like.UserId == user.Id && like.CommentId == comment.Id)
+                    alreadyLiked = true;
+            }
+            
+            if (!alreadyLiked)
+            {
+                if (user.Likes == null)
+                    user.Likes = new List<UserComment>();
+                user.Likes.Add(userComment);
+                _ctx.Users.Update(user);
+                await _ctx.SaveChangesAsync();
+            }
+        }
+
         public async Task UpdateCommentAsync(Comment comment)
         {
             _ctx.Comments.Update(comment);

@@ -27,6 +27,13 @@ using Microsoft.AspNetCore.Authorization;
 #line hidden
 #nullable disable
 #nullable restore
+#line 3 "C:\ConcertTracker\ConcertTracker\_Imports.razor"
+using Microsoft.AspNetCore.Components.Authorization;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
 #line 4 "C:\ConcertTracker\ConcertTracker\_Imports.razor"
 using Microsoft.AspNetCore.Components.Forms;
 
@@ -98,13 +105,6 @@ using DataLayer.Entities;
 #nullable disable
 #nullable restore
 #line 5 "C:\ConcertTracker\ConcertTracker\Pages\ConcertPage.razor"
-using Microsoft.AspNetCore.Components.Authorization;
-
-#line default
-#line hidden
-#nullable disable
-#nullable restore
-#line 6 "C:\ConcertTracker\ConcertTracker\Pages\ConcertPage.razor"
 using Microsoft.AspNetCore.Identity;
 
 #line default
@@ -119,7 +119,7 @@ using Microsoft.AspNetCore.Identity;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 69 "C:\ConcertTracker\ConcertTracker\Pages\ConcertPage.razor"
+#line 72 "C:\ConcertTracker\ConcertTracker\Pages\ConcertPage.razor"
        
     [Parameter]
     public string Id { get; set; }
@@ -161,8 +161,21 @@ using Microsoft.AspNetCore.Identity;
         {
             var user = await UserRepository.GetUserByIdAsync(comment.UserId);
             comment.User = user;
+
+            var likes = await CommentRepository.GetLikesOfCommentAsync(comment);
+            comment.Likes = likes;
         }
         return concertComments;
+    }
+
+    private async Task AddLike(Comment comment)
+    {
+        await CommentRepository.AddLikeAsync(comment, currentUser);
+    }
+
+    private async Task<int> LikesCount(Comment comment)
+    {
+        return await CommentRepository.LikesCountAsync(comment);
     }
 
 

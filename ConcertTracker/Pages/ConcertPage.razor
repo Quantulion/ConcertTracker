@@ -2,7 +2,6 @@
 
 @using BusinessLayer.Interfaces
 @using DataLayer.Entities
-@using Microsoft.AspNetCore.Components.Authorization
 @using Microsoft.AspNetCore.Identity;
 
 @inject ICommentRepository CommentRepository
@@ -34,7 +33,7 @@
         </div>
         <div class="concertItem">
             <p class="hdr">Дата:</p>
-            <p>@foundConcert.Date</p>
+            <p>@foundConcert.Date.ToString()</p>
         </div>
         <div class="concertItem">
             <p class="hdr">Артисты:</p>
@@ -60,10 +59,14 @@
             <a href="/user/@comment.UserId" class="commentData">
                 <p>@comment.User.UserName</p>
                 <p>@comment.Content</p>
-                <p>@comment.PublishTime</p>
+                <p>@comment.PublishTime.ToString()</p>
             </a>
+            <button type="button" @onclick="@(async () => { await AddLike(comment); })">Like</button>
+            @{ 
+                <p >@comment.Likes.Count.ToString()</p>
+            }
         </div>
-    }
+                }
 </EditForm>
 
 @code {
@@ -107,8 +110,21 @@
         {
             var user = await UserRepository.GetUserByIdAsync(comment.UserId);
             comment.User = user;
+
+            var likes = await CommentRepository.GetLikesOfCommentAsync(comment);
+            comment.Likes = likes;
         }
         return concertComments;
+    }
+
+    private async Task AddLike(Comment comment)
+    {
+        await CommentRepository.AddLikeAsync(comment, currentUser);
+    }
+
+    private async Task<int> LikesCount(Comment comment)
+    {
+        return await CommentRepository.LikesCountAsync(comment);
     }
 
 }
