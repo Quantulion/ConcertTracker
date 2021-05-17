@@ -145,4 +145,9 @@ span {
 .rz-chkbox-box.rz-state-active {
     background-color: Black;
 }
+
+    .rz-chkbox-box.rz-state-active:hover {
+        background-color: #777777;
+        border: 1px solid #dadfe2;
+    }
     /*# sourceMappingURL=asd.css.map */

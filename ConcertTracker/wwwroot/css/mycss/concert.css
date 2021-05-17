@@ -53,4 +53,50 @@
             .concertContainer .concertItem p.hdr {
                 font-weight: 800;
             }
+
+.commentSection {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 60vh;
+}
+
+    .commentSection .hdr {
+        font-weight: 800;
+    }
+
+    .commentSection .commentInput {
+        display: flex;
+        flex-direction: column;
+    }
+
+        .commentSection .commentInput textarea {
+            margin-top: 2rem;
+            margin-bottom: .5rem;
+            height: 10rem;
+            width: 20rem;
+        }
+
+    .commentSection .comment {
+        margin-top: 2rem;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        border: 3px solid #000000;
+        padding: .5rem;
+    }
+
+    .commentSection .comment img {
+        width: 4rem;
+        height: 4rem;
+    }
+
+        .commentSection .comment .commentData {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .commentSection .comment .commentData p {
+            font-size: 18px;
+        }
 /*# sourceMappingURL=asd.css.map */

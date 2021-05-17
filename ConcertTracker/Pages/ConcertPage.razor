@@ -50,16 +50,18 @@
 <EditForm Model="@newComment" OnValidSubmit="@AddComment" class="commentSection">
     <p class="hdr">Comments:</p>
     <div class="commentInput">
-        <InputTextArea @bind-Value="@newComment.Content"></InputTextArea>
+        <InputTextArea @bind-Value="@newComment.Content" ></InputTextArea>
         <button type="submit">Publish</button>
     </div>
     @foreach (var comment in concertComments)
     {
         <div class="comment">
             <img src="/uploads/@comment.User.Photo" alt="">
-            <p>@comment.User.UserName</p>
-            <p>@comment.Content</p>
-            <p>@comment.PublishTime</p>
+            <div class="commentData">
+                <p>@comment.User.UserName</p>
+                <p>@comment.Content</p>
+                <p>@comment.PublishTime</p>
+            </div>
         </div>
     }
 </EditForm>

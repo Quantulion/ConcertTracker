@@ -151,19 +151,24 @@ img.mapAboutImage {
     -ms-flex-align: center;
     align-items: center;
     font-family: Roboto;
+    height: 2rem;
 }
 
     .links ul {
         display: -webkit-box;
         display: -ms-flexbox;
         display: flex;
-        width: 20rem;
+        width: 15rem;
         -ms-flex-pack: distribute;
         justify-content: space-around;
     }
 
+        .links ul li img {
+            width: 3rem;
+        }
+
     .links h2 {
-        font-size: 36px;
+        font-size: 32px;
     }
 
 .thirdPage {
@@ -293,6 +298,7 @@ img.mapAboutImage {
 
             .mapPage .mapContainer .concertInfo .hdr {
                 font-size: 24px;
+                font-weight: 800;
             }
 
             .mapPage .mapContainer .concertInfo .dateInput {

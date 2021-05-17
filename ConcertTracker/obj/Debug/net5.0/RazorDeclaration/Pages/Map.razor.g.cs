@@ -126,7 +126,7 @@ using Microsoft.AspNetCore.Identity;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 72 "C:\ConcertTracker\ConcertTracker\Pages\Map.razor"
+#line 76 "C:\ConcertTracker\ConcertTracker\Pages\Map.razor"
        
     int zoom = 15;
     string clickedPosition = "";

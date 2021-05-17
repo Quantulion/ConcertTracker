@@ -119,7 +119,7 @@ using Microsoft.AspNetCore.Identity;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 67 "C:\ConcertTracker\ConcertTracker\Pages\ConcertPage.razor"
+#line 69 "C:\ConcertTracker\ConcertTracker\Pages\ConcertPage.razor"
        
     [Parameter]
     public string Id { get; set; }

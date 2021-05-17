@@ -32,38 +32,42 @@
         <EditForm Model="@newConcert" OnValidSubmit="@InsertConcert" class="concertInfo">
             @if (isArtist && (concertArtists.Contains(artist) || concertArtists.Count == 0) || admin.Id != null)
             {
-                <a class="hdr">Дата концерта:</a>
-                <InputDate  class="myDate" id="date" @bind-Value="@newConcert.Date" />
+                <a class="hdr">Date:</a>
+                <RadzenDatePicker  @bind-Value="@newConcert.Date" />
                 if (newConcert.ConcertHall != null)
                 {
-                    <a class="hdr">Концертная площадка:</a>
-                    <a href="/concerthall/@newConcert.ConcertHall.Id" class="hdr" Style="font-size:18px;">@newConcert.ConcertHall.Address</a>
+                    <a class="hdr">Concert hall:</a>
+                    <a href="/concerthall/@newConcert.ConcertHall.Id" class="hdr" Style="font-size:18px; font-weight: 400;">@newConcert.ConcertHall.Address</a>
                 }
-                <a class="hdr">Артисты:</a>
+                <a class="hdr">Artists:</a>
                 foreach (var artist in concertArtists)
                 {
-                    <a href="/user/@artist.Id" class="hdr" style="font-size:18px;">@artist.UserName</a>
+                    <a href="/user/@artist.Id" class="hdr" style="font-size:18px; font-weight: 400;">@artist.UserName</a>
                 }
-                <a class="hdr">Описание концерта:</a>
+                <a class="hdr">Description:</a>
                 <InputTextArea Style="font-size:18px; padding: 0.5rem;" id="desc" @bind-Value="@newConcert.Description" class="descInput" />
-                <button type="submit" class="btn btn-primary">Подтвердить</button>
+                <button type="submit" class="btn btn-primary">Submit</button>
             }
             else
             {
-                <a class="hdr">Дата концерта:</a>
-                <InputDate class="myDate" id="date" @bind-Value="@newConcert.Date" disabled />
+                <a class="hdr">Date:</a>
+                <RadzenDatePicker @bind-Value="@newConcert.Date" disabled />
                 if (newConcert.ConcertHall != null)
                 {
-                    <a class="hdr">Концертная площадка:</a>
-                    <a href="/concerthall/@newConcert.ConcertHall.Id" class="hdr" Style="font-size:18px;">@newConcert.ConcertHall.Address</a>
+                    <a class="hdr">Concert hall:</a>
+                    <a href="/concerthall/@newConcert.ConcertHall.Id" class="hdr" Style="font-size:18px; font-weight: 400;">@newConcert.ConcertHall.Address</a>
                 }
-                <a class="hdr">Артисты:</a>
+                <a class="hdr">Artists:</a>
                 foreach (var artist in concertArtists)
                 {
-                    <a href="/user/@artist.Id" class="hdr" style="font-size:18px;">@artist.UserName</a>
+                    <a href="/user/@artist.Id" class="hdr" style="font-size:18px; font-weight: 400;">@artist.UserName</a>
                 }
-                <a class="hdr">Описание концерта:</a>
+                <a class="hdr">Description:</a>
                 <InputTextArea Style="font-size:18px; padding: 0.5rem;" id="desc" @bind-Value="@newConcert.Description" class="descInput" disabled />
+            }
+            @if (newConcert.Id != 0)
+            {
+                <a href="/concert/@newConcert.Id">Details...</a>
             }
         </EditForm>
     </div>
