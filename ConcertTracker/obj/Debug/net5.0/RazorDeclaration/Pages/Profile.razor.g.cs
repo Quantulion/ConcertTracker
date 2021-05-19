@@ -112,7 +112,7 @@ using DataLayer.Entities;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 57 "C:\ConcertTracker\ConcertTracker\Pages\Profile.razor"
+#line 74 "C:\ConcertTracker\ConcertTracker\Pages\Profile.razor"
        
 
     [Parameter]
@@ -120,15 +120,19 @@ using DataLayer.Entities;
 
     protected User foundUser = new User();
     protected List<Concert> artistConcerts = new List<Concert>();
+    protected List<Genre> artistGenres = new List<Genre>();
+    protected Comment lastComment = new Comment();
     public bool isArtist = false;
 
     protected override async Task OnInitializedAsync()
     {
         foundUser = await UserRepositiory.GetUserByIdAsync(Id);
+        await GetLastComment();
         if (await IsArtist())
         {
             var artist = (Artist)foundUser;
             artistConcerts = await ArtistRepository.GetConcertsOfArtistAsync(artist);
+            artistGenres = await GenreRepository.GetGenresOfArtistAsync(artist) as List<Genre>;
         }
     }
 
@@ -146,9 +150,18 @@ using DataLayer.Entities;
         NavigationManager.NavigateTo("map");
     }
 
+    private async Task GetLastComment()
+    {
+        var comments = await CommentRepository.GetCommentsOfUser(foundUser);
+        int end = comments.Count - 1;
+        lastComment = comments[end];
+    }
+
 #line default
 #line hidden
 #nullable disable
+        [global::Microsoft.AspNetCore.Components.InjectAttribute] private ICommentRepository CommentRepository { get; set; }
+        [global::Microsoft.AspNetCore.Components.InjectAttribute] private IGenreRepository GenreRepository { get; set; }
         [global::Microsoft.AspNetCore.Components.InjectAttribute] private IArtistRepository ArtistRepository { get; set; }
         [global::Microsoft.AspNetCore.Components.InjectAttribute] private IUserRepository UserRepositiory { get; set; }
         [global::Microsoft.AspNetCore.Components.InjectAttribute] private NavigationManager NavigationManager { get; set; }

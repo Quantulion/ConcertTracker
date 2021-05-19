@@ -112,7 +112,7 @@ using DataLayer.Entities;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 46 "C:\ConcertTracker\ConcertTracker\Pages\ConcertHallPage.razor"
+#line 36 "C:\ConcertTracker\ConcertTracker\Pages\ConcertHallPage.razor"
        
 
     [Parameter]

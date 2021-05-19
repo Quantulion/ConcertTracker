@@ -6,6 +6,8 @@
 @inject NavigationManager NavigationManager
 @inject IUserRepository UserRepositiory
 @inject IArtistRepository ArtistRepository
+@inject IGenreRepository GenreRepository
+@inject ICommentRepository CommentRepository
 
 <div class="profilePage">
     <a href="" class="mainText">ConcertTracker</a>
@@ -14,14 +16,27 @@
             <div class="higherInfo">
                 <img src="/uploads/@foundUser.Photo" alt="" />
                 <div class="profileLeftInfo">
-                    <p><strong>Имя:</strong> @foundUser.UserName</p>
-                    <p><strong>Возраст:</strong> @foundUser.Age</p>
-                    <p><strong>Описание:</strong> @foundUser.Description</p>
+                    <p><strong>Name:</strong> @foundUser.UserName</p>
+                    <p><strong>Age:</strong> @foundUser.Age</p>
+                    <p><strong>Description:</strong> @foundUser.Description</p>
                     @if (isArtist)
                     {
                         <p>
-                            <strong>Жанры:</strong> Рок, поп, мерсибит, рок-н-ролл,
-                            психоделический рок, хард-рок
+                            <strong>Genres: </strong> 
+                            @{
+                                int end = artistGenres.Count - 1;
+                                foreach (var genre in artistGenres)
+                                {
+                                    if (artistGenres[end] != genre)
+                                    {
+                                        <span>@genre.Name, </span>
+                                    }
+                                    else
+                                    {
+                                        <span>@genre.Name</span>
+                                    }
+                                }
+                            }
                         </p>
                     }
                 </div>
@@ -29,26 +44,28 @@
             @if (isArtist)
             {
         <div class="concertsList">
-            <p><strong>Список концертов:</strong></p>
+            <p><strong>Concerts:</strong></p>
             @foreach (var concert in artistConcerts)
             {
-                <a href="/concert/@concert.Id">Дата: @concert.Date    Описание: @concert.Description</a>
+                <a href="/concert/@concert.Id">Date: @concert.Date    Description: @concert.Description</a>
             }
         </div>
             }
     <AuthorizeView Roles="Admin"><button @onclick="DeleteUser">Delete</button></AuthorizeView>
         </div>
         <div class="profileComments">
-            <p id="1" class="hdr">Последний комментарий:</p>
-            <div class="commentContent">
-                <p class="hdr">Публикация:</p>
-                <p>Пользователь Джон Леннон</p>
-                <p class="hdr">Комментарий:</p>
-                <p class="commentText">
-                    Рост популярности группы легко проследить по гонорарам
-                    музыкантов...
-                </p>
-            </div>
+            <p id="1" class="hdr">Last commentary:</p>
+            @if (lastComment.Content != null)
+            {
+                <a href="/concert/@lastComment.ConcertId" class="commentContent">
+                    <p class="hdr">Concert:</p>
+                    <p>@lastComment.Concert.Date.ToString()</p>
+                    <p class="hdr">Commentary:</p>
+                    <p class="commentText">
+                        @lastComment.Content
+                    </p>
+                </a>
+            }
         </div>
     </div>
     
@@ -61,15 +78,19 @@
 
     protected User foundUser = new User();
     protected List<Concert> artistConcerts = new List<Concert>();
+    protected List<Genre> artistGenres = new List<Genre>();
+    protected Comment lastComment = new Comment();
     public bool isArtist = false;
 
     protected override async Task OnInitializedAsync()
     {
         foundUser = await UserRepositiory.GetUserByIdAsync(Id);
+        await GetLastComment();
         if (await IsArtist())
         {
             var artist = (Artist)foundUser;
             artistConcerts = await ArtistRepository.GetConcertsOfArtistAsync(artist);
+            artistGenres = await GenreRepository.GetGenresOfArtistAsync(artist) as List<Genre>;
         }
     }
 
@@ -85,5 +106,12 @@
     {
         await UserRepositiory.DeleteUserAsync(foundUser);
         NavigationManager.NavigateTo("map");
+    }
+
+    private async Task GetLastComment()
+    {
+        var comments = await CommentRepository.GetCommentsOfUser(foundUser);
+        int end = comments.Count - 1;
+        lastComment = comments[end];
     }
 }

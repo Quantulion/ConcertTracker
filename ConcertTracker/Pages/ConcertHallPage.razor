@@ -8,36 +8,26 @@
 
 <div class="profilePage">
     <a href="" class="mainText">ConcertTracker</a>
+    <img class="concertHallImage" src="Images/antoine-julien-Ke6Pr-9A2ac-unsplash 1.png"
+             alt="" />
     <div class="profileContainer">
         <div class="profileInfo">
             <div class="higherInfo">
                 <img src="/uploads/@foundConcertHall.Photo" alt="" />
                 <div class="profileLeftInfo">
-                    <p><strong>Название:</strong> @foundConcertHall.Name</p>
-                    <p><strong>Адрес:</strong> @foundConcertHall.Address</p>
-                    <p><strong>Описание:</strong> @foundConcertHall.Description</p>
+                    <p><strong>Name:</strong> @foundConcertHall.Name</p>
+                    <p><strong>Address:</strong> @foundConcertHall.Address</p>
+                    <p><strong>Description:</strong> @foundConcertHall.Description</p>
                 </div>
             </div>
             <div class="concertsList">
-                <p><strong>Список концертов:</strong></p>
+                <p><strong>Last concerts:</strong></p>
                 @foreach (var concert in concertHallConcerts)
                 {
-                    <a href="/concert/@concert.Id">Дата: @concert.Date    Описание: @concert.Description</a>
+                    <a href="/concert/@concert.Id">Date: @concert.Date    Description: @concert.Description</a>
                 }
             </div>
 <AuthorizeView Roles="Admin"><button @onclick="DeleteConcertHall">Delete</button></AuthorizeView>
-        </div>
-        <div class="profileComments">
-            <p id="1" class="hdr">Последний комментарий:</p>
-            <div class="commentContent">
-                <p class="hdr">Публикация:</p>
-                <p>Пользователь Джон Леннон</p>
-                <p class="hdr">Комментарий:</p>
-                <p class="commentText">
-                    Рост популярности группы легко проследить по гонорарам
-                    музыкантов...
-                </p>
-            </div>
         </div>
     </div>
 </div>

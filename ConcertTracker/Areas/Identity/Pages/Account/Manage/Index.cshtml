@@ -32,19 +32,22 @@
                 <label asp-for="Input.Description"></label>
                 <input asp-for="Input.Description" class="form-control"/>
             </div>
-            @{
-                int i = 0;
-                foreach (var genre in Model.AllGenres)
-                {
+            <div class="genreInfo">
+                @{
+                    int i = 0;
+                    foreach (var genre in Model.AllGenres)
+                    {
 
-                    bool isChecked = Model.Input.Genres.Contains(genre.Name);
-                    <div class="form-group">
-                        <p> @genre.Name</p>
-                        <input name="Input.Genres" type="checkbox" value="@genre.Name" checked="@isChecked"/>
-                    </div>
-                    i++;
+                        bool isChecked = Model.Input.Genres.Contains(genre.Name);
+                        <div class="form-group">
+                            <p> @genre.Name</p>
+                            <input name="Input.Genres" type="checkbox" value="@genre.Name" checked="@isChecked"/>
+                        </div>
+                        i++;
+                    }
                 }
-            }
+            </div>
+            
             <button id="update-profile-button" type="submit" class="btn btn-primary">Save</button>
         </form>
     </div>

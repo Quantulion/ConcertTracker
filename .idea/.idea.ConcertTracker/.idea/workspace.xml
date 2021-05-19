@@ -29,8 +29,6 @@
     </file-type-list>
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="file://$PROJECT_DIR$/ConcertTracker/obj/Debug/net5.0/Razor/Pages/ConcertPage.razor.g.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/ConcertTracker/obj/Debug/net5.0/Razor/Pages/Search.razor.g.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/IL/60B4CAED-9553-4D9E-9BBA-8E623D3661FF/4d/8ef2c168/020000E6pdb.il" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/60B4CAED-9553-4D9E-9BBA-8E623D3661FF/23/EntityFrameworkQueryableExtensions.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock:///Dummy.cs" root0="SKIP_HIGHLIGHTING" />
@@ -45,7 +43,6 @@
       <option value="$PROJECT_DIR$/BusinessLayer/Interfaces/IViewerRepository.cs" />
       <option value="$PROJECT_DIR$/BusinessLayer/Implementations/PhotoManager.cs" />
       <option value="$PROJECT_DIR$/ConcertTracker/Pages/Map.razor" />
-      <option value="$PROJECT_DIR$/ConcertTracker/Pages/Search.razor" />
       <option value="$PROJECT_DIR$/ConcertTracker/wwwroot/css/mycss/search.css" />
       <option value="$PROJECT_DIR$/ConcertTracker/Pages/About.razor" />
       <option value="$PROJECT_DIR$/ConcertTracker/Startup.cs" />
@@ -57,19 +54,23 @@
       <option value="$PROJECT_DIR$/BusinessLayer/Interfaces/IUserCommentRepository.cs" />
       <option value="$PROJECT_DIR$/BusinessLayer/Implementations/EFUserRepository.cs" />
       <option value="$PROJECT_DIR$/BusinessLayer/Implementations/EFUserCommentRepository.cs" />
-      <option value="$PROJECT_DIR$/BusinessLayer/Interfaces/ICommentRepository.cs" />
       <option value="$PROJECT_DIR$/ConcertTracker/Shared/Comments.cshtml" />
       <option value="$PROJECT_DIR$/ConcertTracker/Shared/Comments.razor" />
-      <option value="$PROJECT_DIR$/BusinessLayer/Implementations/EFCommentRepository.cs" />
       <option value="$PROJECT_DIR$/ConcertTracker/Pages/ConcertPage.razor" />
       <option value="$PROJECT_DIR$/ConcertTracker/wwwroot/css/mycss/concert.css" />
       <option value="$PROJECT_DIR$/ConcertTracker/wwwroot/css/mycss/style.css" />
-      <option value="$PROJECT_DIR$/ConcertTracker/wwwroot/css/mycss/profile.css" />
       <option value="$PROJECT_DIR$/BusinessLayer/Interfaces/IGenreRepository.cs" />
-      <option value="$PROJECT_DIR$/BusinessLayer/Implementations/EFGenreRepository.cs" />
       <option value="$PROJECT_DIR$/ConcertTracker/Areas/Identity/Pages/Account/Manage/Index.cshtml.cs" />
-      <option value="$PROJECT_DIR$/ConcertTracker/Areas/Identity/Pages/Account/Manage/Index.cshtml" />
+      <option value="$PROJECT_DIR$/ConcertTracker/Pages/Shared/_Layout.cshtml" />
       <option value="$PROJECT_DIR$/ConcertTracker/wwwroot/css/mycss/userProfile.css" />
+      <option value="$PROJECT_DIR$/BusinessLayer/Implementations/EFGenreRepository.cs" />
+      <option value="$PROJECT_DIR$/ConcertTracker/Areas/Identity/Pages/Account/Manage/Index.cshtml" />
+      <option value="$PROJECT_DIR$/BusinessLayer/Implementations/EFCommentRepository.cs" />
+      <option value="$PROJECT_DIR$/BusinessLayer/Interfaces/ICommentRepository.cs" />
+      <option value="$PROJECT_DIR$/ConcertTracker/Pages/Profile.razor" />
+      <option value="$PROJECT_DIR$/ConcertTracker/Pages/Search.razor" />
+      <option value="$PROJECT_DIR$/ConcertTracker/wwwroot/css/mycss/profile.css" />
+      <option value="$PROJECT_DIR$/ConcertTracker/Pages/ConcertHallPage.razor" />
     </changedPaths>
   </component>
   <component name="ProjectId" id="1semW0JOl5OiGGZS0Lz2uDUbQbh" />
@@ -158,20 +159,6 @@
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/ConcertTracker/Areas/Identity/Pages/Account/Manage/Index.cshtml</url>
-          <line>36</line>
-          <properties documentPath="C:\ConcertTracker\ConcertTracker\Areas\Identity\Pages\Account\Manage\Index.cshtml" initialLine="35" isMultiMethodBreakpoint="true">
-            <option name="multiMethodBreakpoint" value="true" />
-            <startOffsets>
-              <option value="-1" />
-            </startOffsets>
-            <endOffsets>
-              <option value="-1" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="71" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/ConcertTracker/Areas/Identity/Pages/Account/Manage/Index.cshtml.cs</url>
           <line>143</line>
           <properties documentPath="C:\ConcertTracker\ConcertTracker\Areas\Identity\Pages\Account\Manage\Index.cshtml.cs" initialLine="140" containingFunctionPresentation="method 'OnPostAsync'">
@@ -224,9 +211,9 @@
           <option name="timeStamp" value="80" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/ConcertTracker/Areas/Identity/Pages/Account/Manage/Index.cshtml</url>
-          <line>39</line>
-          <properties documentPath="C:\ConcertTracker\ConcertTracker\Areas\Identity\Pages\Account\Manage\Index.cshtml" initialLine="39" isMultiMethodBreakpoint="true">
+          <url>file://$PROJECT_DIR$/ConcertTracker/Pages/Search.razor</url>
+          <line>186</line>
+          <properties documentPath="C:\ConcertTracker\ConcertTracker\Pages\Search.razor" initialLine="183" isMultiMethodBreakpoint="true">
             <option name="multiMethodBreakpoint" value="true" />
             <startOffsets>
               <option value="-1" />
@@ -235,7 +222,49 @@
               <option value="-1" />
             </endOffsets>
           </properties>
-          <option name="timeStamp" value="81" />
+          <option name="timeStamp" value="83" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/ConcertTracker/Pages/Profile.razor</url>
+          <line>114</line>
+          <properties documentPath="C:\ConcertTracker\ConcertTracker\Pages\Profile.razor" initialLine="110" isMultiMethodBreakpoint="true">
+            <option name="multiMethodBreakpoint" value="true" />
+            <startOffsets>
+              <option value="-1" />
+            </startOffsets>
+            <endOffsets>
+              <option value="-1" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="87" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/ConcertTracker/Pages/Profile.razor</url>
+          <line>59</line>
+          <properties documentPath="C:\ConcertTracker\ConcertTracker\Pages\Profile.razor" initialLine="57" isMultiMethodBreakpoint="true">
+            <option name="multiMethodBreakpoint" value="true" />
+            <startOffsets>
+              <option value="-1" />
+            </startOffsets>
+            <endOffsets>
+              <option value="-1" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="88" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/ConcertTracker/Pages/Profile.razor</url>
+          <line>115</line>
+          <properties documentPath="C:\ConcertTracker\ConcertTracker\Pages\Profile.razor" initialLine="112" isMultiMethodBreakpoint="true">
+            <option name="multiMethodBreakpoint" value="true" />
+            <startOffsets>
+              <option value="-1" />
+            </startOffsets>
+            <endOffsets>
+              <option value="-1" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="89" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

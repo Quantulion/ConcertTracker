@@ -121,27 +121,39 @@ using DataLayer.Entities;
     {
         public string SearchText { get; set; }
 
-        public ICollection<ConcertHall> concertHalls;
+        public ICollection<ConcertHall> ConcertHalls;
 
-        public ICollection<Genre> genres;
+        public ICollection<Genre> Genres;
 
-        public ICollection<Genre> selectedGenres;
+        public ICollection<Genre> SelectedGenres = new List<Genre>();
 
-        public ICollection<Artist> artists;
+        public ICollection<Artist> Artists;
 
         public FilterModel Filter = new FilterModel();
 
-        public List<object> list = new List<object>();
+        public List<object> ObjectsList = new List<object>();
 
-        public List<object> GetAllObjects()
+        public List<object> GetObjects()
         {
             List<object> x = new List<object>();
-            if (concertHalls != null && Filter.AddConcertHalls)
-                x.AddRange(concertHalls);
-            if (artists != null && Filter.AddArtists)
-                x.AddRange(artists);
-            list = x;
-            return list;
+            if (ConcertHalls != null && Filter.AddConcertHalls)
+                x.AddRange(ConcertHalls);
+            if (Artists != null && Filter.AddArtists)
+            {
+                foreach (var artist in Artists)
+                {
+                    int genresCount = 0;
+                    foreach (var genre in SelectedGenres)
+                    {
+                        if (artist.Genres.Contains(genre))
+                            genresCount++;
+                    }
+                    if(genresCount != 0)
+                        x.Add(artist);
+                }
+            }
+            ObjectsList = x;
+            return ObjectsList;
         }
     }
 
@@ -159,25 +171,43 @@ using DataLayer.Entities;
 
     private SearchModel searchModel = new SearchModel();
 
-    private IEnumerable<string> selectedGenres = new string[] { "Empty" };
+    private IEnumerable<string> allGenres = new string[] { "Empty" };
+
+    protected override async Task OnInitializedAsync()
+    {
+        searchModel.ConcertHalls = await ConcertHallRepository.GetAllConcertHallsAsync();
+        searchModel.Genres = await GenreRepository.GetAllGenresAsync();
+        searchModel.Artists = await ArtistRepository.GetAllArtistsAsync();
+        searchModel.SelectedGenres = searchModel.Genres;
+        await GetArtistsWithGenres(searchModel.Artists);
+
+        List<string> x = new List<string>();
+        foreach (var genre in await GenreRepository.GetAllGenresAsync())
+        {
+            x.Add(genre.Name);
+        }
+        allGenres = (IEnumerable<string>)x;
+        
+        searchModel.GetObjects();
+    }
 
     private int i = 0;
 
     public void search()
     {
         List<object> x = new List<object>();
-        foreach (var item in searchModel.GetAllObjects())
+        foreach (var item in searchModel.GetObjects())
         {
             if (item.ToString().Contains(searchModel.SearchText))
                 x.Add(item);
         }
-        searchModel.list = x;
+        searchModel.ObjectsList = x;
         i = 0;
     }
 
     public void incI()
     {
-        if (i < searchModel.list.Count() - 3)
+        if (i < searchModel.ObjectsList.Count() - 3)
             i += 3;
         else i = 0;
     }
@@ -186,40 +216,37 @@ using DataLayer.Entities;
     {
         if (i > 2)
             i -= 3;
-        else i = (searchModel.list.Count() / 3) * 3;
+        else if (i%3 != 0 || i < 3) 
+            i = (searchModel.ObjectsList.Count() / 3) * 3;
+        else 
+            i = (searchModel.ObjectsList.Count() / 3 - 1) * 3;
     }
 
-    protected override async Task OnInitializedAsync()
+    private async Task GetArtistsWithGenres(ICollection<Artist> artists)
     {
-        searchModel.concertHalls = await ConcertHallRepository.GetAllConcertHallsAsync();
-        searchModel.genres = await GenreRepository.GetAllGenresAsync();
-        searchModel.artists = await ArtistRepository.GetAllArtistsAsync();
-        searchModel.GetAllObjects();
-
-        List<string> x = new List<string>();
-        foreach (var genre in await GenreRepository.GetAllGenresAsync())
+        foreach (var artist in artists)
         {
-            x.Add(genre.Name);
+            artist.Genres = await GenreRepository.GetGenresOfArtistAsync(artist) as List<Genre>;
         }
-        selectedGenres = (IEnumerable<string>)x;
     }
 
     private async Task OnChange()
     {
         List<Genre> genreList = new List<Genre>();
-        foreach (var genre in selectedGenres)
+        foreach (var genre in allGenres)
         {
             var x = await GenreRepository.GetGenreByNameAsync(genre);
             genreList.Add(x);
         }
-        searchModel.selectedGenres = genreList;
-        searchModel.GetAllObjects();
+        searchModel.SelectedGenres = genreList;
+        searchModel.GetObjects();
     }
 
     private void OnCheckboxChange()
     {
-        searchModel.GetAllObjects();
+        searchModel.GetObjects();
     }
+
 
 #line default
 #line hidden

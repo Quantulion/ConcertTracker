@@ -28,6 +28,13 @@ namespace BusinessLayer.Implementations
             return likes.Likes;
         }
 
+        public async Task<List<Comment>> GetCommentsOfUser(User user)
+        {
+            var full = _ctx.Users.Include(c => c.Comments);
+            var userWithComments = await full.FirstOrDefaultAsync(c => c.Id == user.Id);
+            return userWithComments.Comments;
+        }
+
         public async Task<int> LikesCountAsync(Comment comment)
         {
             var full = _ctx.Comments.Include(c => c.Likes);
