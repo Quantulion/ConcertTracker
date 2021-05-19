@@ -63,7 +63,7 @@
             </a>
             <button type="button" @onclick="@(async () => { await AddLike(comment); })">Like</button>
             @{ 
-                <p >@comment.Likes.Count.ToString()</p>
+                <p class="likesCount">@comment.Likes.Count.ToString()</p>
             }
         </div>
                 }
@@ -119,7 +119,7 @@
 
     private async Task AddLike(Comment comment)
     {
-        await CommentRepository.AddLikeAsync(comment, currentUser);
+        await CommentRepository.PressLikeAsync(comment, currentUser);
     }
 
     private async Task<int> LikesCount(Comment comment)

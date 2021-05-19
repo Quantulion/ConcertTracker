@@ -15,17 +15,21 @@ namespace ConcertTracker.Areas.Identity.Pages.Account.Manage
     {
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
+        private readonly IGenreRepository _genreRepository;
 
         public IndexModel(
             UserManager<User> userManager,
-            SignInManager<User> signInManager)
+            SignInManager<User> signInManager,
+            IGenreRepository genreRepository)
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            _genreRepository = genreRepository;
         }
         [Display(Name = "Photo")]
         public string PhotoPath { get; set; }
         public string Username { get; set; }
+        public ICollection<Genre> AllGenres { get; set; }
 
         [TempData]
         public string StatusMessage { get; set; }
@@ -44,6 +48,8 @@ namespace ConcertTracker.Areas.Identity.Pages.Account.Manage
 
             [Display(Name = "About")]
             public string Description { get; set; }
+
+            public List<string> Genres { get; set; } = new List<string>();
         }
 
         private async Task LoadAsync(User user)
@@ -51,9 +57,9 @@ namespace ConcertTracker.Areas.Identity.Pages.Account.Manage
             var userName = await _userManager.GetUserNameAsync(user);
             var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
             var age = user.Age;
-            var email = user.Email;
             var description = user.Description;
-
+            
+            AllGenres = await _genreRepository.GetAllGenresAsync();
             Username = userName;
             PhotoPath = user.Photo;
 
@@ -63,6 +69,15 @@ namespace ConcertTracker.Areas.Identity.Pages.Account.Manage
                 Age = age,
                 Description = description
             };
+            if (await _userManager.IsInRoleAsync(user, "Artist"))
+            {
+                Artist artist = (Artist) user;
+                var genres = await _genreRepository.GetGenresOfArtistAsync(artist);
+                foreach (var genre in genres)
+                {
+                    Input.Genres.Add(genre.Name);
+                }
+            }
         }
 
         public async Task<IActionResult> OnGetAsync()
@@ -125,6 +140,30 @@ namespace ConcertTracker.Areas.Identity.Pages.Account.Manage
                     return RedirectToPage();
                 }
             }
+            
+            if (await _userManager.IsInRoleAsync(user, "Artist"))
+            {
+                Artist artist = (Artist) user;
+                var genres = await _genreRepository.GetGenresOfArtistAsync(artist);
+                List<Genre> inputGenres = new List<Genre>();
+                foreach (var genreName in Input.Genres)
+                {
+                    var currentGenre = await _genreRepository.GetGenreByNameAsync(genreName);
+                    inputGenres.Add(currentGenre);
+                }
+                if (inputGenres != genres.ToList())
+                    {
+                        artist.Genres = inputGenres;
+                        var setGenresResult = await _userManager.UpdateAsync(user);
+                        if (!setGenresResult.Succeeded)
+                        {
+                            StatusMessage = "Unexpected error when trying to set Genres.";
+                            return RedirectToPage();
+                        }
+                    }
+            }
+            
+            
 
             await _signInManager.RefreshSignInAsync(user);
             StatusMessage = "Your profile has been updated";

@@ -10,6 +10,7 @@ namespace BusinessLayer.Interfaces
     {
         Task<ICollection<Genre>> GetAllGenresAsync();
         Task<Genre> GetGenreByNameAsync(string name);
+        Task<ICollection<Genre>> GetGenresOfArtistAsync(Artist artist);
         Task<Genre> AddGenreAsync(Genre genre);
         Task UpdateGenreAsync(Genre genre);
     }

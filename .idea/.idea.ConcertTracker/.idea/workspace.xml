@@ -10,6 +10,13 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="CSS File" />
+      </list>
+    </option>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
@@ -35,7 +42,6 @@
       <option value="$PROJECT_DIR$/BusinessLayer/Implementations/EFArtistRepository.cs" />
       <option value="$PROJECT_DIR$/BusinessLayer/Implementations/EFConcertHallRepository.cs" />
       <option value="$PROJECT_DIR$/BusinessLayer/Implementations/EFConcertRepository.cs" />
-      <option value="$PROJECT_DIR$/BusinessLayer/Implementations/EFGenreRepository.cs" />
       <option value="$PROJECT_DIR$/BusinessLayer/Interfaces/IViewerRepository.cs" />
       <option value="$PROJECT_DIR$/BusinessLayer/Implementations/PhotoManager.cs" />
       <option value="$PROJECT_DIR$/ConcertTracker/Pages/Map.razor" />
@@ -56,6 +62,14 @@
       <option value="$PROJECT_DIR$/ConcertTracker/Shared/Comments.razor" />
       <option value="$PROJECT_DIR$/BusinessLayer/Implementations/EFCommentRepository.cs" />
       <option value="$PROJECT_DIR$/ConcertTracker/Pages/ConcertPage.razor" />
+      <option value="$PROJECT_DIR$/ConcertTracker/wwwroot/css/mycss/concert.css" />
+      <option value="$PROJECT_DIR$/ConcertTracker/wwwroot/css/mycss/style.css" />
+      <option value="$PROJECT_DIR$/ConcertTracker/wwwroot/css/mycss/profile.css" />
+      <option value="$PROJECT_DIR$/BusinessLayer/Interfaces/IGenreRepository.cs" />
+      <option value="$PROJECT_DIR$/BusinessLayer/Implementations/EFGenreRepository.cs" />
+      <option value="$PROJECT_DIR$/ConcertTracker/Areas/Identity/Pages/Account/Manage/Index.cshtml.cs" />
+      <option value="$PROJECT_DIR$/ConcertTracker/Areas/Identity/Pages/Account/Manage/Index.cshtml" />
+      <option value="$PROJECT_DIR$/ConcertTracker/wwwroot/css/mycss/userProfile.css" />
     </changedPaths>
   </component>
   <component name="ProjectId" id="1semW0JOl5OiGGZS0Lz2uDUbQbh" />
@@ -71,6 +85,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="XThreadsFramesViewSplitterKey" value="0.33892617" />
+    <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
     <property name="vue.rearranger.settings.migration" value="true" />
@@ -140,6 +155,90 @@
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
   </component>
   <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/ConcertTracker/Areas/Identity/Pages/Account/Manage/Index.cshtml</url>
+          <line>36</line>
+          <properties documentPath="C:\ConcertTracker\ConcertTracker\Areas\Identity\Pages\Account\Manage\Index.cshtml" initialLine="35" isMultiMethodBreakpoint="true">
+            <option name="multiMethodBreakpoint" value="true" />
+            <startOffsets>
+              <option value="-1" />
+            </startOffsets>
+            <endOffsets>
+              <option value="-1" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="71" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/ConcertTracker/Areas/Identity/Pages/Account/Manage/Index.cshtml.cs</url>
+          <line>143</line>
+          <properties documentPath="C:\ConcertTracker\ConcertTracker\Areas\Identity\Pages\Account\Manage\Index.cshtml.cs" initialLine="140" containingFunctionPresentation="method 'OnPostAsync'">
+            <startOffsets>
+              <option value="4814" />
+            </startOffsets>
+            <endOffsets>
+              <option value="4867" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="75" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/ConcertTracker/Areas/Identity/Pages/Account/Manage/Index.cshtml.cs</url>
+          <line>146</line>
+          <properties documentPath="C:\ConcertTracker\ConcertTracker\Areas\Identity\Pages\Account\Manage\Index.cshtml.cs" initialLine="143" containingFunctionPresentation="method 'OnPostAsync'">
+            <startOffsets>
+              <option value="4945" />
+            </startOffsets>
+            <endOffsets>
+              <option value="5012" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="76" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/ConcertTracker/Areas/Identity/Pages/Account/Manage/Index.cshtml.cs</url>
+          <line>153</line>
+          <properties documentPath="C:\ConcertTracker\ConcertTracker\Areas\Identity\Pages\Account\Manage\Index.cshtml.cs" initialLine="144" containingFunctionPresentation="method 'OnPostAsync'">
+            <startOffsets>
+              <option value="5327" />
+            </startOffsets>
+            <endOffsets>
+              <option value="5362" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="77" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/ConcertTracker/Areas/Identity/Pages/Account/Manage/Index.cshtml.cs</url>
+          <line>155</line>
+          <properties documentPath="C:\ConcertTracker\ConcertTracker\Areas\Identity\Pages\Account\Manage\Index.cshtml.cs" initialLine="155" containingFunctionPresentation="method 'OnPostAsync'">
+            <startOffsets>
+              <option value="5409" />
+            </startOffsets>
+            <endOffsets>
+              <option value="5437" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="80" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/ConcertTracker/Areas/Identity/Pages/Account/Manage/Index.cshtml</url>
+          <line>39</line>
+          <properties documentPath="C:\ConcertTracker\ConcertTracker\Areas\Identity\Pages\Account\Manage\Index.cshtml" initialLine="39" isMultiMethodBreakpoint="true">
+            <option name="multiMethodBreakpoint" value="true" />
+            <startOffsets>
+              <option value="-1" />
+            </startOffsets>
+            <endOffsets>
+              <option value="-1" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="81" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
     <pin-to-top-manager>
       <pinned-members>
         <PinnedItemInfo parentTag="Frame#ConcertTracker.Pages.ConcertPage.&lt;BuildRenderTree&gt;b__0_3" memberName="commentUser" />

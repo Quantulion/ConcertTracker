@@ -46,7 +46,7 @@ namespace BusinessLayer.Implementations
             return comment;
         }
 
-        public async Task AddLikeAsync(Comment comment, User user)
+        public async Task PressLikeAsync(Comment comment, User user)
         {
             UserComment userComment = new UserComment
             {
@@ -58,11 +58,14 @@ namespace BusinessLayer.Implementations
             
             bool alreadyLiked = false;
             var full = _ctx.Comments.Include(c => c.Likes);
-            var likes = await full.FirstOrDefaultAsync(c => c.Id == comment.Id);
-            foreach (var like in likes.Likes)
+            var commentWithLikes = await full.FirstOrDefaultAsync(c => c.Id == comment.Id);
+            foreach (var like in commentWithLikes.Likes)
             {
-                if(like.UserId == user.Id && like.CommentId == comment.Id)
+                if (like.UserId == user.Id && like.CommentId == comment.Id)
+                {
                     alreadyLiked = true;
+                    userComment = like;
+                }
             }
             
             if (!alreadyLiked)
@@ -71,6 +74,12 @@ namespace BusinessLayer.Implementations
                     user.Likes = new List<UserComment>();
                 user.Likes.Add(userComment);
                 _ctx.Users.Update(user);
+                await _ctx.SaveChangesAsync();
+            }
+            else
+            {
+                commentWithLikes.Likes.Remove(userComment);
+                _ctx.Comments.Update(commentWithLikes);
                 await _ctx.SaveChangesAsync();
             }
         }

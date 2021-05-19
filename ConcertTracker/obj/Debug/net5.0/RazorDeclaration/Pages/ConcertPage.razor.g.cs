@@ -170,7 +170,7 @@ using Microsoft.AspNetCore.Identity;
 
     private async Task AddLike(Comment comment)
     {
-        await CommentRepository.AddLikeAsync(comment, currentUser);
+        await CommentRepository.PressLikeAsync(comment, currentUser);
     }
 
     private async Task<int> LikesCount(Comment comment)

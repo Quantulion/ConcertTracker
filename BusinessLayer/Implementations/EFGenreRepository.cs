@@ -16,6 +16,14 @@ namespace BusinessLayer.Implementations
         {
             _ctx = ctx;
         }
+
+        public async Task<ICollection<Genre>> GetGenresOfArtistAsync(Artist artist)
+        {
+            var full = _ctx.Artists.Include(g => g.Genres);
+            var artistWithGenres = await full.FirstOrDefaultAsync(a => a.Id == artist.Id);
+            return artistWithGenres.Genres;
+        }
+
         public Task<Genre> AddGenreAsync(Genre genre)
         {
             throw new NotImplementedException();

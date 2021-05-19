@@ -12,7 +12,7 @@ namespace BusinessLayer.Interfaces
         Task<List<UserComment>> GetLikesOfCommentAsync(Comment comment);
         Task<int> LikesCountAsync(Comment comment);
         Task<Comment> AddCommentAsync(Comment comment, User user, Concert concert);
-        Task AddLikeAsync(Comment comment, User user);
+        Task PressLikeAsync(Comment comment, User user);
         Task UpdateCommentAsync(Comment comment);
         Task DeleteCommentAsync(Comment comment);
     }

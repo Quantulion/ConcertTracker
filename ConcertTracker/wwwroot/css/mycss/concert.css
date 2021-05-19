@@ -58,7 +58,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    min-height: 60vh;
+    min-height: 80vh;
 }
 
     .commentSection .hdr {
@@ -78,22 +78,39 @@
         }
 
     .commentSection .comment {
+        position: relative;
         margin-top: 2rem;
         display: flex;
         flex-direction: row;
         align-items: center;
         border: 3px solid #000000;
         padding: .5rem;
+        width: 30%;
+        border-radius: 2rem;
     }
+
+.commentSection .comment button {
+    position: absolute;
+    right: 10%;
+    width: 4rem;
+}
+
+.commentSection .comment .likesCount {
+    position: absolute;
+    right: 5%;
+}
 
     .commentSection .comment img {
         width: 4rem;
         height: 4rem;
+        margin-left: 1rem;
+        margin-right: 1rem;
     }
 
         .commentSection .comment .commentData {
             display: flex;
             flex-direction: column;
+            margin-right: 1rem;
         }
 
         .commentSection .comment .commentData p {
