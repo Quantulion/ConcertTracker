@@ -13,6 +13,7 @@ namespace BusinessLayer.Interfaces
         Task<Concert> GetConcertByPositionAsync(GoogleMapPosition position);
         Task<Concert> AddConcertAsync(Concert concert);
         Task<Concert> AddArtistToConcertAsync(Artist artist, Concert concert);
+        Task<Concert> SetConcertHallToConcertAsync(ConcertHall concertHall, Concert concert);
         Task<List<Artist>> GetArtistsOfConcertAsync(Concert concert);
         Task<List<Comment>> GetCommentsOfConcertAsync(Concert concert);
         Task UpdateConcertAsync(Concert concert);

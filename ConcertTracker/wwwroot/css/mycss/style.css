@@ -7,6 +7,10 @@
     box-sizing: border-box;
 }
 
+img {
+    object-fit: cover;
+}
+
 p {
     font-family: Roboto;
     font-weight: 400;
@@ -300,7 +304,42 @@ img.mapAboutImage {
             .mapPage .mapContainer .concertInfo .hdr {
                 font-size: 24px;
                 font-weight: 800;
+                display: flex;
+                align-items: center;
             }
+
+                .mapPage .mapContainer .concertInfo .hdr .addArtistToConcertArea {
+                    position: absolute;
+                    left: 90%;
+                    z-index: 1;
+                    background: #d4d4d4;
+                    border: 2px solid #000000;
+                    border-radius: 1rem;
+                    padding-top: 1rem;
+                    overflow: auto;
+                    max-height: 25rem;
+                }
+
+                    .mapPage .mapContainer .concertInfo .hdr .addArtistToConcertArea .foundArtist {
+                        display: flex;
+                        align-items: center;
+                        margin-bottom: 1rem;
+                    }
+
+                        .mapPage .mapContainer .concertInfo .hdr .addArtistToConcertArea .foundArtist img {
+                            margin-left: 1rem;
+                            margin-right: 1rem;
+                        }
+
+                            .mapPage .mapContainer .concertInfo .hdr .addArtistToConcertArea .foundArtist p {
+                                font-size: 18px;
+                            }
+
+                            .mapPage .mapContainer .concertInfo .hdr img {
+                                width: 1.5rem;
+                                height: 1.5rem;
+                                cursor: pointer;
+                            }
 
             .mapPage .mapContainer .concertInfo .dateInput {
                 height: 7.5%;
@@ -347,4 +386,19 @@ body:not(.rz-default-scrollbars)::-webkit-scrollbar-thumb {
     border-color: Black;
     padding: .375rem .75rem;
     font-size: 1rem;
+}
+
+@media screen and (max-width: 1440px) {
+    .mapPage .mapContainer .concertInfo .hdr .addArtistToConcertArea {
+        position: absolute;
+        top: 30%;
+        left: 70%;
+        z-index: 1;
+        background: #d4d4d4;
+        border: 2px solid #000000;
+        border-radius: 1rem;
+        padding-top: 1rem;
+        overflow: auto;
+        max-height: 25rem;
+    }
 }

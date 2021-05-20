@@ -154,7 +154,8 @@ using DataLayer.Entities;
     {
         var comments = await CommentRepository.GetCommentsOfUser(foundUser);
         int end = comments.Count - 1;
-        lastComment = comments[end];
+        if(end >= 0)
+            lastComment = comments[end];
     }
 
 #line default

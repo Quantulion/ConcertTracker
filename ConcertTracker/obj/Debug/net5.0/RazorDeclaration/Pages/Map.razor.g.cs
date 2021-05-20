@@ -126,21 +126,27 @@ using Microsoft.AspNetCore.Identity;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 78 "C:\ConcertTracker\ConcertTracker\Pages\Map.razor"
+#line 108 "C:\ConcertTracker\ConcertTracker\Pages\Map.razor"
        
     int zoom = 15;
     string clickedPosition = "";
 
     private ICollection<ConcertHall> concertHalls;
     private ICollection<Concert> concerts;
+    private IList<User> allArtists = new List<User>();
+    private ICollection<ConcertHall> allConcertHalls;
     private bool isArtist;
     private bool isAdmin;
+    private bool addArtistClicked = false;
+    private bool addConcertHallClicked = false;
     private List<Artist> concertArtists = new List<Artist>();
     Artist artist;
     Admin admin = new Admin();
     Concert newConcert = new Concert
     {
-        Date = DateTime.Now
+        Date = DateTime.Now,
+        Artists = new List<Artist>(),
+        ConcertHall = new ConcertHall()
     };
 
     GoogleMapPosition pos = new GoogleMapPosition() { Lat = 55.7491, Lng = 37.6258 };
@@ -149,6 +155,8 @@ using Microsoft.AspNetCore.Identity;
     {
         concertHalls = await ConcertHallRep.GetAllConcertHallsAsync();
         concerts = await ConcertRepository.GetAllConcertsAsync();
+        allArtists = await userManager.GetUsersInRoleAsync("Artist");
+        allConcertHalls = await ConcertHallRep.GetAllConcertHallsAsync();
         var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
         var auser = authState.User;
         var user = await userManager.GetUserAsync(auser);
@@ -171,7 +179,9 @@ using Microsoft.AspNetCore.Identity;
         pos.Lng = args.Position.Lng;
         newConcert = new Concert
         {
-            Date = DateTime.Now
+            Date = DateTime.Now,
+            Artists = new List<Artist>(),
+            ConcertHall = new ConcertHall()
         };
         concertArtists = new List<Artist>();
     }
@@ -182,13 +192,13 @@ using Microsoft.AspNetCore.Identity;
         var foundConcert = await ConcertRepository.GetConcertByIdAsync(Convert.ToInt32(args.Title));
         newConcert = foundConcert;
         concertArtists = await ConcertRepository.GetArtistsOfConcertAsync(foundConcert);
+        newConcert.Artists = concertArtists;
         pos.Lat = foundConcert.Position.Lat;
         pos.Lng = foundConcert.Position.Lng;
     }
 
     private async Task InsertConcert()
     {
-        var concertHall = await ConcertHallRep.GetConcertHallByAddressAsync("Street Concert");
         var conc = await ConcertRepository.GetConcertByPositionAsync(pos);
 
         newConcert.Position = pos;
@@ -198,9 +208,9 @@ using Microsoft.AspNetCore.Identity;
             Description = newConcert.Description,
             Date = newConcert.Date,
             Position = newConcert.Position,
-            ConcertHall = concertHall,
-            ConcertHallId = concertHall.Id,
-            Artists = new List<Artist>()
+            ConcertHall = newConcert.ConcertHall,
+            ConcertHallId = newConcert.ConcertHallId,
+            Artists = newConcert.Artists
         };
 
         if (conc != null)
@@ -220,8 +230,40 @@ using Microsoft.AspNetCore.Identity;
         pos = new GoogleMapPosition() { Lat = 55.7491, Lng = 37.6258 };
         newConcert = new Concert
         {
-            Date = DateTime.Now
+            Date = DateTime.Now,
+            Artists = new List<Artist>(),
+            ConcertHall = new ConcertHall()
         };
+    }
+
+    private async Task AddArtistToConcert(Artist chosenArtist)
+    {
+        if(newConcert.Id != 0)
+            await ConcertRepository.AddArtistToConcertAsync(chosenArtist, newConcert);
+        else
+        {
+            newConcert.Artists.Add(chosenArtist);
+        }
+    }
+    
+    private async Task AddConcertHallToConcert(ConcertHall chosenConcertHall)
+    {
+        if(newConcert.Id != 0)
+            await ConcertRepository.SetConcertHallToConcertAsync(chosenConcertHall, newConcert);
+        else
+        {
+            newConcert.ConcertHall = chosenConcertHall;
+        }
+    }
+
+    private void clickAddArtist()
+    {
+        addArtistClicked = !addArtistClicked;
+    }
+    
+    private void clickAddConcertHall()
+    {
+        addConcertHallClicked = !addConcertHallClicked;
     }
 
 #line default

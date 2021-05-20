@@ -36,15 +36,45 @@
             {
                 <a class="hdr">Date:</a>
                 <RadzenDatePicker  @bind-Value="@newConcert.Date" />
-                if (newConcert.ConcertHall != null)
+                <a class="hdr">
+                    Concert hall:
+                    <img @onclick="clickAddConcertHall" src="Images/free-icon-plus-149688.svg" />
+                                            @if (addConcertHallClicked == true)
+                                            {
+                                                <div class="addArtistToConcertArea">
+                                                        @foreach (var foundConcertHall in allConcertHalls)
+                                                        {
+                                                            <div class="foundArtist">
+                                                                <img src="uploads/@foundConcertHall.Photo">
+                                                                <p>@foundConcertHall.Name</p>
+                                                                <img @onclick="@( () => AddConcertHallToConcert(foundConcertHall) )" src="Images/free-icon-plus-149688.svg" />
+                                                            </div>
+                                                        }
+                                                </div>
+                                             }
+                </a>
+                <a href="/concerthall/@newConcert.ConcertHall.Id" class="hdr" Style="font-size:18px; font-weight: 400;">@newConcert.ConcertHall.Name</a>
+                <a class="hdr">
+                    Artists:
+                    <img @onclick="clickAddArtist" src="Images/free-icon-plus-149688.svg" />
+                        @if (addArtistClicked == true)
+                        {
+                            <div class="addArtistToConcertArea">
+                                    @foreach (var foundArtist in allArtists)
+                                    {
+                                        var artistToList = (Artist)foundArtist;
+                                        <div class="foundArtist">
+                                            <img src="uploads/@foundArtist.Photo">
+                                            <p>@foundArtist.UserName</p>
+                                            <img @onclick="@( () => AddArtistToConcert(artistToList) )" src="Images/free-icon-plus-149688.svg" />
+                                        </div>
+                                    }
+                            </div>
+                         }
+                </a>
+                foreach (var concertArtist in newConcert.Artists)
                 {
-                    <a class="hdr">Concert hall:</a>
-                    <a href="/concerthall/@newConcert.ConcertHall.Id" class="hdr" Style="font-size:18px; font-weight: 400;">@newConcert.ConcertHall.Address</a>
-                }
-                <a class="hdr">Artists:</a>
-                foreach (var artist in concertArtists)
-                {
-                    <a href="/user/@artist.Id" class="hdr" style="font-size:18px; font-weight: 400;">@artist.UserName</a>
+                    <a href="/user/@concertArtist.Id" class="hdr" style="font-size:18px; font-weight: 400;">@concertArtist.UserName</a>
                 }
                 <a class="hdr">Description:</a>
                 <InputTextArea Style="font-size:18px; padding: 0.5rem;" id="desc" @bind-Value="@newConcert.Description" class="descInput" />
@@ -57,19 +87,19 @@
                 if (newConcert.ConcertHall != null)
                 {
                     <a class="hdr">Concert hall:</a>
-                    <a href="/concerthall/@newConcert.ConcertHall.Id" class="hdr" Style="font-size:18px; font-weight: 400;">@newConcert.ConcertHall.Address</a>
+                    <a href="/concerthall/@newConcert.ConcertHall.Id.ToString()" class="hdr" Style="font-size:18px; font-weight: 400;">@newConcert.ConcertHall.Address</a>
                 }
                 <a class="hdr">Artists:</a>
-                foreach (var artist in concertArtists)
+                foreach (var concertArtist in concertArtists)
                 {
-                    <a href="/user/@artist.Id" class="hdr" style="font-size:18px; font-weight: 400;">@artist.UserName</a>
+                    <a href="/user/@concertArtist.Id" class="hdr" style="font-size:18px; font-weight: 400;">@concertArtist.UserName</a>
                 }
                 <a class="hdr">Description:</a>
                 <InputTextArea Style="font-size:18px; padding: 0.5rem;" id="desc" @bind-Value="@newConcert.Description" class="descInput" disabled />
             }
             @if (newConcert.Id != 0)
             {
-                <a href="/concert/@newConcert.Id">Details...</a>
+                <a href="/concert/@newConcert.Id.ToString()">Details...</a>
             }
         </EditForm>
     </div>
@@ -81,14 +111,20 @@
 
     private ICollection<ConcertHall> concertHalls;
     private ICollection<Concert> concerts;
+    private IList<User> allArtists = new List<User>();
+    private ICollection<ConcertHall> allConcertHalls;
     private bool isArtist;
     private bool isAdmin;
+    private bool addArtistClicked = false;
+    private bool addConcertHallClicked = false;
     private List<Artist> concertArtists = new List<Artist>();
     Artist artist;
     Admin admin = new Admin();
     Concert newConcert = new Concert
     {
-        Date = DateTime.Now
+        Date = DateTime.Now,
+        Artists = new List<Artist>(),
+        ConcertHall = new ConcertHall()
     };
 
     GoogleMapPosition pos = new GoogleMapPosition() { Lat = 55.7491, Lng = 37.6258 };
@@ -97,6 +133,8 @@
     {
         concertHalls = await ConcertHallRep.GetAllConcertHallsAsync();
         concerts = await ConcertRepository.GetAllConcertsAsync();
+        allArtists = await userManager.GetUsersInRoleAsync("Artist");
+        allConcertHalls = await ConcertHallRep.GetAllConcertHallsAsync();
         var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
         var auser = authState.User;
         var user = await userManager.GetUserAsync(auser);
@@ -119,7 +157,9 @@
         pos.Lng = args.Position.Lng;
         newConcert = new Concert
         {
-            Date = DateTime.Now
+            Date = DateTime.Now,
+            Artists = new List<Artist>(),
+            ConcertHall = new ConcertHall()
         };
         concertArtists = new List<Artist>();
     }
@@ -130,13 +170,13 @@
         var foundConcert = await ConcertRepository.GetConcertByIdAsync(Convert.ToInt32(args.Title));
         newConcert = foundConcert;
         concertArtists = await ConcertRepository.GetArtistsOfConcertAsync(foundConcert);
+        newConcert.Artists = concertArtists;
         pos.Lat = foundConcert.Position.Lat;
         pos.Lng = foundConcert.Position.Lng;
     }
 
     private async Task InsertConcert()
     {
-        var concertHall = await ConcertHallRep.GetConcertHallByAddressAsync("Street Concert");
         var conc = await ConcertRepository.GetConcertByPositionAsync(pos);
 
         newConcert.Position = pos;
@@ -146,9 +186,9 @@
             Description = newConcert.Description,
             Date = newConcert.Date,
             Position = newConcert.Position,
-            ConcertHall = concertHall,
-            ConcertHallId = concertHall.Id,
-            Artists = new List<Artist>()
+            ConcertHall = newConcert.ConcertHall,
+            ConcertHallId = newConcert.ConcertHallId,
+            Artists = newConcert.Artists
         };
 
         if (conc != null)
@@ -168,7 +208,39 @@
         pos = new GoogleMapPosition() { Lat = 55.7491, Lng = 37.6258 };
         newConcert = new Concert
         {
-            Date = DateTime.Now
+            Date = DateTime.Now,
+            Artists = new List<Artist>(),
+            ConcertHall = new ConcertHall()
         };
+    }
+
+    private async Task AddArtistToConcert(Artist chosenArtist)
+    {
+        if(newConcert.Id != 0)
+            await ConcertRepository.AddArtistToConcertAsync(chosenArtist, newConcert);
+        else
+        {
+            newConcert.Artists.Add(chosenArtist);
+        }
+    }
+    
+    private async Task AddConcertHallToConcert(ConcertHall chosenConcertHall)
+    {
+        if(newConcert.Id != 0)
+            await ConcertRepository.SetConcertHallToConcertAsync(chosenConcertHall, newConcert);
+        else
+        {
+            newConcert.ConcertHall = chosenConcertHall;
+        }
+    }
+
+    private void clickAddArtist()
+    {
+        addArtistClicked = !addArtistClicked;
+    }
+    
+    private void clickAddConcertHall()
+    {
+        addConcertHallClicked = !addConcertHallClicked;
     }
 }

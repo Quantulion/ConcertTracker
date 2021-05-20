@@ -29,6 +29,14 @@ namespace BusinessLayer.Implementations
             return concert;
 
         }
+
+        public async Task<Concert> SetConcertHallToConcertAsync(ConcertHall concertHall, Concert concert)
+        {
+            concert.ConcertHall = concertHall;
+            await _ctx.SaveChangesAsync();
+            return concert;
+        }
+
         public async Task<ICollection<Concert>> GetAllConcertsAsync()
         {
             return await _ctx.Concerts.ToListAsync();

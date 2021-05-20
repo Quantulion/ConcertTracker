@@ -75,8 +75,9 @@
                 }
 
                     .searchPage .searchContainer .leftPart .foundItems .foundItem img {
-                        width: 6.5rem;
+                        width: 7rem;
                         height: 7rem;
+                        border-radius: 3.5rem;
                     }
 
                     .searchPage .searchContainer .leftPart .foundItems .foundItem .foundItemText {
