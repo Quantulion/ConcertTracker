@@ -338,6 +338,31 @@
           "lib/netstandard2.0/GoogleMapsComponents.dll": {}
         }
       },
+      "Bogus/33.0.2": {
+        "runtime": {
+          "lib/netstandard2.0/Bogus.dll": {
+            "assemblyVersion": "33.0.2.0",
+            "fileVersion": "33.0.2.0"
+          }
+        },
+        "compile": {
+          "lib/netstandard2.0/Bogus.dll": {}
+        }
+      },
+      "Bogus.Locations/33.0.2": {
+        "dependencies": {
+          "Bogus": "33.0.2"
+        },
+        "runtime": {
+          "lib/netstandard2.0/Bogus.Locations.dll": {
+            "assemblyVersion": "33.0.2.0",
+            "fileVersion": "33.0.2.0"
+          }
+        },
+        "compile": {
+          "lib/netstandard2.0/Bogus.Locations.dll": {}
+        }
+      },
       "Humanizer.Core/2.8.26": {
         "runtime": {
           "lib/netstandard2.0/Humanizer.dll": {
@@ -1847,6 +1872,7 @@
       },
       "BusinessLayer/1.0.0": {
         "dependencies": {
+          "Bogus.Locations": "33.0.2",
           "DataLayer": "1.0.0",
           "Microsoft.AspNetCore.Hosting.Abstractions": "2.2.0",
           "Microsoft.AspNetCore.Http.Features": "5.0.5",
@@ -1861,6 +1887,7 @@
       },
       "DataLayer/1.0.0": {
         "dependencies": {
+          "Bogus": "33.0.2",
           "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "5.0.5",
           "Microsoft.EntityFrameworkCore": "5.0.5",
           "Microsoft.EntityFrameworkCore.SqlServer": "5.0.5",
@@ -3525,6 +3552,20 @@
       "sha512": "sha512-PqtMzCiG2pmQKXEtUo39PBVQi9dmRlHtEGkR6zFkcPrgVVWsjKZQ0qy8EQVeSUR/Ay1SfE7tIIowflqTI98Hyg==",
       "path": "blazorgooglemaps/1.0.15",
       "hashPath": "blazorgooglemaps.1.0.15.nupkg.sha512"
+    },
+    "Bogus/33.0.2": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-92CcSgl7KLEw7lerMytjY504IPnhmYqDkCgIPm5GVfiZPslRWUcgWvtoNYhKbSU4m/Ms7giKP8OxPAFTFBgC3w==",
+      "path": "bogus/33.0.2",
+      "hashPath": "bogus.33.0.2.nupkg.sha512"
+    },
+    "Bogus.Locations/33.0.2": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-s+K4afo02Nuepu+ucWFM2Sv5uApl8L29ceND25gXlN4bxNKTVANY/g48bA+znkM/2ECZlYs9BEcQrinllaHQyQ==",
+      "path": "bogus.locations/33.0.2",
+      "hashPath": "bogus.locations.33.0.2.nupkg.sha512"
     },
     "Humanizer.Core/2.8.26": {
       "type": "package",

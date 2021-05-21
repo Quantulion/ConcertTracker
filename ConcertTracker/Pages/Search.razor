@@ -34,7 +34,17 @@
                         {
                             ConcertHall foundConcertHall = (ConcertHall)searchModel.ObjectsList[i + j];
                             <a href="/concerthall/@foundConcertHall.Id" class="foundItem">
-                                <img src="/uploads/@foundConcertHall.Photo" alt="Alternate Text" />
+                                @if (foundConcertHall.Photo != null)
+                                {
+                                    @if (foundConcertHall.Photo[0] == 'h')
+                                    {
+                                        <img src="@foundConcertHall.Photo" alt="Alternate Text"/>
+                                    }
+                                    else
+                                    {
+                                        <img src="/uploads/@foundConcertHall.Photo" alt="Alternate Text"/>
+                                    }
+                                }
                                 <div class="foundItemText">
                                     <p id="Name">@foundConcertHall.Name</p>
                                     <p>Description: @foundConcertHall.Description</p>

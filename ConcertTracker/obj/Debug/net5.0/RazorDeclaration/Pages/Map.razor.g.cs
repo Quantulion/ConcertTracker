@@ -98,21 +98,42 @@ using BusinessLayer.Interfaces;
 #nullable disable
 #nullable restore
 #line 5 "C:\ConcertTracker\ConcertTracker\Pages\Map.razor"
-using DataLayer.Entities;
+using DataLayer;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
 #line 6 "C:\ConcertTracker\ConcertTracker\Pages\Map.razor"
-using Microsoft.AspNetCore.Components.Authorization;
+using DataLayer.Entities;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
 #line 7 "C:\ConcertTracker\ConcertTracker\Pages\Map.razor"
+using Microsoft.AspNetCore.Components.Authorization;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 8 "C:\ConcertTracker\ConcertTracker\Pages\Map.razor"
 using Microsoft.AspNetCore.Identity;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 9 "C:\ConcertTracker\ConcertTracker\Pages\Map.razor"
+using Microsoft.EntityFrameworkCore;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 10 "C:\ConcertTracker\ConcertTracker\Pages\Map.razor"
+using BusinessLayer.Implementations;
 
 #line default
 #line hidden
@@ -126,7 +147,7 @@ using Microsoft.AspNetCore.Identity;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 108 "C:\ConcertTracker\ConcertTracker\Pages\Map.razor"
+#line 112 "C:\ConcertTracker\ConcertTracker\Pages\Map.razor"
        
     int zoom = 15;
     string clickedPosition = "";
@@ -153,6 +174,9 @@ using Microsoft.AspNetCore.Identity;
 
     protected override async Task OnInitializedAsync()
     {
+
+        //await InsertData.InsertAllData();
+        
         concertHalls = await ConcertHallRep.GetAllConcertHallsAsync();
         concerts = await ConcertRepository.GetAllConcertsAsync();
         allArtists = await userManager.GetUsersInRoleAsync("Artist");
@@ -266,6 +290,7 @@ using Microsoft.AspNetCore.Identity;
         addConcertHallClicked = !addConcertHallClicked;
     }
 
+
 #line default
 #line hidden
 #nullable disable
@@ -275,6 +300,8 @@ using Microsoft.AspNetCore.Identity;
         [global::Microsoft.AspNetCore.Components.InjectAttribute] private IConcertRepository ConcertRepository { get; set; }
         [global::Microsoft.AspNetCore.Components.InjectAttribute] private UserManager<User> userManager { get; set; }
         [global::Microsoft.AspNetCore.Components.InjectAttribute] private RoleManager<IdentityRole> roleManager { get; set; }
+        [global::Microsoft.AspNetCore.Components.InjectAttribute] private IDbContextFactory<ApplicationDbContext> ContextFactory { get; set; }
+        [global::Microsoft.AspNetCore.Components.InjectAttribute] private IInsertData InsertData { get; set; }
     }
 }
 #pragma warning restore 1591

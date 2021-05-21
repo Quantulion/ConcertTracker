@@ -112,7 +112,7 @@ using DataLayer.Entities;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 68 "C:\ConcertTracker\ConcertTracker\Pages\Search.razor"
+#line 78 "C:\ConcertTracker\ConcertTracker\Pages\Search.razor"
        
 
 

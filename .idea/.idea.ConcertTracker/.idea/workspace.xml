@@ -42,7 +42,6 @@
       <option value="$PROJECT_DIR$/BusinessLayer/Interfaces/IViewerRepository.cs" />
       <option value="$PROJECT_DIR$/BusinessLayer/Implementations/PhotoManager.cs" />
       <option value="$PROJECT_DIR$/ConcertTracker/Pages/About.razor" />
-      <option value="$PROJECT_DIR$/ConcertTracker/Startup.cs" />
       <option value="$PROJECT_DIR$/ConcertTracker/Areas/Identity/Pages/Account/Login.cshtml" />
       <option value="$PROJECT_DIR$/ConcertTracker/Areas/Identity/Pages/Account/Login.cshtml.cs" />
       <option value="$PROJECT_DIR$/DataLayer/ApplicationContext.cs" />
@@ -59,19 +58,26 @@
       <option value="$PROJECT_DIR$/ConcertTracker/wwwroot/css/mycss/userProfile.css" />
       <option value="$PROJECT_DIR$/BusinessLayer/Implementations/EFGenreRepository.cs" />
       <option value="$PROJECT_DIR$/ConcertTracker/Areas/Identity/Pages/Account/Manage/Index.cshtml" />
-      <option value="$PROJECT_DIR$/BusinessLayer/Implementations/EFCommentRepository.cs" />
       <option value="$PROJECT_DIR$/BusinessLayer/Interfaces/ICommentRepository.cs" />
-      <option value="$PROJECT_DIR$/ConcertTracker/Pages/Search.razor" />
       <option value="$PROJECT_DIR$/ConcertTracker/wwwroot/css/mycss/profile.css" />
       <option value="$PROJECT_DIR$/ConcertTracker/Pages/ConcertHallPage.razor" />
       <option value="$PROJECT_DIR$/ConcertTracker/wwwroot/css/mycss/search.css" />
       <option value="$PROJECT_DIR$/ConcertTracker/Pages/Profile.razor" />
       <option value="$PROJECT_DIR$/ConcertTracker/wwwroot/css/mycss/concert.css" />
-      <option value="$PROJECT_DIR$/ConcertTracker/Pages/ConcertPage.razor" />
       <option value="$PROJECT_DIR$/BusinessLayer/Interfaces/IConcertRepository.cs" />
       <option value="$PROJECT_DIR$/BusinessLayer/Implementations/EFConcertRepository.cs" />
-      <option value="$PROJECT_DIR$/ConcertTracker/Pages/Map.razor" />
       <option value="$PROJECT_DIR$/ConcertTracker/wwwroot/css/mycss/style.css" />
+      <option value="$PROJECT_DIR$/DataLayer/SampleData.cs" />
+      <option value="$PROJECT_DIR$/ConcertTracker/Pages/Search.razor" />
+      <option value="$PROJECT_DIR$/BusinessLayer/Implementations/InsertCH.cs" />
+      <option value="$PROJECT_DIR$/BusinessLayer/Interfaces/InsertData.cs" />
+      <option value="$PROJECT_DIR$/BusinessLayer/DataManager.cs" />
+      <option value="$PROJECT_DIR$/ConcertTracker/Startup.cs" />
+      <option value="$PROJECT_DIR$/BusinessLayer/Interfaces/IInsertData.cs" />
+      <option value="$PROJECT_DIR$/BusinessLayer/Implementations/EFCommentRepository.cs" />
+      <option value="$PROJECT_DIR$/ConcertTracker/Pages/ConcertPage.razor" />
+      <option value="$PROJECT_DIR$/BusinessLayer/Implementations/InsertData.cs" />
+      <option value="$PROJECT_DIR$/ConcertTracker/Pages/Map.razor" />
     </changedPaths>
   </component>
   <component name="ProjectId" id="1semW0JOl5OiGGZS0Lz2uDUbQbh" />
@@ -160,60 +166,8 @@
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/ConcertTracker/Areas/Identity/Pages/Account/Manage/Index.cshtml.cs</url>
-          <line>143</line>
-          <properties documentPath="C:\ConcertTracker\ConcertTracker\Areas\Identity\Pages\Account\Manage\Index.cshtml.cs" initialLine="140" containingFunctionPresentation="method 'OnPostAsync'">
-            <startOffsets>
-              <option value="4814" />
-            </startOffsets>
-            <endOffsets>
-              <option value="4867" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="75" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/ConcertTracker/Areas/Identity/Pages/Account/Manage/Index.cshtml.cs</url>
-          <line>146</line>
-          <properties documentPath="C:\ConcertTracker\ConcertTracker\Areas\Identity\Pages\Account\Manage\Index.cshtml.cs" initialLine="143" containingFunctionPresentation="method 'OnPostAsync'">
-            <startOffsets>
-              <option value="4945" />
-            </startOffsets>
-            <endOffsets>
-              <option value="5012" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="76" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/ConcertTracker/Areas/Identity/Pages/Account/Manage/Index.cshtml.cs</url>
-          <line>153</line>
-          <properties documentPath="C:\ConcertTracker\ConcertTracker\Areas\Identity\Pages\Account\Manage\Index.cshtml.cs" initialLine="144" containingFunctionPresentation="method 'OnPostAsync'">
-            <startOffsets>
-              <option value="5327" />
-            </startOffsets>
-            <endOffsets>
-              <option value="5362" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="77" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/ConcertTracker/Areas/Identity/Pages/Account/Manage/Index.cshtml.cs</url>
-          <line>155</line>
-          <properties documentPath="C:\ConcertTracker\ConcertTracker\Areas\Identity\Pages\Account\Manage\Index.cshtml.cs" initialLine="155" containingFunctionPresentation="method 'OnPostAsync'">
-            <startOffsets>
-              <option value="5409" />
-            </startOffsets>
-            <endOffsets>
-              <option value="5437" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="80" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/ConcertTracker/Pages/Search.razor</url>
-          <line>186</line>
+          <line>196</line>
           <properties documentPath="C:\ConcertTracker\ConcertTracker\Pages\Search.razor" initialLine="183" isMultiMethodBreakpoint="true">
             <option name="multiMethodBreakpoint" value="true" />
             <startOffsets>
@@ -283,7 +237,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/ConcertTracker/Pages/ConcertPage.razor</url>
-          <line>102</line>
+          <line>101</line>
           <properties documentPath="C:\ConcertTracker\ConcertTracker\Pages\ConcertPage.razor" initialLine="102" isMultiMethodBreakpoint="true">
             <option name="multiMethodBreakpoint" value="true" />
             <startOffsets>
@@ -297,52 +251,52 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/BusinessLayer/Implementations/EFCommentRepository.cs</url>
-          <line>46</line>
+          <line>47</line>
           <properties documentPath="C:\ConcertTracker\BusinessLayer\Implementations\EFCommentRepository.cs" initialLine="46" containingFunctionPresentation="method 'AddCommentAsync'">
             <startOffsets>
-              <option value="1581" />
+              <option value="1629" />
             </startOffsets>
             <endOffsets>
-              <option value="1601" />
+              <option value="1649" />
             </endOffsets>
           </properties>
           <option name="timeStamp" value="97" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/BusinessLayer/Implementations/EFCommentRepository.cs</url>
-          <line>50</line>
+          <line>51</line>
           <properties documentPath="C:\ConcertTracker\BusinessLayer\Implementations\EFCommentRepository.cs" initialLine="50" containingFunctionPresentation="method 'AddCommentAsync'">
             <startOffsets>
-              <option value="1735" />
+              <option value="1783" />
             </startOffsets>
             <endOffsets>
-              <option value="1762" />
+              <option value="1810" />
             </endOffsets>
           </properties>
           <option name="timeStamp" value="98" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/BusinessLayer/Implementations/EFCommentRepository.cs</url>
-          <line>51</line>
+          <line>52</line>
           <properties documentPath="C:\ConcertTracker\BusinessLayer\Implementations\EFCommentRepository.cs" initialLine="51" containingFunctionPresentation="method 'AddCommentAsync'">
             <startOffsets>
-              <option value="1775" />
+              <option value="1823" />
             </startOffsets>
             <endOffsets>
-              <option value="1805" />
+              <option value="1853" />
             </endOffsets>
           </properties>
           <option name="timeStamp" value="99" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/BusinessLayer/Implementations/EFCommentRepository.cs</url>
-          <line>52</line>
+          <line>53</line>
           <properties documentPath="C:\ConcertTracker\BusinessLayer\Implementations\EFCommentRepository.cs" initialLine="52" containingFunctionPresentation="method 'AddCommentAsync'">
             <startOffsets>
-              <option value="1818" />
+              <option value="1866" />
             </startOffsets>
             <endOffsets>
-              <option value="1833" />
+              <option value="1881" />
             </endOffsets>
           </properties>
           <option name="timeStamp" value="100" />

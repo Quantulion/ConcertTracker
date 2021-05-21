@@ -44,6 +44,7 @@ namespace BusinessLayer.Implementations
 
         public async Task<Comment> AddCommentAsync(Comment comment, User user, Concert concert)
         {
+            comment.PublishTime = DateTime.Now;
             comment.User = user;
             comment.UserId = user.Id;
             comment.Concert = concert;

@@ -1,9 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "Q6oBhiBD7upeTJVF9xZMhtl8bi2XpMzfX1pCkx41IvEDq4NNnEjglGZQtmb+sVmDCcJMhaJYw0Y/kj41FXEdLw==",
+  "dgSpecHash": "j2zD9R03HDmI5W7bDDikadf+fqB1+d8Y3X/sw/KlEtc+PLiT4yiZmJC2jEAv4lTlSBtMDOAG6mValHN26aAK4Q==",
   "success": true,
   "projectFilePath": "C:\\ConcertTracker\\BusinessLayer\\BusinessLayer.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\Professional\\.nuget\\packages\\bogus\\33.0.2\\bogus.33.0.2.nupkg.sha512",
+    "C:\\Users\\Professional\\.nuget\\packages\\bogus.locations\\33.0.2\\bogus.locations.33.0.2.nupkg.sha512",
     "C:\\Users\\Professional\\.nuget\\packages\\microsoft.aspnetcore.authorization\\3.1.0\\microsoft.aspnetcore.authorization.3.1.0.nupkg.sha512",
     "C:\\Users\\Professional\\.nuget\\packages\\microsoft.aspnetcore.components\\3.1.0\\microsoft.aspnetcore.components.3.1.0.nupkg.sha512",
     "C:\\Users\\Professional\\.nuget\\packages\\microsoft.aspnetcore.components.analyzers\\3.1.0\\microsoft.aspnetcore.components.analyzers.3.1.0.nupkg.sha512",

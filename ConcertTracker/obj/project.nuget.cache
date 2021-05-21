@@ -1,10 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "XKtRJ//iQ3o7xwqny9JppbKHYkheZES/O8Fc+9DoBdt3bVWW8aywoW8h7cN/wQE24HsEwf4HjSpr7zCchy5V+w==",
+  "dgSpecHash": "JtqxAxyF3jJftKhNeheEpIXy4jFYzOyqqgMGEIbEL0cFJPo4igpUaMDhCqiNhLaeFVZAQnPyiG6qUPf+CdEYzQ==",
   "success": true,
   "projectFilePath": "C:\\ConcertTracker\\ConcertTracker\\ConcertTracker.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Professional\\.nuget\\packages\\blazorgooglemaps\\1.0.15\\blazorgooglemaps.1.0.15.nupkg.sha512",
+    "C:\\Users\\Professional\\.nuget\\packages\\bogus\\33.0.2\\bogus.33.0.2.nupkg.sha512",
+    "C:\\Users\\Professional\\.nuget\\packages\\bogus.locations\\33.0.2\\bogus.locations.33.0.2.nupkg.sha512",
     "C:\\Users\\Professional\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\Professional\\.nuget\\packages\\microsoft.aspnetcore.authorization\\5.0.0\\microsoft.aspnetcore.authorization.5.0.0.nupkg.sha512",
     "C:\\Users\\Professional\\.nuget\\packages\\microsoft.aspnetcore.components\\5.0.0\\microsoft.aspnetcore.components.5.0.0.nupkg.sha512",

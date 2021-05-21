@@ -2,6 +2,27 @@
   "version": 3,
   "targets": {
     ".NETCoreApp,Version=v3.1": {
+      "Bogus/33.0.2": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard2.0/Bogus.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/Bogus.dll": {}
+        }
+      },
+      "Bogus.Locations/33.0.2": {
+        "type": "package",
+        "dependencies": {
+          "Bogus": "33.0.2"
+        },
+        "compile": {
+          "lib/netstandard2.0/Bogus.Locations.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/Bogus.Locations.dll": {}
+        }
+      },
       "Microsoft.AspNetCore.Authorization/3.1.0": {
         "type": "package",
         "dependencies": {
@@ -1769,6 +1790,7 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v3.1",
         "dependencies": {
+          "Bogus": "33.0.2",
           "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "5.0.5",
           "Microsoft.EntityFrameworkCore": "5.0.5",
           "Microsoft.EntityFrameworkCore.SqlServer": "5.0.5",
@@ -1784,6 +1806,40 @@
     }
   },
   "libraries": {
+    "Bogus/33.0.2": {
+      "sha512": "92CcSgl7KLEw7lerMytjY504IPnhmYqDkCgIPm5GVfiZPslRWUcgWvtoNYhKbSU4m/Ms7giKP8OxPAFTFBgC3w==",
+      "type": "package",
+      "path": "bogus/33.0.2",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "bogus.33.0.2.nupkg.sha512",
+        "bogus.nuspec",
+        "lib/net40/Bogus.dll",
+        "lib/net40/Bogus.xml",
+        "lib/netstandard1.3/Bogus.dll",
+        "lib/netstandard1.3/Bogus.xml",
+        "lib/netstandard2.0/Bogus.dll",
+        "lib/netstandard2.0/Bogus.xml"
+      ]
+    },
+    "Bogus.Locations/33.0.2": {
+      "sha512": "s+K4afo02Nuepu+ucWFM2Sv5uApl8L29ceND25gXlN4bxNKTVANY/g48bA+znkM/2ECZlYs9BEcQrinllaHQyQ==",
+      "type": "package",
+      "path": "bogus.locations/33.0.2",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "bogus.locations.33.0.2.nupkg.sha512",
+        "bogus.locations.nuspec",
+        "lib/net40/Bogus.Locations.dll",
+        "lib/net40/Bogus.Locations.xml",
+        "lib/netstandard1.3/Bogus.Locations.dll",
+        "lib/netstandard1.3/Bogus.Locations.xml",
+        "lib/netstandard2.0/Bogus.Locations.dll",
+        "lib/netstandard2.0/Bogus.Locations.xml"
+      ]
+    },
     "Microsoft.AspNetCore.Authorization/3.1.0": {
       "sha512": "R/0qFIu1m7jJFD0OuLIjLXC0uYQxFwwW7ylVvGgUPUpOJJK0bKJjfrDu20kY1Yw0hy9ejZYZEdUZHRm3ei0+3w==",
       "type": "package",
@@ -6448,6 +6504,7 @@
   },
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v3.1": [
+      "Bogus.Locations >= 33.0.2",
       "DataLayer >= 1.0.0",
       "Microsoft.AspNetCore.Hosting.Abstractions >= 2.2.0",
       "Microsoft.AspNetCore.Http.Features >= 5.0.5",
@@ -6497,6 +6554,10 @@
       "netcoreapp3.1": {
         "targetAlias": "netcoreapp3.1",
         "dependencies": {
+          "Bogus.Locations": {
+            "target": "Package",
+            "version": "[33.0.2, )"
+          },
           "Microsoft.AspNetCore.Hosting.Abstractions": {
             "target": "Package",
             "version": "[2.2.0, )"

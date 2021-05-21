@@ -163,3 +163,5 @@ C:\ConcertTracker\ConcertTracker\obj\Debug\net5.0\RazorDeclaration\Pages\Concert
 C:\ConcertTracker\ConcertTracker\obj\Debug\net5.0\Razor\Pages\ConcertHallPage.razor.g.cs
 C:\ConcertTracker\ConcertTracker\obj\Debug\net5.0\RazorDeclaration\Pages\ConcertPage.razor.g.cs
 C:\ConcertTracker\ConcertTracker\obj\Debug\net5.0\Razor\Pages\ConcertPage.razor.g.cs
+C:\ConcertTracker\ConcertTracker\bin\Debug\net5.0\Bogus.dll
+C:\ConcertTracker\ConcertTracker\bin\Debug\net5.0\Bogus.Locations.dll

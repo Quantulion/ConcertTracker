@@ -149,7 +149,6 @@ using Microsoft.AspNetCore.Identity;
 
     private async Task AddComment()
     {
-        newComment.PublishTime = DateTime.Now;
         newComment.Likes = new List<UserComment>();
         await CommentRepository.AddCommentAsync(newComment, currentUser, foundConcert);
         newComment = new Comment();

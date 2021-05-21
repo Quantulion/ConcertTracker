@@ -2,11 +2,15 @@
 
 @using Radzen
 @using BusinessLayer.Interfaces
+@using DataLayer
 @using DataLayer.Entities
 @using Microsoft.AspNetCore.Components.Authorization
 @using Microsoft.AspNetCore.Identity;
+@using Microsoft.EntityFrameworkCore
+@using BusinessLayer.Implementations
 
-
+@inject IInsertData InsertData
+@inject IDbContextFactory<ApplicationDbContext> ContextFactory
 @inject RoleManager<IdentityRole> roleManager
 @inject UserManager<User> userManager
 @inject IConcertRepository ConcertRepository
@@ -131,6 +135,9 @@
 
     protected override async Task OnInitializedAsync()
     {
+
+        //await InsertData.InsertAllData();
+        
         concertHalls = await ConcertHallRep.GetAllConcertHallsAsync();
         concerts = await ConcertRepository.GetAllConcertsAsync();
         allArtists = await userManager.GetUsersInRoleAsync("Artist");
@@ -243,4 +250,5 @@
     {
         addConcertHallClicked = !addConcertHallClicked;
     }
+
 }
