@@ -110,6 +110,13 @@ using Microsoft.AspNetCore.Identity;
 #line default
 #line hidden
 #nullable disable
+#nullable restore
+#line 6 "C:\ConcertTracker\ConcertTracker\Pages\ConcertPage.razor"
+using BusinessLayer;
+
+#line default
+#line hidden
+#nullable disable
     [Microsoft.AspNetCore.Components.RouteAttribute("/concert/{Id}")]
     public partial class ConcertPage : Microsoft.AspNetCore.Components.ComponentBase
     {
@@ -119,7 +126,7 @@ using Microsoft.AspNetCore.Identity;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 72 "C:\ConcertTracker\ConcertTracker\Pages\ConcertPage.razor"
+#line 74 "C:\ConcertTracker\ConcertTracker\Pages\ConcertPage.razor"
        
     [Parameter]
     public string Id { get; set; }
@@ -133,6 +140,10 @@ using Microsoft.AspNetCore.Identity;
     protected override async Task OnInitializedAsync()
     {
         foundConcert = await ConcertRepository.GetConcertByIdAsync(Convert.ToInt32(Id));
+
+        var x = await DataManager.ConcertHalls.GetConcertHallByIdAsync(foundConcert.ConcertHallId);
+        foundConcert.ConcertHall = x;
+        
         concertArtists = await ConcertRepository.GetArtistsOfConcertAsync(foundConcert);
 
         var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
@@ -190,6 +201,7 @@ using Microsoft.AspNetCore.Identity;
         [global::Microsoft.AspNetCore.Components.InjectAttribute] private UserManager<User> userManager { get; set; }
         [global::Microsoft.AspNetCore.Components.InjectAttribute] private RoleManager<IdentityRole> roleManager { get; set; }
         [global::Microsoft.AspNetCore.Components.InjectAttribute] private ICommentRepository CommentRepository { get; set; }
+        [global::Microsoft.AspNetCore.Components.InjectAttribute] private DataManager DataManager { get; set; }
     }
 }
 #pragma warning restore 1591

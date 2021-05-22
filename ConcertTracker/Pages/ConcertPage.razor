@@ -3,7 +3,9 @@
 @using BusinessLayer.Interfaces
 @using DataLayer.Entities
 @using Microsoft.AspNetCore.Identity;
+@using BusinessLayer
 
+@inject DataManager DataManager
 @inject ICommentRepository CommentRepository
 @inject RoleManager<IdentityRole> roleManager
 @inject UserManager<User> userManager
@@ -82,6 +84,10 @@
     protected override async Task OnInitializedAsync()
     {
         foundConcert = await ConcertRepository.GetConcertByIdAsync(Convert.ToInt32(Id));
+
+        var x = await DataManager.ConcertHalls.GetConcertHallByIdAsync(foundConcert.ConcertHallId);
+        foundConcert.ConcertHall = x;
+        
         concertArtists = await ConcertRepository.GetArtistsOfConcertAsync(foundConcert);
 
         var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();

@@ -2,7 +2,9 @@
 
 @using BusinessLayer.Interfaces
 @using DataLayer.Entities
+@using BusinessLayer
 
+@inject DataManager DataManager
 @inject NavigationManager NavigationManager
 @inject IUserRepository UserRepositiory
 @inject IArtistRepository ArtistRepository
@@ -114,5 +116,8 @@
         int end = comments.Count - 1;
         if(end >= 0)
             lastComment = comments[end];
+        var concert = await DataManager.Concerts.GetConcertByIdAsync(lastComment.Id);
+        lastComment.Concert = concert;
     }
+    
 }

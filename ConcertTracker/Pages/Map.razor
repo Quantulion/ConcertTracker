@@ -8,8 +8,10 @@
 @using Microsoft.AspNetCore.Identity;
 @using Microsoft.EntityFrameworkCore
 @using BusinessLayer.Implementations
+@using BusinessLayer
 
 @inject IInsertData InsertData
+@inject DataManager DataManager
 @inject IDbContextFactory<ApplicationDbContext> ContextFactory
 @inject RoleManager<IdentityRole> roleManager
 @inject UserManager<User> userManager

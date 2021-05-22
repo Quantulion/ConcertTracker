@@ -62,7 +62,6 @@
       <option value="$PROJECT_DIR$/ConcertTracker/wwwroot/css/mycss/profile.css" />
       <option value="$PROJECT_DIR$/ConcertTracker/Pages/ConcertHallPage.razor" />
       <option value="$PROJECT_DIR$/ConcertTracker/wwwroot/css/mycss/search.css" />
-      <option value="$PROJECT_DIR$/ConcertTracker/Pages/Profile.razor" />
       <option value="$PROJECT_DIR$/ConcertTracker/wwwroot/css/mycss/concert.css" />
       <option value="$PROJECT_DIR$/BusinessLayer/Interfaces/IConcertRepository.cs" />
       <option value="$PROJECT_DIR$/BusinessLayer/Implementations/EFConcertRepository.cs" />
@@ -75,9 +74,10 @@
       <option value="$PROJECT_DIR$/ConcertTracker/Startup.cs" />
       <option value="$PROJECT_DIR$/BusinessLayer/Interfaces/IInsertData.cs" />
       <option value="$PROJECT_DIR$/BusinessLayer/Implementations/EFCommentRepository.cs" />
-      <option value="$PROJECT_DIR$/ConcertTracker/Pages/ConcertPage.razor" />
       <option value="$PROJECT_DIR$/BusinessLayer/Implementations/InsertData.cs" />
       <option value="$PROJECT_DIR$/ConcertTracker/Pages/Map.razor" />
+      <option value="$PROJECT_DIR$/ConcertTracker/Pages/Profile.razor" />
+      <option value="$PROJECT_DIR$/ConcertTracker/Pages/ConcertPage.razor" />
     </changedPaths>
   </component>
   <component name="ProjectId" id="1semW0JOl5OiGGZS0Lz2uDUbQbh" />
@@ -180,20 +180,6 @@
           <option name="timeStamp" value="83" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/ConcertTracker/Pages/Profile.razor</url>
-          <line>59</line>
-          <properties documentPath="C:\ConcertTracker\ConcertTracker\Pages\Profile.razor" initialLine="57" isMultiMethodBreakpoint="true">
-            <option name="multiMethodBreakpoint" value="true" />
-            <startOffsets>
-              <option value="-1" />
-            </startOffsets>
-            <endOffsets>
-              <option value="-1" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="88" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/ConcertTracker/Pages/ConcertHallPage.razor</url>
           <line>15</line>
           <properties documentPath="C:\ConcertTracker\ConcertTracker\Pages\ConcertHallPage.razor" initialLine="15" isMultiMethodBreakpoint="true">
@@ -206,48 +192,6 @@
             </endOffsets>
           </properties>
           <option name="timeStamp" value="90" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/ConcertTracker/Pages/ConcertHallPage.razor</url>
-          <line>46</line>
-          <properties documentPath="C:\ConcertTracker\ConcertTracker\Pages\ConcertHallPage.razor" initialLine="46" isMultiMethodBreakpoint="true">
-            <option name="multiMethodBreakpoint" value="true" />
-            <startOffsets>
-              <option value="-1" />
-            </startOffsets>
-            <endOffsets>
-              <option value="-1" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="91" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/ConcertTracker/Pages/ConcertPage.razor</url>
-          <line>54</line>
-          <properties documentPath="C:\ConcertTracker\ConcertTracker\Pages\ConcertPage.razor" initialLine="54" isMultiMethodBreakpoint="true">
-            <option name="multiMethodBreakpoint" value="true" />
-            <startOffsets>
-              <option value="-1" />
-            </startOffsets>
-            <endOffsets>
-              <option value="-1" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="94" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/ConcertTracker/Pages/ConcertPage.razor</url>
-          <line>101</line>
-          <properties documentPath="C:\ConcertTracker\ConcertTracker\Pages\ConcertPage.razor" initialLine="102" isMultiMethodBreakpoint="true">
-            <option name="multiMethodBreakpoint" value="true" />
-            <startOffsets>
-              <option value="-1" />
-            </startOffsets>
-            <endOffsets>
-              <option value="-1" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="96" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/BusinessLayer/Implementations/EFCommentRepository.cs</url>

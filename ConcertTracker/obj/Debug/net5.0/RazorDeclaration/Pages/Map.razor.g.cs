@@ -138,6 +138,13 @@ using BusinessLayer.Implementations;
 #line default
 #line hidden
 #nullable disable
+#nullable restore
+#line 11 "C:\ConcertTracker\ConcertTracker\Pages\Map.razor"
+using BusinessLayer;
+
+#line default
+#line hidden
+#nullable disable
     [Microsoft.AspNetCore.Components.RouteAttribute("/map")]
     public partial class Map : Microsoft.AspNetCore.Components.ComponentBase
     {
@@ -147,7 +154,7 @@ using BusinessLayer.Implementations;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 112 "C:\ConcertTracker\ConcertTracker\Pages\Map.razor"
+#line 114 "C:\ConcertTracker\ConcertTracker\Pages\Map.razor"
        
     int zoom = 15;
     string clickedPosition = "";
@@ -301,6 +308,7 @@ using BusinessLayer.Implementations;
         [global::Microsoft.AspNetCore.Components.InjectAttribute] private UserManager<User> userManager { get; set; }
         [global::Microsoft.AspNetCore.Components.InjectAttribute] private RoleManager<IdentityRole> roleManager { get; set; }
         [global::Microsoft.AspNetCore.Components.InjectAttribute] private IDbContextFactory<ApplicationDbContext> ContextFactory { get; set; }
+        [global::Microsoft.AspNetCore.Components.InjectAttribute] private DataManager DataManager { get; set; }
         [global::Microsoft.AspNetCore.Components.InjectAttribute] private IInsertData InsertData { get; set; }
     }
 }

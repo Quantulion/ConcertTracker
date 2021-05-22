@@ -103,6 +103,13 @@ using DataLayer.Entities;
 #line default
 #line hidden
 #nullable disable
+#nullable restore
+#line 5 "C:\ConcertTracker\ConcertTracker\Pages\Profile.razor"
+using BusinessLayer;
+
+#line default
+#line hidden
+#nullable disable
     [Microsoft.AspNetCore.Components.RouteAttribute("/user/{Id}")]
     public partial class Profile : Microsoft.AspNetCore.Components.ComponentBase
     {
@@ -112,7 +119,7 @@ using DataLayer.Entities;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 74 "C:\ConcertTracker\ConcertTracker\Pages\Profile.razor"
+#line 76 "C:\ConcertTracker\ConcertTracker\Pages\Profile.razor"
        
 
     [Parameter]
@@ -156,7 +163,10 @@ using DataLayer.Entities;
         int end = comments.Count - 1;
         if(end >= 0)
             lastComment = comments[end];
+        var concert = await DataManager.Concerts.GetConcertByIdAsync(lastComment.Id);
+        lastComment.Concert = concert;
     }
+    
 
 #line default
 #line hidden
@@ -166,6 +176,7 @@ using DataLayer.Entities;
         [global::Microsoft.AspNetCore.Components.InjectAttribute] private IArtistRepository ArtistRepository { get; set; }
         [global::Microsoft.AspNetCore.Components.InjectAttribute] private IUserRepository UserRepositiory { get; set; }
         [global::Microsoft.AspNetCore.Components.InjectAttribute] private NavigationManager NavigationManager { get; set; }
+        [global::Microsoft.AspNetCore.Components.InjectAttribute] private DataManager DataManager { get; set; }
     }
 }
 #pragma warning restore 1591
