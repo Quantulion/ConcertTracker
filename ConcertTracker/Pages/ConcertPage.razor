@@ -24,7 +24,7 @@
             <p class="hdr">Концертная площадка:</p>
             @if (foundConcert.ConcertHall != null)
             {
-                <a href="/concerthall/@foundConcert.ConcertHall.Id">@foundConcert.ConcertHall.Name</a>
+                <a href="/concerthall/@foundConcert.ConcertHall.Id.ToString()">@foundConcert.ConcertHall.Name</a>
             }
         </div>
         <div class="concertItem">
@@ -57,14 +57,26 @@
     @foreach (var comment in concertComments)
     {
         <div class="comment">
-            <img src="/uploads/@comment.User.Photo" alt="">
+            @if (comment.User.Photo != null)
+            {
+                if (comment.User.Photo.Contains("http"))
+                {
+                    <img src="@comment.User.Photo" alt=""/>
+                }
+                else
+                {
+                    <img src="/uploads/@comment.User.Photo" alt="">
+                }
+            }
             <a href="/user/@comment.UserId" class="commentData">
                 <p>@comment.User.UserName</p>
                 <p>@comment.Content</p>
                 <p>@comment.PublishTime.ToString()</p>
             </a>
-            <button type="button" @onclick="@(async () => { await AddLike(comment); })">Like</button>
-            @{ 
+            <AuthorizeView Context="Auth">
+                <button type="button" @onclick="@(async () => { await AddLike(comment); })">Like</button>
+            </AuthorizeView>
+            @{
                 <p class="likesCount">@comment.Likes.Count.ToString()</p>
             }
         </div>

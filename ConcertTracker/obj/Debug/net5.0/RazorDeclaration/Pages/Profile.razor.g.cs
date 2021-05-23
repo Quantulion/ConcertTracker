@@ -119,7 +119,7 @@ using BusinessLayer;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 76 "C:\ConcertTracker\ConcertTracker\Pages\Profile.razor"
+#line 86 "C:\ConcertTracker\ConcertTracker\Pages\Profile.razor"
        
 
     [Parameter]
@@ -163,7 +163,7 @@ using BusinessLayer;
         int end = comments.Count - 1;
         if(end >= 0)
             lastComment = comments[end];
-        var concert = await DataManager.Concerts.GetConcertByIdAsync(lastComment.Id);
+        var concert = await DataManager.Concerts.GetConcertByIdAsync(lastComment.ConcertId);
         lastComment.Concert = concert;
     }
     

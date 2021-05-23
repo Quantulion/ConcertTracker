@@ -126,7 +126,7 @@ using BusinessLayer;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 74 "C:\ConcertTracker\ConcertTracker\Pages\ConcertPage.razor"
+#line 86 "C:\ConcertTracker\ConcertTracker\Pages\ConcertPage.razor"
        
     [Parameter]
     public string Id { get; set; }

@@ -154,7 +154,7 @@ using BusinessLayer;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 114 "C:\ConcertTracker\ConcertTracker\Pages\Map.razor"
+#line 134 "C:\ConcertTracker\ConcertTracker\Pages\Map.razor"
        
     int zoom = 15;
     string clickedPosition = "";
@@ -200,7 +200,6 @@ using BusinessLayer;
 
         if (isAdmin)
             admin = (Admin)user;
-
     }
 
     void OnMapClick(GoogleMapClickEventArgs args)

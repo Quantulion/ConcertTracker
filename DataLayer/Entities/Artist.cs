@@ -11,7 +11,7 @@ namespace DataLayer.Entities
 
         public override string ToString()
         {
-            return $"Artist: {UserName}, Age: {Age}, Email: {Email}, About: {Description}";
+            return $"{UserName}, {Age}, {Email}, {Description}";
         }
     }
 }

@@ -13,7 +13,17 @@
     <div class="profileContainer">
         <div class="profileInfo">
             <div class="higherInfo">
-                <img src="/uploads/@foundConcertHall.Photo" alt="" />
+                @if (foundConcertHall.Photo != null)
+                {
+                    if (foundConcertHall.Photo.Contains("http"))
+                    {
+                        <img src="@foundConcertHall.Photo" alt=""/>
+                    }
+                    else
+                    {
+                        <img src="/uploads/@foundConcertHall.Photo" alt=""/>
+                    }
+                }
                 <div class="profileLeftInfo">
                     <p><strong>Name:</strong> @foundConcertHall.Name</p>
                     <p><strong>Address:</strong> @foundConcertHall.Address</p>
@@ -24,7 +34,7 @@
                 <p><strong>Last concerts:</strong></p>
                 @foreach (var concert in concertHallConcerts)
                 {
-                    <a href="/concert/@concert.Id">Date: @concert.Date    Description: @concert.Description</a>
+                    <a href="/concert/@concert.Id.ToString()">Date: @concert.Date.ToString()    Description: @concert.Description</a>
                 }
             </div>
 <AuthorizeView Roles="Admin"><button @onclick="DeleteConcertHall">Delete</button></AuthorizeView>

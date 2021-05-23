@@ -112,7 +112,7 @@ using DataLayer.Entities;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 78 "C:\ConcertTracker\ConcertTracker\Pages\Search.razor"
+#line 88 "C:\ConcertTracker\ConcertTracker\Pages\Search.razor"
        
 
 
@@ -182,7 +182,7 @@ using DataLayer.Entities;
         await GetArtistsWithGenres(searchModel.Artists);
 
         List<string> x = new List<string>();
-        foreach (var genre in await GenreRepository.GetAllGenresAsync())
+        foreach (var genre in searchModel.Genres)
         {
             x.Add(genre.Name);
         }
@@ -190,10 +190,8 @@ using DataLayer.Entities;
         
         searchModel.GetObjects();
     }
-
-    private int i = 0;
-
-    public void search()
+    
+    private void search()
     {
         List<object> x = new List<object>();
         foreach (var item in searchModel.GetObjects())
@@ -205,14 +203,16 @@ using DataLayer.Entities;
         i = 0;
     }
 
-    public void incI()
+    private int i = 0;
+
+    private void incI()
     {
         if (i < searchModel.ObjectsList.Count() - 3)
             i += 3;
         else i = 0;
     }
 
-    public void decI()
+    private void decI()
     {
         if (i > 2)
             i -= 3;

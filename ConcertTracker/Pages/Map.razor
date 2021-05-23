@@ -51,9 +51,19 @@
                                                         @foreach (var foundConcertHall in allConcertHalls)
                                                         {
                                                             <div class="foundArtist">
-                                                                <img src="uploads/@foundConcertHall.Photo">
+                                                                @if (foundConcertHall.Photo != null)
+                                                                {
+                                                                    if (foundConcertHall.Photo.Contains("http"))
+                                                                    {
+                                                                        <img src="@foundConcertHall.Photo" alt=""/>
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <img src="uploads/@foundConcertHall.Photo">
+                                                                    }
+                                                                }
                                                                 <p>@foundConcertHall.Name</p>
-                                                                <img @onclick="@( () => AddConcertHallToConcert(foundConcertHall) )" src="Images/free-icon-plus-149688.svg" />
+                                                                <img @onclick="@(() => AddConcertHallToConcert(foundConcertHall))" src="Images/free-icon-plus-149688.svg"/>
                                                             </div>
                                                         }
                                                 </div>
@@ -70,9 +80,19 @@
                                     {
                                         var artistToList = (Artist)foundArtist;
                                         <div class="foundArtist">
-                                            <img src="uploads/@foundArtist.Photo">
+                                            @if (foundArtist.Photo != null)
+                                            {
+                                                if (foundArtist.Photo.Contains("http"))
+                                                {
+                                                    <img src="@foundArtist.Photo">
+                                                }
+                                                else
+                                                {
+                                                    <img src="uploads/@foundArtist.Photo">
+                                                }
+                                            }
                                             <p>@foundArtist.UserName</p>
-                                            <img @onclick="@( () => AddArtistToConcert(artistToList) )" src="Images/free-icon-plus-149688.svg" />
+                                            <img @onclick="@(() => AddArtistToConcert(artistToList))" src="Images/free-icon-plus-149688.svg"/>
                                         </div>
                                     }
                             </div>
@@ -156,7 +176,6 @@
 
         if (isAdmin)
             admin = (Admin)user;
-
     }
 
     void OnMapClick(GoogleMapClickEventArgs args)

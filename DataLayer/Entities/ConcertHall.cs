@@ -17,7 +17,7 @@ namespace DataLayer.Entities
         public List<Concert> Concerts { get; set; }
         public override string ToString()
         {
-            return $"Concert Hall: {Name}, Address: {Address}, About: {Description}";
+            return $"{Name}, {Address}, {Description}";
         }
     }
 }

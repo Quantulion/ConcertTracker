@@ -23,7 +23,17 @@
                         {
                             Artist foundArtist = (Artist)searchModel.ObjectsList[i + j];
                             <a href="/user/@foundArtist.Id" class="foundItem">
-                                <img src="/uploads/@foundArtist.Photo" alt="Alternate Text" />
+                                @if (foundArtist.Photo != null)
+                                {
+                                    if (foundArtist.Photo.Contains("http"))
+                                    {
+                                        <img src="@foundArtist.Photo">
+                                    }
+                                    else
+                                    {
+                                        <img src="/uploads/@foundArtist.Photo" alt="Alternate Text"/>
+                                    }
+                                }
                                 <div class="foundItemText">
                                     <p id="Name">@foundArtist.UserName</p>
                                     <p>Description: @foundArtist.Description</p>
@@ -33,10 +43,10 @@
                         if (searchModel.ObjectsList[i + j].GetType() == typeof(ConcertHall))
                         {
                             ConcertHall foundConcertHall = (ConcertHall)searchModel.ObjectsList[i + j];
-                            <a href="/concerthall/@foundConcertHall.Id" class="foundItem">
+                            <a href="/concerthall/@foundConcertHall.Id.ToString()" class="foundItem">
                                 @if (foundConcertHall.Photo != null)
                                 {
-                                    @if (foundConcertHall.Photo[0] == 'h')
+                                    @if (foundConcertHall.Photo.Contains("http"))
                                     {
                                         <img src="@foundConcertHall.Photo" alt="Alternate Text"/>
                                     }
@@ -144,7 +154,7 @@
         await GetArtistsWithGenres(searchModel.Artists);
 
         List<string> x = new List<string>();
-        foreach (var genre in await GenreRepository.GetAllGenresAsync())
+        foreach (var genre in searchModel.Genres)
         {
             x.Add(genre.Name);
         }
@@ -152,10 +162,8 @@
         
         searchModel.GetObjects();
     }
-
-    private int i = 0;
-
-    public void search()
+    
+    private void search()
     {
         List<object> x = new List<object>();
         foreach (var item in searchModel.GetObjects())
@@ -167,14 +175,16 @@
         i = 0;
     }
 
-    public void incI()
+    private int i = 0;
+
+    private void incI()
     {
         if (i < searchModel.ObjectsList.Count() - 3)
             i += 3;
         else i = 0;
     }
 
-    public void decI()
+    private void decI()
     {
         if (i > 2)
             i -= 3;

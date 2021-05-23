@@ -16,15 +16,25 @@
     <div class="profileContainer">
         <div class="profileInfo">
             <div class="higherInfo">
-                <img src="/uploads/@foundUser.Photo" alt="" />
+                @if (foundUser.Photo != null)
+                {
+                    if (foundUser.Photo.Contains("http"))
+                    {
+                        <img src="@foundUser.Photo">
+                    }
+                    else
+                    {
+                        <img src="/uploads/@foundUser.Photo" alt=""/>
+                    }
+                }
                 <div class="profileLeftInfo">
                     <p><strong>Name:</strong> @foundUser.UserName</p>
-                    <p><strong>Age:</strong> @foundUser.Age</p>
+                    <p><strong>Age:</strong> @foundUser.Age.ToString()</p>
                     <p><strong>Description:</strong> @foundUser.Description</p>
                     @if (isArtist)
                     {
                         <p>
-                            <strong>Genres: </strong> 
+                            <strong>Genres: </strong>
                             @{
                                 int end = artistGenres.Count - 1;
                                 foreach (var genre in artistGenres)
@@ -49,7 +59,7 @@
             <p><strong>Concerts:</strong></p>
             @foreach (var concert in artistConcerts)
             {
-                <a href="/concert/@concert.Id">Date: @concert.Date    Description: @concert.Description</a>
+                <a href="/concert/@concert.Id.ToString()">Date: @concert.Date.ToString()    Description: @concert.Description</a>
             }
         </div>
             }
@@ -59,7 +69,7 @@
             <p id="1" class="hdr">Last commentary:</p>
             @if (lastComment.Content != null)
             {
-                <a href="/concert/@lastComment.ConcertId" class="commentContent">
+                <a href="/concert/@lastComment.ConcertId.ToString()" class="commentContent">
                     <p class="hdr">Concert:</p>
                     <p>@lastComment.Concert.Date.ToString()</p>
                     <p class="hdr">Commentary:</p>
@@ -116,7 +126,7 @@
         int end = comments.Count - 1;
         if(end >= 0)
             lastComment = comments[end];
-        var concert = await DataManager.Concerts.GetConcertByIdAsync(lastComment.Id);
+        var concert = await DataManager.Concerts.GetConcertByIdAsync(lastComment.ConcertId);
         lastComment.Concert = concert;
     }
     
