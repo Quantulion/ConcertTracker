@@ -9,7 +9,7 @@ namespace BusinessLayer.Interfaces
     public interface IConcertRepository : IDisposable
     {
         Task<ICollection<Concert>> GetAllConcertsAsync();
-        Task<Concert> GetConcertByIdAsync(int Id);
+        Task<Concert> GetConcertByIdAsync(int id);
         Task<Concert> GetConcertByPositionAsync(GoogleMapPosition position);
         Task<Concert> AddConcertAsync(Concert concert);
         Task<Concert> AddArtistToConcertAsync(Artist artist, Concert concert);

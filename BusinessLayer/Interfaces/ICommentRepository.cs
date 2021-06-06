@@ -10,7 +10,7 @@ namespace BusinessLayer.Interfaces
     {
         Task<Comment> GetCommentByIdAsync(int Id);
         Task<List<UserComment>> GetLikesOfCommentAsync(Comment comment);
-        Task<List<Comment>> GetCommentsOfUser(User user);
+        Task<List<Comment>> GetCommentsOfUserAsync(User user);
         Task<int> LikesCountAsync(Comment comment);
         Task<Comment> AddCommentAsync(Comment comment, User user, Concert concert);
         Task PressLikeAsync(Comment comment, User user);

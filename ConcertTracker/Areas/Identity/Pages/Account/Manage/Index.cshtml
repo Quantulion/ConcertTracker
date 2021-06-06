@@ -32,9 +32,9 @@
                 <label asp-for="Input.Description"></label>
                 <input asp-for="Input.Description" class="form-control"/>
             </div>
+            
             <div class="genreInfo">
                 @{
-                    int i = 0;
                     foreach (var genre in Model.AllGenres)
                     {
 
@@ -43,7 +43,6 @@
                             <p> @genre.Name</p>
                             <input name="Input.Genres" type="checkbox" value="@genre.Name" checked="@isChecked"/>
                         </div>
-                        i++;
                     }
                 }
             </div>

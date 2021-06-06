@@ -19,31 +19,48 @@ namespace BusinessLayer.Implementations
 
         public async Task<ICollection<Genre>> GetGenresOfArtistAsync(Artist artist)
         {
-            var full = _ctx.Artists.Include(g => g.Genres);
-            var artistWithGenres = await full.FirstOrDefaultAsync(a => a.Id == artist.Id);
-            return artistWithGenres.Genres;
+            try
+            {
+                if (artist == null)
+                    throw new ArgumentNullException("Cannot get genres of null artist");
+                
+                var artistsWithGenres = _ctx.Artists.Include(g => g.Genres);
+                var artistWithGenres = await artistsWithGenres.FirstOrDefaultAsync(a => a.Id == artist.Id);
+                return artistWithGenres.Genres;
+            }
+            catch (Exception e)
+            {
+                throw;
+            }
         }
 
-        public Task<Genre> AddGenreAsync(Genre genre)
-        {
-            throw new NotImplementedException();
-        }
-
-        
         public async Task<ICollection<Genre>> GetAllGenresAsync()
         {
-            return await _ctx.Genres.ToListAsync();
+            try
+            {
+                return await _ctx.Genres.ToListAsync();
+            }
+            catch (Exception e)
+            {
+                throw;
+            }
         }
 
         public async Task<Genre> GetGenreByNameAsync(string name)
         {
-            return await _ctx.Genres.FirstOrDefaultAsync(g => g.Name == name);
-        }
+            try
+            {
+                var genre = await _ctx.Genres.FirstOrDefaultAsync(g => g.Name == name);
+                
+                if (genre == null)
+                    throw new ArgumentException($"No genre with name {name} found in the database");
 
-        public async Task UpdateGenreAsync(Genre genre)
-        {
-            _ctx.Genres.Update(genre);
-            await _ctx.SaveChangesAsync();
+                return genre;
+            }
+            catch (Exception e)
+            {
+                throw;
+            }
         }
 
         public void Dispose()

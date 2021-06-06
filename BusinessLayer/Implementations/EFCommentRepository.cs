@@ -18,89 +18,197 @@ namespace BusinessLayer.Implementations
         }
         public async Task<Comment> GetCommentByIdAsync(int id)
         {
-            return await _ctx.Comments.FirstOrDefaultAsync(f => f.Id == id);
+            try
+            {
+                var comment = await _ctx.Comments.FirstOrDefaultAsync(f => f.Id == id);
+
+                if (comment == null)
+                    throw new ArgumentException($"No comment with ID {id} found in database");
+
+                return comment;
+            }
+            catch (Exception e)
+            {
+                throw;
+            }
         }
 
         public async Task<List<UserComment>> GetLikesOfCommentAsync(Comment comment)
         {
-            var full = _ctx.Comments.Include(c => c.Likes);
-            var likes = await full.FirstOrDefaultAsync(c => c.Id == comment.Id);
-            return likes.Likes;
+            try
+            {
+                if (comment == null)
+                    throw new ArgumentNullException("Cannot get likes of null comment");
+                
+                var commentsWithLikes = _ctx.Comments.Include(c => c.Likes);
+                var commentWithLikes = await commentsWithLikes.FirstOrDefaultAsync(c => c.Id == comment.Id);
+                return commentWithLikes.Likes;
+            }
+            catch (Exception e)
+            {
+                throw;
+            }
         }
 
-        public async Task<List<Comment>> GetCommentsOfUser(User user)
+        public async Task<List<Comment>> GetCommentsOfUserAsync(User user)
         {
-            var full = _ctx.Users.Include(c => c.Comments);
-            var userWithComments = await full.FirstOrDefaultAsync(c => c.Id == user.Id);
-            return userWithComments.Comments;
+            try
+            {
+                if (user == null)
+                    throw new ArgumentNullException("Cannot get comments of null user");
+                
+                var usersWithComments = _ctx.Users.Include(c => c.Comments);
+                var userWithComments = await usersWithComments.FirstOrDefaultAsync(c => c.Id == user.Id);
+                return userWithComments.Comments;
+            }
+            catch (Exception e)
+            {
+                throw;
+            }
         }
 
         public async Task<int> LikesCountAsync(Comment comment)
         {
-            var full = _ctx.Comments.Include(c => c.Likes);
-            var likes = await full.FirstOrDefaultAsync(c => c.Id == comment.Id);
-            return likes.Likes.Count;
+            try
+            {
+                if (comment == null)
+                    throw new ArgumentNullException("Cannot count likes of null comment");
+                
+                var commentsWithLikes = _ctx.Comments.Include(c => c.Likes);
+                var commentWithLikes = await commentsWithLikes.FirstOrDefaultAsync(c => c.Id == comment.Id);
+                return commentWithLikes.Likes.Count;
+            }
+            catch (Exception e)
+            {
+                throw;
+            }
         }
 
         public async Task<Comment> AddCommentAsync(Comment comment, User user, Concert concert)
         {
-            comment.PublishTime = DateTime.Now;
-            comment.User = user;
-            comment.UserId = user.Id;
-            comment.Concert = concert;
-            comment.ConcertId = concert.Id;
-            _ctx.Comments.Add(comment);
-            await _ctx.SaveChangesAsync();
-            return comment;
+            try
+            {
+                if (comment == null)
+                    throw new ArgumentNullException("Cannot add null comment");
+                
+                if (user == null)
+                    throw new ArgumentNullException("Cannot add comment by null user");
+                
+                if (concert == null)
+                    throw new ArgumentNullException("Cannot add comment to null concert");
+                
+                comment.PublishTime = DateTime.Now;
+                comment.User = user;
+                comment.UserId = user.Id;
+                comment.Concert = concert;
+                comment.ConcertId = concert.Id;
+                
+                _ctx.Comments.Add(comment);
+                await _ctx.SaveChangesAsync();
+                return comment;
+            }
+            catch (Exception e)
+            {
+                throw;
+            }
         }
 
         public async Task PressLikeAsync(Comment comment, User user)
         {
-            UserComment userComment = new UserComment
+            try
             {
-                UserId = user.Id,
-                User = user,
-                CommentId = comment.Id,
-                Comment = comment
-            };
-            
-            bool alreadyLiked = false;
-            var full = _ctx.Comments.Include(c => c.Likes);
-            var commentWithLikes = await full.FirstOrDefaultAsync(c => c.Id == comment.Id);
-            foreach (var like in commentWithLikes.Likes)
-            {
-                if (like.UserId == user.Id && like.CommentId == comment.Id)
+                if (comment == null)
+                    throw new ArgumentNullException("Cannot add like to null comment");
+                
+                if (user == null)
+                    throw new ArgumentNullException("Cannot add like by null user");
+                
+                var commentsWithLikes = _ctx.Comments.Include(c => c.Likes);
+                var commentWithLikes = await commentsWithLikes.FirstOrDefaultAsync(c => c.Id == comment.Id);
+                
+                foreach (var like in commentWithLikes.Likes)
                 {
-                    alreadyLiked = true;
-                    userComment = like;
+                    if (like.UserId == user.Id && like.CommentId == comment.Id)
+                    {
+                        await DeleteLikeFromCommentAsync(commentWithLikes, like);
+                        return;
+                    }
                 }
+                await AddLikeToCommentAsync(comment, user);
             }
-            
-            if (!alreadyLiked)
+            catch (Exception e)
             {
+                throw;
+            }
+        }
+
+        private async Task AddLikeToCommentAsync(Comment comment, User user)
+        {
+            try
+            {
+                UserComment userComment = new UserComment
+                {
+                    UserId = user.Id,
+                    User = user,
+                    CommentId = comment.Id,
+                    Comment = comment
+                };
+                
                 if (user.Likes == null)
                     user.Likes = new List<UserComment>();
                 user.Likes.Add(userComment);
                 _ctx.Users.Update(user);
                 await _ctx.SaveChangesAsync();
             }
-            else
+            catch (Exception e)
             {
-                commentWithLikes.Likes.Remove(userComment);
-                _ctx.Comments.Update(commentWithLikes);
+                throw;
+            }
+        }
+
+        private async Task DeleteLikeFromCommentAsync(Comment comment, UserComment userComment)
+        {
+            try
+            {
+                comment.Likes.Remove(userComment);
+                _ctx.Comments.Update(comment);
                 await _ctx.SaveChangesAsync();
+            }
+            catch (Exception e)
+            {
+                throw;
             }
         }
 
         public async Task UpdateCommentAsync(Comment comment)
         {
-            _ctx.Comments.Update(comment);
-            await _ctx.SaveChangesAsync();
+            try
+            {
+                if (comment == null)
+                    throw new ArgumentNullException("Cannot update null comment");
+                
+                _ctx.Comments.Update(comment);
+                await _ctx.SaveChangesAsync();
+            }
+            catch (Exception e)
+            {
+                throw;
+            }
         }
         public async Task DeleteCommentAsync(Comment comment)
         {
-            _ctx.Comments.Remove(comment);
-            await _ctx.SaveChangesAsync();
+            try
+            {
+                if (comment == null)
+                    throw new ArgumentNullException("Cannot delete null comment");
+                
+                _ctx.Comments.Remove(comment);
+                await _ctx.SaveChangesAsync();
+            }
+            catch (Exception e)
+            {
+                throw;
+            }
         }
 
         public void Dispose()

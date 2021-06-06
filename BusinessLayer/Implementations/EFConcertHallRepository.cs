@@ -19,41 +19,111 @@ namespace BusinessLayer.Implementations
         }
         public async Task<ConcertHall> AddConcertHallAsync(ConcertHall concertHall)
         {
-            _ctx.ConcertHalls.Add(concertHall);
-            await _ctx.SaveChangesAsync();
-            return concertHall;
+            try
+            {
+                if (concertHall == null)
+                    throw new ArgumentNullException("Cannot add null Concert Hall");
+                
+                _ctx.ConcertHalls.Add(concertHall);
+                await _ctx.SaveChangesAsync();
+                return concertHall;
+            }
+            catch (Exception e)
+            {
+                throw;
+            }
         }
 
         public async Task<ICollection<ConcertHall>> GetAllConcertHallsAsync()
         {
-            return await _ctx.ConcertHalls.ToListAsync();
+            try
+            {
+                return await _ctx.ConcertHalls.ToListAsync();
+            }
+            catch (Exception e)
+            {
+                throw;
+            }
         }
 
-        public async Task<ConcertHall> GetConcertHallByIdAsync(int Id)
+        public async Task<ConcertHall> GetConcertHallByIdAsync(int id)
         {
-            return await _ctx.ConcertHalls.FirstOrDefaultAsync(c => c.Id == Id);
+            try
+            {
+                var concertHall = await _ctx.ConcertHalls.FirstOrDefaultAsync(c => c.Id == id);
+                
+                if(concertHall == null) 
+                    throw new ArgumentException($"No concert hall with ID {id} found in the database");
+
+                return concertHall;
+            }
+            catch (Exception e)
+            {
+                throw;
+            }
+            
         }
         public async Task<ConcertHall> GetConcertHallByAddressAsync(string address)
         {
-            return await _ctx.ConcertHalls.FirstOrDefaultAsync(c => c.Address == address);
+            try
+            {
+                if(address == null) 
+                    throw new ArgumentNullException("Address cannot be null");
+                
+                return await _ctx.ConcertHalls.FirstOrDefaultAsync(c => c.Address == address);
+            }
+            catch (Exception e)
+            {
+                throw;
+            }
         }
 
         public async Task<List<Concert>> GetConcertsOfConcertHallAsync(ConcertHall concertHall)
         {
-            var full = _ctx.ConcertHalls.Include(c => c.Concerts);
-            var concerts = await full.FirstOrDefaultAsync(c => c.Id == concertHall.Id);
-            return concertHall.Concerts;
+            try
+            {
+                if(concertHall == null) 
+                    throw new ArgumentNullException("Cannot get concerts of null concert hall");
+                
+                var concertHallsWithConcerts = _ctx.ConcertHalls.Include(c => c.Concerts);
+                var concertHallWithConcerts = await concertHallsWithConcerts.FirstOrDefaultAsync(c => c.Id == concertHall.Id);
+                return concertHallWithConcerts.Concerts;
+            }
+            catch (Exception e)
+            {
+                throw;
+            }
         }
 
         public async Task UpdateConcertHallAsync(ConcertHall concertHall)
         {
-            _ctx.ConcertHalls.Update(concertHall);
-            await _ctx.SaveChangesAsync();
+            try
+            {
+                if(concertHall == null) 
+                    throw new ArgumentNullException("Cannot update null concert hall");
+                
+                _ctx.ConcertHalls.Update(concertHall);
+                await _ctx.SaveChangesAsync();
+            }
+            catch (Exception e)
+            {
+                throw;
+            }
         }
         public async Task DeleteConcertHallAsync(ConcertHall concertHall)
         {
-            _ctx.ConcertHalls.Remove(concertHall);
-            await _ctx.SaveChangesAsync();
+            try
+            {
+                if(concertHall == null) 
+                    throw new ArgumentNullException("Cannot delete null concert hall");
+                
+                _ctx.ConcertHalls.Remove(concertHall);
+                await _ctx.SaveChangesAsync();
+            }
+            catch (Exception e)
+            {
+                throw;
+            }
         }
         public void Dispose()
         {

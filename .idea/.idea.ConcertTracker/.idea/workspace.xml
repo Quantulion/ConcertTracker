@@ -5,78 +5,42 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7d89aed8-90eb-450b-8267-b5d61f76cd2a" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/ConcertTracker/Areas/InsertData/IInsertData.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.ConcertTracker/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.ConcertTracker/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.vs/ConcertTracker/DesignTimeBuild/.dtbcache.v2" beforeDir="false" afterPath="$PROJECT_DIR$/.vs/ConcertTracker/DesignTimeBuild/.dtbcache.v2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.vs/ConcertTracker/v16/.suo" beforeDir="false" afterPath="$PROJECT_DIR$/.vs/ConcertTracker/v16/.suo" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BusinessLayer/Implementations/EFAdminRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BusinessLayer/Implementations/EFAdminRepository.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BusinessLayer/Implementations/EFArtistRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BusinessLayer/Implementations/EFArtistRepository.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BusinessLayer/Implementations/EFCommentRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BusinessLayer/Implementations/EFCommentRepository.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BusinessLayer/Implementations/EFConcertHallRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BusinessLayer/Implementations/EFConcertHallRepository.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BusinessLayer/Implementations/EFConcertRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BusinessLayer/Implementations/EFConcertRepository.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BusinessLayer/Implementations/EFGenreRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BusinessLayer/Implementations/EFGenreRepository.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BusinessLayer/Implementations/EFUserRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BusinessLayer/Implementations/EFUserRepository.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BusinessLayer/Implementations/EFViewerRepository.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BusinessLayer/Implementations/InsertData.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ConcertTracker/Areas/InsertData/InsertData.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BusinessLayer/Implementations/PhotoManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ConcertTracker/Areas/PhotoManager/PhotoManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BusinessLayer/Interfaces/IInsertData.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BusinessLayer/Interfaces/IPhotoManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ConcertTracker/Areas/PhotoManager/IPhotoManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BusinessLayer/Interfaces/IViewerRepository.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BusinessLayer/Interfaces/ICommentRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BusinessLayer/Interfaces/ICommentRepository.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BusinessLayer/Interfaces/IConcertHallRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BusinessLayer/Interfaces/IConcertHallRepository.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BusinessLayer/Interfaces/IConcertRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BusinessLayer/Interfaces/IConcertRepository.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BusinessLayer/Interfaces/IGenreRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BusinessLayer/Interfaces/IGenreRepository.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BusinessLayer/Interfaces/IUserRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BusinessLayer/Interfaces/IUserRepository.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BusinessLayer/bin/Debug/netcoreapp3.1/BusinessLayer.dll" beforeDir="false" afterPath="$PROJECT_DIR$/BusinessLayer/bin/Debug/netcoreapp3.1/BusinessLayer.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BusinessLayer/bin/Debug/netcoreapp3.1/BusinessLayer.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/BusinessLayer/bin/Debug/netcoreapp3.1/BusinessLayer.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BusinessLayer/bin/Debug/netcoreapp3.1/DataLayer.dll" beforeDir="false" afterPath="$PROJECT_DIR$/BusinessLayer/bin/Debug/netcoreapp3.1/DataLayer.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BusinessLayer/bin/Debug/netcoreapp3.1/DataLayer.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/BusinessLayer/bin/Debug/netcoreapp3.1/DataLayer.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BusinessLayer/obj/Debug/netcoreapp3.1/BusinessLayer.csproj.CoreCompileInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/BusinessLayer/obj/Debug/netcoreapp3.1/BusinessLayer.csproj.CoreCompileInputs.cache" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BusinessLayer/obj/Debug/netcoreapp3.1/BusinessLayer.csprojAssemblyReference.cache" beforeDir="false" afterPath="$PROJECT_DIR$/BusinessLayer/obj/Debug/netcoreapp3.1/BusinessLayer.csprojAssemblyReference.cache" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BusinessLayer/obj/Debug/netcoreapp3.1/BusinessLayer.dll" beforeDir="false" afterPath="$PROJECT_DIR$/BusinessLayer/obj/Debug/netcoreapp3.1/BusinessLayer.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BusinessLayer/obj/Debug/netcoreapp3.1/BusinessLayer.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/BusinessLayer/obj/Debug/netcoreapp3.1/BusinessLayer.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ConcertTracker/Areas/Identity/Pages/Account/Register.cshtml.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ConcertTracker/Areas/Identity/Pages/Account/Register.cshtml.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ConcertTracker/Pages/ConcertHallPage.razor" beforeDir="false" afterPath="$PROJECT_DIR$/ConcertTracker/Pages/ConcertHallPage.razor" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ConcertTracker/Pages/ConcertHalls.razor" beforeDir="false" afterPath="$PROJECT_DIR$/ConcertTracker/Pages/ConcertHalls.razor" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ConcertTracker/Pages/ConcertPage.razor" beforeDir="false" afterPath="$PROJECT_DIR$/ConcertTracker/Pages/ConcertPage.razor" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ConcertTracker/Pages/Map.razor" beforeDir="false" afterPath="$PROJECT_DIR$/ConcertTracker/Pages/Map.razor" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ConcertTracker/Areas/Identity/Pages/Account/Manage/Index.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/ConcertTracker/Areas/Identity/Pages/Account/Manage/Index.cshtml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ConcertTracker/Pages/Profile.razor" beforeDir="false" afterPath="$PROJECT_DIR$/ConcertTracker/Pages/Profile.razor" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ConcertTracker/Pages/Search.razor" beforeDir="false" afterPath="$PROJECT_DIR$/ConcertTracker/Pages/Search.razor" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ConcertTracker/Shared/SurveyPrompt.razor" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ConcertTracker/Startup.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ConcertTracker/Startup.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ConcertTracker/bin/Debug/net5.0/BusinessLayer.dll" beforeDir="false" afterPath="$PROJECT_DIR$/ConcertTracker/bin/Debug/net5.0/BusinessLayer.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ConcertTracker/bin/Debug/net5.0/BusinessLayer.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/ConcertTracker/bin/Debug/net5.0/BusinessLayer.pdb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ConcertTracker/bin/Debug/net5.0/ConcertTracker.Views.dll" beforeDir="false" afterPath="$PROJECT_DIR$/ConcertTracker/bin/Debug/net5.0/ConcertTracker.Views.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ConcertTracker/bin/Debug/net5.0/ConcertTracker.Views.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/ConcertTracker/bin/Debug/net5.0/ConcertTracker.Views.pdb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ConcertTracker/bin/Debug/net5.0/ConcertTracker.dll" beforeDir="false" afterPath="$PROJECT_DIR$/ConcertTracker/bin/Debug/net5.0/ConcertTracker.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ConcertTracker/bin/Debug/net5.0/ConcertTracker.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/ConcertTracker/bin/Debug/net5.0/ConcertTracker.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ConcertTracker/bin/Debug/net5.0/DataLayer.dll" beforeDir="false" afterPath="$PROJECT_DIR$/ConcertTracker/bin/Debug/net5.0/DataLayer.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ConcertTracker/bin/Debug/net5.0/DataLayer.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/ConcertTracker/bin/Debug/net5.0/DataLayer.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ConcertTracker/bin/Debug/net5.0/ref/ConcertTracker.dll" beforeDir="false" afterPath="$PROJECT_DIR$/ConcertTracker/bin/Debug/net5.0/ref/ConcertTracker.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ConcertTracker/obj/Debug/net5.0/ConcertTracker.RazorComponent.input.cache" beforeDir="false" afterPath="$PROJECT_DIR$/ConcertTracker/obj/Debug/net5.0/ConcertTracker.RazorComponent.input.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ConcertTracker/obj/Debug/net5.0/ConcertTracker.RazorCoreGenerate.cache" beforeDir="false" afterPath="$PROJECT_DIR$/ConcertTracker/obj/Debug/net5.0/ConcertTracker.RazorCoreGenerate.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ConcertTracker/obj/Debug/net5.0/ConcertTracker.TagHelpers.output.cache" beforeDir="false" afterPath="$PROJECT_DIR$/ConcertTracker/obj/Debug/net5.0/ConcertTracker.TagHelpers.output.cache" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ConcertTracker/obj/Debug/net5.0/ConcertTracker.Views.dll" beforeDir="false" afterPath="$PROJECT_DIR$/ConcertTracker/obj/Debug/net5.0/ConcertTracker.Views.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ConcertTracker/obj/Debug/net5.0/ConcertTracker.Views.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/ConcertTracker/obj/Debug/net5.0/ConcertTracker.Views.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ConcertTracker/obj/Debug/net5.0/ConcertTracker.csproj.CoreCompileInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/ConcertTracker/obj/Debug/net5.0/ConcertTracker.csproj.CoreCompileInputs.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ConcertTracker/obj/Debug/net5.0/ConcertTracker.csproj.FileListAbsolute.txt" beforeDir="false" afterPath="$PROJECT_DIR$/ConcertTracker/obj/Debug/net5.0/ConcertTracker.csproj.FileListAbsolute.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ConcertTracker/obj/Debug/net5.0/ConcertTracker.csprojAssemblyReference.cache" beforeDir="false" afterPath="$PROJECT_DIR$/ConcertTracker/obj/Debug/net5.0/ConcertTracker.csprojAssemblyReference.cache" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ConcertTracker/obj/Debug/net5.0/ConcertTracker.dll" beforeDir="false" afterPath="$PROJECT_DIR$/ConcertTracker/obj/Debug/net5.0/ConcertTracker.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ConcertTracker/obj/Debug/net5.0/ConcertTracker.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/ConcertTracker/obj/Debug/net5.0/ConcertTracker.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ConcertTracker/obj/Debug/net5.0/Razor/Pages/ConcertHallPage.razor.g.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ConcertTracker/obj/Debug/net5.0/Razor/Pages/ConcertHallPage.razor.g.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ConcertTracker/obj/Debug/net5.0/Razor/Pages/ConcertHalls.razor.g.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ConcertTracker/obj/Debug/net5.0/Razor/Pages/ConcertHalls.razor.g.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ConcertTracker/obj/Debug/net5.0/Razor/Pages/ConcertPage.razor.g.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ConcertTracker/obj/Debug/net5.0/Razor/Pages/ConcertPage.razor.g.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ConcertTracker/obj/Debug/net5.0/Razor/Pages/Map.razor.g.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ConcertTracker/obj/Debug/net5.0/Razor/Pages/Map.razor.g.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ConcertTracker/obj/Debug/net5.0/Razor/Areas/Identity/Pages/Account/Manage/Index.cshtml.g.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ConcertTracker/obj/Debug/net5.0/Razor/Areas/Identity/Pages/Account/Manage/Index.cshtml.g.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ConcertTracker/obj/Debug/net5.0/Razor/Pages/Profile.razor.g.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ConcertTracker/obj/Debug/net5.0/Razor/Pages/Profile.razor.g.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ConcertTracker/obj/Debug/net5.0/Razor/Pages/Search.razor.g.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ConcertTracker/obj/Debug/net5.0/Razor/Pages/Search.razor.g.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ConcertTracker/obj/Debug/net5.0/Razor/Shared/SurveyPrompt.razor.g.cs" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/ConcertTracker/obj/Debug/net5.0/RazorDeclaration/ConcertTracker.dll" beforeDir="false" afterPath="$PROJECT_DIR$/ConcertTracker/obj/Debug/net5.0/RazorDeclaration/ConcertTracker.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ConcertTracker/obj/Debug/net5.0/RazorDeclaration/ConcertTracker.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/ConcertTracker/obj/Debug/net5.0/RazorDeclaration/ConcertTracker.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ConcertTracker/obj/Debug/net5.0/RazorDeclaration/Pages/ConcertHallPage.razor.g.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ConcertTracker/obj/Debug/net5.0/RazorDeclaration/Pages/ConcertHallPage.razor.g.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ConcertTracker/obj/Debug/net5.0/RazorDeclaration/Pages/ConcertHalls.razor.g.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ConcertTracker/obj/Debug/net5.0/RazorDeclaration/Pages/ConcertHalls.razor.g.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ConcertTracker/obj/Debug/net5.0/RazorDeclaration/Pages/ConcertPage.razor.g.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ConcertTracker/obj/Debug/net5.0/RazorDeclaration/Pages/ConcertPage.razor.g.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ConcertTracker/obj/Debug/net5.0/RazorDeclaration/Pages/Map.razor.g.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ConcertTracker/obj/Debug/net5.0/RazorDeclaration/Pages/Map.razor.g.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ConcertTracker/obj/Debug/net5.0/RazorDeclaration/Pages/Profile.razor.g.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ConcertTracker/obj/Debug/net5.0/RazorDeclaration/Pages/Profile.razor.g.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ConcertTracker/obj/Debug/net5.0/RazorDeclaration/Pages/Search.razor.g.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ConcertTracker/obj/Debug/net5.0/RazorDeclaration/Pages/Search.razor.g.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ConcertTracker/obj/Debug/net5.0/RazorDeclaration/Shared/SurveyPrompt.razor.g.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ConcertTracker/obj/Debug/net5.0/ref/ConcertTracker.dll" beforeDir="false" afterPath="$PROJECT_DIR$/ConcertTracker/obj/Debug/net5.0/ref/ConcertTracker.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DataLayer/ApplicationContext.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DataLayer/ApplicationContext.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DataLayer/Entities/Viewer.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DataLayer/bin/Debug/netcoreapp3.1/DataLayer.dll" beforeDir="false" afterPath="$PROJECT_DIR$/DataLayer/bin/Debug/netcoreapp3.1/DataLayer.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DataLayer/bin/Debug/netcoreapp3.1/DataLayer.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/DataLayer/bin/Debug/netcoreapp3.1/DataLayer.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DataLayer/obj/Debug/netcoreapp3.1/DataLayer.csproj.CoreCompileInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/DataLayer/obj/Debug/netcoreapp3.1/DataLayer.csproj.CoreCompileInputs.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DataLayer/obj/Debug/netcoreapp3.1/DataLayer.dll" beforeDir="false" afterPath="$PROJECT_DIR$/DataLayer/obj/Debug/netcoreapp3.1/DataLayer.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DataLayer/obj/Debug/netcoreapp3.1/DataLayer.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/DataLayer/obj/Debug/netcoreapp3.1/DataLayer.pdb" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -103,12 +67,12 @@
   </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/IL/60B4CAED-9553-4D9E-9BBA-8E623D3661FF/4d/8ef2c168/020000E6pdb.il" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/E6E6B40B-308C-4FE1-9C93-7C26C144C865/2C2/AsyncTaskMethodBuilderT.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/60B4CAED-9553-4D9E-9BBA-8E623D3661FF/23/EntityFrameworkQueryableExtensions.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/60B4CAED-9553-4D9E-9BBA-8E623D3661FF/B5/QueryableMethods.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="IdeDocumentHistory">
     <changedPaths>
-      <option value="$PROJECT_DIR$/BusinessLayer/Implementations/EFConcertHallRepository.cs" />
       <option value="$PROJECT_DIR$/BusinessLayer/Interfaces/IViewerRepository.cs" />
       <option value="$PROJECT_DIR$/BusinessLayer/Implementations/PhotoManager.cs" />
       <option value="$PROJECT_DIR$/ConcertTracker/Pages/About.razor" />
@@ -120,32 +84,26 @@
       <option value="$PROJECT_DIR$/BusinessLayer/Implementations/EFUserCommentRepository.cs" />
       <option value="$PROJECT_DIR$/ConcertTracker/Shared/Comments.cshtml" />
       <option value="$PROJECT_DIR$/ConcertTracker/Shared/Comments.razor" />
-      <option value="$PROJECT_DIR$/BusinessLayer/Interfaces/IGenreRepository.cs" />
       <option value="$PROJECT_DIR$/ConcertTracker/Areas/Identity/Pages/Account/Manage/Index.cshtml.cs" />
       <option value="$PROJECT_DIR$/ConcertTracker/Pages/Shared/_Layout.cshtml" />
       <option value="$PROJECT_DIR$/ConcertTracker/wwwroot/css/mycss/userProfile.css" />
-      <option value="$PROJECT_DIR$/BusinessLayer/Implementations/EFGenreRepository.cs" />
       <option value="$PROJECT_DIR$/BusinessLayer/Interfaces/ICommentRepository.cs" />
       <option value="$PROJECT_DIR$/ConcertTracker/wwwroot/css/mycss/profile.css" />
       <option value="$PROJECT_DIR$/ConcertTracker/wwwroot/css/mycss/search.css" />
       <option value="$PROJECT_DIR$/ConcertTracker/wwwroot/css/mycss/concert.css" />
       <option value="$PROJECT_DIR$/BusinessLayer/Interfaces/IConcertRepository.cs" />
-      <option value="$PROJECT_DIR$/BusinessLayer/Implementations/EFConcertRepository.cs" />
       <option value="$PROJECT_DIR$/ConcertTracker/wwwroot/css/mycss/style.css" />
       <option value="$PROJECT_DIR$/DataLayer/SampleData.cs" />
       <option value="$PROJECT_DIR$/BusinessLayer/Implementations/InsertCH.cs" />
       <option value="$PROJECT_DIR$/BusinessLayer/Interfaces/InsertData.cs" />
       <option value="$PROJECT_DIR$/BusinessLayer/DataManager.cs" />
-      <option value="$PROJECT_DIR$/BusinessLayer/Implementations/EFCommentRepository.cs" />
       <option value="$PROJECT_DIR$/DataLayer/Entities/Artist.cs" />
       <option value="$PROJECT_DIR$/DataLayer/Entities/ConcertHall.cs" />
-      <option value="$PROJECT_DIR$/ConcertTracker/Areas/Identity/Pages/Account/Manage/Index.cshtml" />
       <option value="$PROJECT_DIR$/ConcertTracker/Pages/Map.razor" />
       <option value="$PROJECT_DIR$/ConcertTracker/Pages/Profile.razor" />
       <option value="$PROJECT_DIR$/ConcertTracker/Pages/Search.razor" />
       <option value="$PROJECT_DIR$/ConcertTracker/Pages/ConcertPage.razor" />
       <option value="$PROJECT_DIR$/ConcertTracker/Pages/ConcertHallPage.razor" />
-      <option value="$PROJECT_DIR$/BusinessLayer/Implementations/EFUserRepository.cs" />
       <option value="$PROJECT_DIR$/BusinessLayer/Implementations/InsertData.cs" />
       <option value="$PROJECT_DIR$/BusinessLayer/Interfaces/IInsertData.cs" />
       <option value="$PROJECT_DIR$/ConcertTracker/Areas/InsertData/IInsertData.cs" />
@@ -155,9 +113,17 @@
       <option value="$PROJECT_DIR$/ConcertTracker/Pages/ConcertHalls.razor" />
       <option value="$PROJECT_DIR$/ConcertTracker/Areas/Identity/Pages/Account/Register.cshtml.cs" />
       <option value="$PROJECT_DIR$/ConcertTracker/Areas/InsertData/InsertData.cs" />
-      <option value="$PROJECT_DIR$/BusinessLayer/Implementations/EFAdminRepository.cs" />
       <option value="$PROJECT_DIR$/DataLayer/ApplicationContext.cs" />
+      <option value="$PROJECT_DIR$/ConcertTracker/Areas/Identity/Pages/Account/Manage/Index.cshtml" />
+      <option value="$PROJECT_DIR$/BusinessLayer/Interfaces/IUserRepository.cs" />
       <option value="$PROJECT_DIR$/BusinessLayer/Implementations/EFArtistRepository.cs" />
+      <option value="$PROJECT_DIR$/BusinessLayer/Implementations/EFAdminRepository.cs" />
+      <option value="$PROJECT_DIR$/BusinessLayer/Implementations/EFCommentRepository.cs" />
+      <option value="$PROJECT_DIR$/BusinessLayer/Implementations/EFConcertRepository.cs" />
+      <option value="$PROJECT_DIR$/BusinessLayer/Implementations/EFConcertHallRepository.cs" />
+      <option value="$PROJECT_DIR$/BusinessLayer/Implementations/EFUserRepository.cs" />
+      <option value="$PROJECT_DIR$/BusinessLayer/Interfaces/IGenreRepository.cs" />
+      <option value="$PROJECT_DIR$/BusinessLayer/Implementations/EFGenreRepository.cs" />
     </changedPaths>
   </component>
   <component name="ProjectId" id="1semW0JOl5OiGGZS0Lz2uDUbQbh" />
@@ -167,7 +133,7 @@
   </component>
   <component name="PropertiesComponent">
     <property name="DatabaseDriversLRU" value="sqlserver" />
-    <property name="DebuggerViewTab_PTCS_FirstProportionKey" value="0.48483208" />
+    <property name="DebuggerViewTab_PTCS_FirstProportionKey" value="0.48511577" />
     <property name="DebuggerViewTab_PTCS_LastProportionKey" value="0.0" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
@@ -220,7 +186,7 @@
       <updated>1621241459866</updated>
       <workItem from="1621241466215" duration="5867000" />
       <workItem from="1621793145932" duration="13024000" />
-      <workItem from="1622886621918" duration="7342000" />
+      <workItem from="1622886621918" duration="14547000" />
     </task>
     <servers />
   </component>
@@ -245,62 +211,6 @@
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
   </component>
   <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/BusinessLayer/Implementations/EFCommentRepository.cs</url>
-          <line>47</line>
-          <properties documentPath="C:\ConcertTracker\BusinessLayer\Implementations\EFCommentRepository.cs" initialLine="46" containingFunctionPresentation="method 'AddCommentAsync'">
-            <startOffsets>
-              <option value="1629" />
-            </startOffsets>
-            <endOffsets>
-              <option value="1649" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="97" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/BusinessLayer/Implementations/EFCommentRepository.cs</url>
-          <line>51</line>
-          <properties documentPath="C:\ConcertTracker\BusinessLayer\Implementations\EFCommentRepository.cs" initialLine="50" containingFunctionPresentation="method 'AddCommentAsync'">
-            <startOffsets>
-              <option value="1783" />
-            </startOffsets>
-            <endOffsets>
-              <option value="1810" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="98" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/BusinessLayer/Implementations/EFCommentRepository.cs</url>
-          <line>52</line>
-          <properties documentPath="C:\ConcertTracker\BusinessLayer\Implementations\EFCommentRepository.cs" initialLine="51" containingFunctionPresentation="method 'AddCommentAsync'">
-            <startOffsets>
-              <option value="1823" />
-            </startOffsets>
-            <endOffsets>
-              <option value="1853" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="99" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/BusinessLayer/Implementations/EFCommentRepository.cs</url>
-          <line>53</line>
-          <properties documentPath="C:\ConcertTracker\BusinessLayer\Implementations\EFCommentRepository.cs" initialLine="52" containingFunctionPresentation="method 'AddCommentAsync'">
-            <startOffsets>
-              <option value="1866" />
-            </startOffsets>
-            <endOffsets>
-              <option value="1881" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="100" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
     <pin-to-top-manager>
       <pinned-members>
         <PinnedItemInfo parentTag="Frame#ConcertTracker.Pages.ConcertPage.&lt;BuildRenderTree&gt;b__0_3" memberName="commentUser" />

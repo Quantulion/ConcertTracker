@@ -19,18 +19,47 @@ namespace BusinessLayer.Implementations
         }
         public async Task<ICollection<Admin>> GetAllAdminsAsync()
         {
-            return await _ctx.Admins.ToListAsync();
+            try
+            {
+                return await _ctx.Admins.ToListAsync();
+            }
+            catch (Exception e)
+            {
+                throw;
+            }
         }
         public async Task<Admin> GetAdminByIdAsync(string id)
         {
-            return await _ctx.Admins.FirstOrDefaultAsync(f => f.Id == id);
+            try
+            {
+                var admin = await _ctx.Admins.FirstOrDefaultAsync(f => f.Id == id);
+                
+                if (admin == null)
+                    throw new ArgumentException($"No admin with ID {id} found in the database");
+
+                return admin;
+            }
+            catch (Exception e)
+            {
+                throw;
+            }
         }
 
         public async Task<Admin> AddAdminAsync(Admin admin)
         {
-            _ctx.Admins.Add(admin);
-            await _ctx.SaveChangesAsync();
-            return admin;
+            try
+            {
+                if (admin == null)
+                    throw new ArgumentNullException("Admin cannot be null");
+                
+                _ctx.Admins.Add(admin);
+                await _ctx.SaveChangesAsync();
+                return admin;
+            }
+            catch (Exception e)
+            {
+                throw;
+            }
         }
 
         public void Dispose()

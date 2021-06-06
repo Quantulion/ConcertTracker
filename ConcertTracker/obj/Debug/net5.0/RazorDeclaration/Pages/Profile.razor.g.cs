@@ -152,7 +152,7 @@ using BusinessLayer;
 
     private async Task GetLastComment()
     {
-        var comments = await DataManager.Comments.GetCommentsOfUser(foundUser);
+        var comments = await DataManager.Comments.GetCommentsOfUserAsync(foundUser);
         int end = comments.Count - 1;
         if(end >= 0)
             lastComment = comments[end];
