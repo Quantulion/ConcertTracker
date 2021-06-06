@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
@@ -15,7 +14,7 @@ using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
 using DataLayer.Entities;
 using Microsoft.AspNetCore.Http;
-using BusinessLayer.Interfaces;
+using ConcertTracker.Areas.PhotoManager;
 
 namespace ConcertTracker.Areas.Identity.Pages.Account
 {

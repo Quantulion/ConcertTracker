@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using System.IO;
 
-namespace BusinessLayer.Implementations
+namespace ConcertTracker.Areas.PhotoManager
 {
     public class PhotoManager : IPhotoManager
     {

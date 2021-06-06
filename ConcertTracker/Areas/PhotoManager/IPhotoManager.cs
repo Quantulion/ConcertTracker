@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace BusinessLayer.Interfaces
+namespace ConcertTracker.Areas.PhotoManager
 {
     public interface IPhotoManager
     {

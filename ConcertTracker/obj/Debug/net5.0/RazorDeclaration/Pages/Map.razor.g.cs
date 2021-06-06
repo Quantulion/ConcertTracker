@@ -154,22 +154,20 @@ using BusinessLayer;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 134 "C:\ConcertTracker\ConcertTracker\Pages\Map.razor"
+#line 129 "C:\ConcertTracker\ConcertTracker\Pages\Map.razor"
        
     int zoom = 15;
-    string clickedPosition = "";
 
-    private ICollection<ConcertHall> concertHalls;
-    private ICollection<Concert> concerts;
+    private ICollection<Concert> allConcerts;
     private IList<User> allArtists = new List<User>();
     private ICollection<ConcertHall> allConcertHalls;
     private bool isArtist;
     private bool isAdmin;
     private bool addArtistClicked = false;
     private bool addConcertHallClicked = false;
-    private List<Artist> concertArtists = new List<Artist>();
-    Artist artist;
-    Admin admin = new Admin();
+    private List<Artist> ConcertArtists = new List<Artist>();
+    Artist currentArtist;
+    Admin currentAdmin = new Admin();
     Concert newConcert = new Concert
     {
         Date = DateTime.Now,
@@ -177,61 +175,86 @@ using BusinessLayer;
         ConcertHall = new ConcertHall()
     };
 
-    GoogleMapPosition pos = new GoogleMapPosition() { Lat = 55.7491, Lng = 37.6258 };
+    GoogleMapPosition currentPosition = new GoogleMapPosition() { Lat = 55.7491, Lng = 37.6258 };
 
     protected override async Task OnInitializedAsync()
     {
+        await InitializeData();
+        await GetUserState();
+    }
 
-        //await InsertData.InsertAllData();
-        
-        concertHalls = await ConcertHallRep.GetAllConcertHallsAsync();
-        concerts = await ConcertRepository.GetAllConcertsAsync();
+    private async Task InitializeData()
+    {
+        allConcerts = await DataManager.Concerts.GetAllConcertsAsync();
         allArtists = await userManager.GetUsersInRoleAsync("Artist");
-        allConcertHalls = await ConcertHallRep.GetAllConcertHallsAsync();
+        allConcertHalls = await DataManager.ConcertHalls.GetAllConcertHallsAsync();
+    }
+
+    private async Task GetUserState()
+    {
         var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
         var auser = authState.User;
         var user = await userManager.GetUserAsync(auser);
         isArtist = auser.IsInRole("Artist");
 
         if (isArtist)
-            artist = (Artist)user;
+            currentArtist = (Artist)user;
 
         isAdmin = auser.IsInRole("Admin");
 
         if (isAdmin)
-            admin = (Admin)user;
+            currentAdmin = (Admin)user;
     }
-
-    void OnMapClick(GoogleMapClickEventArgs args)
+    
+    private void OnMapClick(GoogleMapClickEventArgs args)
     {
-        clickedPosition = $"Map clicked LAT: {args.Position.Lat}, LNG: {args.Position.Lng}";
-        pos.Lat = args.Position.Lat;
-        pos.Lng = args.Position.Lng;
+        currentPosition.Lat = args.Position.Lat;
+        currentPosition.Lng = args.Position.Lng;
         newConcert = new Concert
         {
             Date = DateTime.Now,
             Artists = new List<Artist>(),
             ConcertHall = new ConcertHall()
         };
-        concertArtists = new List<Artist>();
+        ConcertArtists = new List<Artist>();
     }
 
     private async Task OnMarkerClick(RadzenGoogleMapMarker args)
     {
-        clickedPosition = $"Map {args.Title} clicked LAT: {args.Position.Lat}, LNG: {args.Position.Lng}";
-        var foundConcert = await ConcertRepository.GetConcertByIdAsync(Convert.ToInt32(args.Title));
+        var foundConcert = await DataManager.Concerts.GetConcertByIdAsync(Convert.ToInt32(args.Title));
         newConcert = foundConcert;
-        concertArtists = await ConcertRepository.GetArtistsOfConcertAsync(foundConcert);
-        newConcert.Artists = concertArtists;
-        pos.Lat = foundConcert.Position.Lat;
-        pos.Lng = foundConcert.Position.Lng;
+        ConcertArtists = await DataManager.Concerts.GetArtistsOfConcertAsync(foundConcert);
+        newConcert.Artists = ConcertArtists;
+        currentPosition.Lat = foundConcert.Position.Lat;
+        currentPosition.Lng = foundConcert.Position.Lng;
     }
 
-    private async Task InsertConcert()
+    private async Task AddOrUpdateConcert()
     {
-        var conc = await ConcertRepository.GetConcertByPositionAsync(pos);
+        var foundConcert = await DataManager.Concerts.GetConcertByPositionAsync(currentPosition);
 
-        newConcert.Position = pos;
+        if (foundConcert != null)
+        {
+            await UpdateConcert(foundConcert);
+        }
+
+        else
+        {
+            await AddNewConcert();
+        }
+
+        currentPosition = new GoogleMapPosition() { Lat = 55.7491, Lng = 37.6258 };
+        newConcert = new Concert
+        {
+            Date = DateTime.Now,
+            Artists = new List<Artist>(),
+            ConcertHall = new ConcertHall()
+        };
+    }
+
+    private async Task AddNewConcert()
+    {
+        newConcert.Position = currentPosition;
 
         Concert concert = new Concert
         {
@@ -242,34 +265,20 @@ using BusinessLayer;
             ConcertHallId = newConcert.ConcertHallId,
             Artists = newConcert.Artists
         };
-
-        if (conc != null)
-        {
-            await ConcertRepository.UpdateConcertAsync(conc);
-        }
-
-        else
-        {
-            concert.Artists.Add(artist);
-
-            await ConcertRepository.AddConcertAsync(concert);
-
-            concerts.Add(concert);
-        }
-
-        pos = new GoogleMapPosition() { Lat = 55.7491, Lng = 37.6258 };
-        newConcert = new Concert
-        {
-            Date = DateTime.Now,
-            Artists = new List<Artist>(),
-            ConcertHall = new ConcertHall()
-        };
+        concert.Artists.Add(currentArtist);
+        await DataManager.Concerts.AddConcertAsync(concert);
+        allConcerts.Add(concert);
     }
 
+    private async Task UpdateConcert(Concert concert)
+    {
+        await DataManager.Concerts.UpdateConcertAsync(concert);
+    }
+    
     private async Task AddArtistToConcert(Artist chosenArtist)
     {
         if(newConcert.Id != 0)
-            await ConcertRepository.AddArtistToConcertAsync(chosenArtist, newConcert);
+            await DataManager.Concerts.AddArtistToConcertAsync(chosenArtist, newConcert);
         else
         {
             newConcert.Artists.Add(chosenArtist);
@@ -279,19 +288,19 @@ using BusinessLayer;
     private async Task AddConcertHallToConcert(ConcertHall chosenConcertHall)
     {
         if(newConcert.Id != 0)
-            await ConcertRepository.SetConcertHallToConcertAsync(chosenConcertHall, newConcert);
+            await DataManager.Concerts.SetConcertHallToConcertAsync(chosenConcertHall, newConcert);
         else
         {
             newConcert.ConcertHall = chosenConcertHall;
         }
     }
 
-    private void clickAddArtist()
+    private void AddArtistClick()
     {
         addArtistClicked = !addArtistClicked;
     }
     
-    private void clickAddConcertHall()
+    private void AddConcertHallClick()
     {
         addConcertHallClicked = !addConcertHallClicked;
     }
@@ -301,14 +310,9 @@ using BusinessLayer;
 #line hidden
 #nullable disable
         [global::Microsoft.AspNetCore.Components.InjectAttribute] private AuthenticationStateProvider AuthenticationStateProvider { get; set; }
-        [global::Microsoft.AspNetCore.Components.InjectAttribute] private IUserRepository UserRepository { get; set; }
-        [global::Microsoft.AspNetCore.Components.InjectAttribute] private IConcertHallRepository ConcertHallRep { get; set; }
-        [global::Microsoft.AspNetCore.Components.InjectAttribute] private IConcertRepository ConcertRepository { get; set; }
         [global::Microsoft.AspNetCore.Components.InjectAttribute] private UserManager<User> userManager { get; set; }
         [global::Microsoft.AspNetCore.Components.InjectAttribute] private RoleManager<IdentityRole> roleManager { get; set; }
-        [global::Microsoft.AspNetCore.Components.InjectAttribute] private IDbContextFactory<ApplicationDbContext> ContextFactory { get; set; }
         [global::Microsoft.AspNetCore.Components.InjectAttribute] private DataManager DataManager { get; set; }
-        [global::Microsoft.AspNetCore.Components.InjectAttribute] private IInsertData InsertData { get; set; }
     }
 }
 #pragma warning restore 1591

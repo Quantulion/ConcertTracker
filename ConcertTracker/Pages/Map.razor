@@ -10,26 +10,21 @@
 @using BusinessLayer.Implementations
 @using BusinessLayer
 
-@inject IInsertData InsertData
 @inject DataManager DataManager
-@inject IDbContextFactory<ApplicationDbContext> ContextFactory
 @inject RoleManager<IdentityRole> roleManager
 @inject UserManager<User> userManager
-@inject IConcertRepository ConcertRepository
-@inject IConcertHallRepository ConcertHallRep
-@inject IUserRepository UserRepository
 @inject AuthenticationStateProvider AuthenticationStateProvider
 
 <div class="mapPage">
     <a href="" class="mainText">ConcertTracker</a>
     <div class="mapContainer">
         <div class="map">
-            <RadzenGoogleMap Style="width:auto; height:100%;" Zoom="@zoom" Center="@(pos)" MapClick="@OnMapClick" MarkerClick="@OnMarkerClick">
+            <RadzenGoogleMap Style="width:auto; height:100%;" Zoom="@zoom" Center="@(currentPosition)" MapClick="@OnMapClick" MarkerClick="@OnMarkerClick">
                 <Markers>
-                    <RadzenGoogleMapMarker Title="User" Label="Current Marker" Position="@(new GoogleMapPosition() { Lat = pos.Lat, Lng = pos.Lng })"></RadzenGoogleMapMarker>
-                    @if (concerts != null)
+                    <RadzenGoogleMapMarker Title="User" Label="Current Marker" Position="@(new GoogleMapPosition() { Lat = currentPosition.Lat, Lng = currentPosition.Lng })"></RadzenGoogleMapMarker>
+                    @if (allConcerts != null)
                     {
-                        foreach (var concert in concerts)
+                        foreach (var concert in allConcerts)
                         {
                             <RadzenGoogleMapMarker Title="@concert.Id.ToString()" Label="" Position="@concert.Position"></RadzenGoogleMapMarker>
                         }
@@ -37,42 +32,42 @@
                 </Markers>
             </RadzenGoogleMap>
         </div>
-        <EditForm Model="@newConcert" OnValidSubmit="@InsertConcert" class="concertInfo">
-            @if (isArtist && (concertArtists.Contains(artist) || concertArtists.Count == 0) || isAdmin)
+        <EditForm Model="@newConcert" OnValidSubmit="@AddOrUpdateConcert" class="concertInfo">
+            @if (isArtist && (ConcertArtists.Contains(currentArtist) || ConcertArtists.Count == 0) || isAdmin)
             {
                 <a class="hdr">Date:</a>
                 <RadzenDatePicker  @bind-Value="@newConcert.Date" />
                 <a class="hdr">
                     Concert hall:
-                    <img @onclick="clickAddConcertHall" src="Images/free-icon-plus-149688.svg" />
-                                            @if (addConcertHallClicked == true)
+                    <img @onclick="AddConcertHallClick" src="Images/free-icon-plus-149688.svg" />
+                    @if (addConcertHallClicked == true)
+                    {
+                        <div class="addArtistToConcertArea">
+                                @foreach (var foundConcertHall in allConcertHalls)
+                                {
+                                    <div class="foundArtist">
+                                        @if (foundConcertHall.Photo != null)
+                                        {
+                                            if (foundConcertHall.Photo.Contains("http"))
                                             {
-                                                <div class="addArtistToConcertArea">
-                                                        @foreach (var foundConcertHall in allConcertHalls)
-                                                        {
-                                                            <div class="foundArtist">
-                                                                @if (foundConcertHall.Photo != null)
-                                                                {
-                                                                    if (foundConcertHall.Photo.Contains("http"))
-                                                                    {
-                                                                        <img src="@foundConcertHall.Photo" alt=""/>
-                                                                    }
-                                                                    else
-                                                                    {
-                                                                        <img src="uploads/@foundConcertHall.Photo">
-                                                                    }
-                                                                }
-                                                                <p>@foundConcertHall.Name</p>
-                                                                <img @onclick="@(() => AddConcertHallToConcert(foundConcertHall))" src="Images/free-icon-plus-149688.svg"/>
-                                                            </div>
-                                                        }
-                                                </div>
-                                             }
+                                                <img src="@foundConcertHall.Photo" alt=""/>
+                                            }
+                                            else
+                                            {
+                                                <img src="uploads/@foundConcertHall.Photo">
+                                            }
+                                        }
+                                        <p>@foundConcertHall.Name</p>
+                                        <img @onclick="@(() => AddConcertHallToConcert(foundConcertHall))" src="Images/free-icon-plus-149688.svg"/>
+                                    </div>
+                                }
+                        </div>
+                     }
                 </a>
                 <a href="/concerthall/@newConcert.ConcertHall.Id" class="hdr" Style="font-size:18px; font-weight: 400;">@newConcert.ConcertHall.Name</a>
                 <a class="hdr">
                     Artists:
-                    <img @onclick="clickAddArtist" src="Images/free-icon-plus-149688.svg" />
+                    <img @onclick="AddArtistClick" src="Images/free-icon-plus-149688.svg" />
                         @if (addArtistClicked == true)
                         {
                             <div class="addArtistToConcertArea">
@@ -116,7 +111,7 @@
                     <a href="/concerthall/@newConcert.ConcertHall.Id.ToString()" class="hdr" Style="font-size:18px; font-weight: 400;">@newConcert.ConcertHall.Address</a>
                 }
                 <a class="hdr">Artists:</a>
-                foreach (var concertArtist in concertArtists)
+                foreach (var concertArtist in ConcertArtists)
                 {
                     <a href="/user/@concertArtist.Id" class="hdr" style="font-size:18px; font-weight: 400;">@concertArtist.UserName</a>
                 }
@@ -133,19 +128,17 @@
 
 @code {
     int zoom = 15;
-    string clickedPosition = "";
 
-    private ICollection<ConcertHall> concertHalls;
-    private ICollection<Concert> concerts;
+    private ICollection<Concert> allConcerts;
     private IList<User> allArtists = new List<User>();
     private ICollection<ConcertHall> allConcertHalls;
     private bool isArtist;
     private bool isAdmin;
     private bool addArtistClicked = false;
     private bool addConcertHallClicked = false;
-    private List<Artist> concertArtists = new List<Artist>();
-    Artist artist;
-    Admin admin = new Admin();
+    private List<Artist> ConcertArtists = new List<Artist>();
+    Artist currentArtist;
+    Admin currentAdmin = new Admin();
     Concert newConcert = new Concert
     {
         Date = DateTime.Now,
@@ -153,61 +146,86 @@
         ConcertHall = new ConcertHall()
     };
 
-    GoogleMapPosition pos = new GoogleMapPosition() { Lat = 55.7491, Lng = 37.6258 };
+    GoogleMapPosition currentPosition = new GoogleMapPosition() { Lat = 55.7491, Lng = 37.6258 };
 
     protected override async Task OnInitializedAsync()
     {
+        await InitializeData();
+        await GetUserState();
+    }
 
-        //await InsertData.InsertAllData();
-        
-        concertHalls = await ConcertHallRep.GetAllConcertHallsAsync();
-        concerts = await ConcertRepository.GetAllConcertsAsync();
+    private async Task InitializeData()
+    {
+        allConcerts = await DataManager.Concerts.GetAllConcertsAsync();
         allArtists = await userManager.GetUsersInRoleAsync("Artist");
-        allConcertHalls = await ConcertHallRep.GetAllConcertHallsAsync();
+        allConcertHalls = await DataManager.ConcertHalls.GetAllConcertHallsAsync();
+    }
+
+    private async Task GetUserState()
+    {
         var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
         var auser = authState.User;
         var user = await userManager.GetUserAsync(auser);
         isArtist = auser.IsInRole("Artist");
 
         if (isArtist)
-            artist = (Artist)user;
+            currentArtist = (Artist)user;
 
         isAdmin = auser.IsInRole("Admin");
 
         if (isAdmin)
-            admin = (Admin)user;
+            currentAdmin = (Admin)user;
     }
-
-    void OnMapClick(GoogleMapClickEventArgs args)
+    
+    private void OnMapClick(GoogleMapClickEventArgs args)
     {
-        clickedPosition = $"Map clicked LAT: {args.Position.Lat}, LNG: {args.Position.Lng}";
-        pos.Lat = args.Position.Lat;
-        pos.Lng = args.Position.Lng;
+        currentPosition.Lat = args.Position.Lat;
+        currentPosition.Lng = args.Position.Lng;
         newConcert = new Concert
         {
             Date = DateTime.Now,
             Artists = new List<Artist>(),
             ConcertHall = new ConcertHall()
         };
-        concertArtists = new List<Artist>();
+        ConcertArtists = new List<Artist>();
     }
 
     private async Task OnMarkerClick(RadzenGoogleMapMarker args)
     {
-        clickedPosition = $"Map {args.Title} clicked LAT: {args.Position.Lat}, LNG: {args.Position.Lng}";
-        var foundConcert = await ConcertRepository.GetConcertByIdAsync(Convert.ToInt32(args.Title));
+        var foundConcert = await DataManager.Concerts.GetConcertByIdAsync(Convert.ToInt32(args.Title));
         newConcert = foundConcert;
-        concertArtists = await ConcertRepository.GetArtistsOfConcertAsync(foundConcert);
-        newConcert.Artists = concertArtists;
-        pos.Lat = foundConcert.Position.Lat;
-        pos.Lng = foundConcert.Position.Lng;
+        ConcertArtists = await DataManager.Concerts.GetArtistsOfConcertAsync(foundConcert);
+        newConcert.Artists = ConcertArtists;
+        currentPosition.Lat = foundConcert.Position.Lat;
+        currentPosition.Lng = foundConcert.Position.Lng;
     }
 
-    private async Task InsertConcert()
+    private async Task AddOrUpdateConcert()
     {
-        var conc = await ConcertRepository.GetConcertByPositionAsync(pos);
+        var foundConcert = await DataManager.Concerts.GetConcertByPositionAsync(currentPosition);
 
-        newConcert.Position = pos;
+        if (foundConcert != null)
+        {
+            await UpdateConcert(foundConcert);
+        }
+
+        else
+        {
+            await AddNewConcert();
+        }
+
+        currentPosition = new GoogleMapPosition() { Lat = 55.7491, Lng = 37.6258 };
+        newConcert = new Concert
+        {
+            Date = DateTime.Now,
+            Artists = new List<Artist>(),
+            ConcertHall = new ConcertHall()
+        };
+    }
+
+    private async Task AddNewConcert()
+    {
+        newConcert.Position = currentPosition;
 
         Concert concert = new Concert
         {
@@ -218,34 +236,20 @@
             ConcertHallId = newConcert.ConcertHallId,
             Artists = newConcert.Artists
         };
-
-        if (conc != null)
-        {
-            await ConcertRepository.UpdateConcertAsync(conc);
-        }
-
-        else
-        {
-            concert.Artists.Add(artist);
-
-            await ConcertRepository.AddConcertAsync(concert);
-
-            concerts.Add(concert);
-        }
-
-        pos = new GoogleMapPosition() { Lat = 55.7491, Lng = 37.6258 };
-        newConcert = new Concert
-        {
-            Date = DateTime.Now,
-            Artists = new List<Artist>(),
-            ConcertHall = new ConcertHall()
-        };
+        concert.Artists.Add(currentArtist);
+        await DataManager.Concerts.AddConcertAsync(concert);
+        allConcerts.Add(concert);
     }
 
+    private async Task UpdateConcert(Concert concert)
+    {
+        await DataManager.Concerts.UpdateConcertAsync(concert);
+    }
+    
     private async Task AddArtistToConcert(Artist chosenArtist)
     {
         if(newConcert.Id != 0)
-            await ConcertRepository.AddArtistToConcertAsync(chosenArtist, newConcert);
+            await DataManager.Concerts.AddArtistToConcertAsync(chosenArtist, newConcert);
         else
         {
             newConcert.Artists.Add(chosenArtist);
@@ -255,19 +259,19 @@
     private async Task AddConcertHallToConcert(ConcertHall chosenConcertHall)
     {
         if(newConcert.Id != 0)
-            await ConcertRepository.SetConcertHallToConcertAsync(chosenConcertHall, newConcert);
+            await DataManager.Concerts.SetConcertHallToConcertAsync(chosenConcertHall, newConcert);
         else
         {
             newConcert.ConcertHall = chosenConcertHall;
         }
     }
 
-    private void clickAddArtist()
+    private void AddArtistClick()
     {
         addArtistClicked = !addArtistClicked;
     }
     
-    private void clickAddConcertHall()
+    private void AddConcertHallClick()
     {
         addConcertHallClicked = !addConcertHallClicked;
     }

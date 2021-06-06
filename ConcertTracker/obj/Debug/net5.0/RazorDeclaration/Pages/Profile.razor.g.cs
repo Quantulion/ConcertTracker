@@ -91,20 +91,13 @@ using Radzen.Blazor;
 #nullable disable
 #nullable restore
 #line 3 "C:\ConcertTracker\ConcertTracker\Pages\Profile.razor"
-using BusinessLayer.Interfaces;
-
-#line default
-#line hidden
-#nullable disable
-#nullable restore
-#line 4 "C:\ConcertTracker\ConcertTracker\Pages\Profile.razor"
 using DataLayer.Entities;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 5 "C:\ConcertTracker\ConcertTracker\Pages\Profile.razor"
+#line 4 "C:\ConcertTracker\ConcertTracker\Pages\Profile.razor"
 using BusinessLayer;
 
 #line default
@@ -119,33 +112,33 @@ using BusinessLayer;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 86 "C:\ConcertTracker\ConcertTracker\Pages\Profile.razor"
+#line 81 "C:\ConcertTracker\ConcertTracker\Pages\Profile.razor"
        
 
     [Parameter]
     public string Id { get; set; }
 
-    protected User foundUser = new User();
-    protected List<Concert> artistConcerts = new List<Concert>();
-    protected List<Genre> artistGenres = new List<Genre>();
-    protected Comment lastComment = new Comment();
-    public bool isArtist = false;
+    private User foundUser = new User();
+    private List<Concert> artistConcerts = new List<Concert>();
+    private List<Genre> artistGenres = new List<Genre>();
+    private Comment lastComment = new Comment();
+    private bool isArtist = false;
 
     protected override async Task OnInitializedAsync()
     {
-        foundUser = await UserRepositiory.GetUserByIdAsync(Id);
+        foundUser = await DataManager.Users.GetUserByIdAsync(Id);
         await GetLastComment();
         if (await IsArtist())
         {
             var artist = (Artist)foundUser;
-            artistConcerts = await ArtistRepository.GetConcertsOfArtistAsync(artist);
-            artistGenres = await GenreRepository.GetGenresOfArtistAsync(artist) as List<Genre>;
+            artistConcerts = await DataManager.Artists.GetConcertsOfArtistAsync(artist);
+            artistGenres = await DataManager.Genres.GetGenresOfArtistAsync(artist) as List<Genre>;
         }
     }
 
-    public async Task<bool> IsArtist()
+    private async Task<bool> IsArtist()
     {
-        if (await ArtistRepository.GetArtistByIdAsync(Id) != null)
+        if (await DataManager.Artists.GetArtistByIdAsync(Id) != null)
             isArtist = true;
         else isArtist = false;
         return isArtist;
@@ -153,13 +146,13 @@ using BusinessLayer;
 
     private async Task DeleteUser()
     {
-        await UserRepositiory.DeleteUserAsync(foundUser);
+        await DataManager.Users.DeleteUserAsync(foundUser);
         NavigationManager.NavigateTo("map");
     }
 
     private async Task GetLastComment()
     {
-        var comments = await CommentRepository.GetCommentsOfUser(foundUser);
+        var comments = await DataManager.Comments.GetCommentsOfUser(foundUser);
         int end = comments.Count - 1;
         if(end >= 0)
             lastComment = comments[end];
@@ -171,10 +164,6 @@ using BusinessLayer;
 #line default
 #line hidden
 #nullable disable
-        [global::Microsoft.AspNetCore.Components.InjectAttribute] private ICommentRepository CommentRepository { get; set; }
-        [global::Microsoft.AspNetCore.Components.InjectAttribute] private IGenreRepository GenreRepository { get; set; }
-        [global::Microsoft.AspNetCore.Components.InjectAttribute] private IArtistRepository ArtistRepository { get; set; }
-        [global::Microsoft.AspNetCore.Components.InjectAttribute] private IUserRepository UserRepositiory { get; set; }
         [global::Microsoft.AspNetCore.Components.InjectAttribute] private NavigationManager NavigationManager { get; set; }
         [global::Microsoft.AspNetCore.Components.InjectAttribute] private DataManager DataManager { get; set; }
     }

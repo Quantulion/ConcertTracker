@@ -1,16 +1,17 @@
 ﻿@page "/concerthalls"
 
 @using Microsoft.EntityFrameworkCore
-@using BusinessLayer.Interfaces
 @using DataLayer.Entities
 @using DataLayer
 @using System.IO
+@using BusinessLayer
+@using ConcertTracker.Areas.PhotoManager
 @using Microsoft.AspNetCore.Hosting;
 
 @inject IWebHostEnvironment env
 @inject IPhotoManager PhotoManager
 @inject IDbContextFactory<ApplicationDbContext> ContextFactory
-@inject IConcertHallRepository ConcertHallRep
+@inject DataManager DataManager
 
 <h4>Insert New Concert Hall</h4>
 <EditForm Model="@newConcertHall" OnValidSubmit="@InsertConcertHall">
@@ -60,7 +61,7 @@ else
     ConcertHall newConcertHall = new ConcertHall();
     protected override async Task OnInitializedAsync()
     {
-        concertHalls = await ConcertHallRep.GetAllConcertHallsAsync();
+        concertHalls = await DataManager.ConcertHalls.GetAllConcertHallsAsync();
     }
     private async Task InsertConcertHall()
     {
@@ -75,7 +76,7 @@ else
             Photo = newConcertHall.Photo
         };
 
-        await ConcertHallRep.AddConcertHallAsync(p);
+        await DataManager.ConcertHalls.AddConcertHallAsync(p);
 
         concertHalls.Add(p);
 

@@ -3,22 +3,18 @@ using DataLayer.Entities;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace DataLayer
 {
     public class ApplicationDbContext : IdentityDbContext<User>
     {
-        public DbSet<Viewer> Viewers { get; set; }
+        public ApplicationDbContext (DbContextOptions<ApplicationDbContext> options): base(options) { }
         public DbSet<Artist> Artists { get; set; }
         public DbSet<Admin> Admins { get; set; }
         public DbSet<Concert> Concerts { get; set; }
         public DbSet<ConcertHall> ConcertHalls { get; set; }
         public DbSet<Comment> Comments { get; set; }
         public DbSet<Genre> Genres { get; set; }
-        public ApplicationDbContext (DbContextOptions<ApplicationDbContext> options): base(options) { }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<UserComment>()

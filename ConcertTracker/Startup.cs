@@ -6,6 +6,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using BusinessLayer;
+using ConcertTracker.Areas.InsertData;
+using ConcertTracker.Areas.PhotoManager;
 using DataLayer;
 using Microsoft.EntityFrameworkCore;
 using DataLayer.Entities;

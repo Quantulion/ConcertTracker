@@ -126,7 +126,7 @@ using BusinessLayer;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 86 "C:\ConcertTracker\ConcertTracker\Pages\ConcertPage.razor"
+#line 83 "C:\ConcertTracker\ConcertTracker\Pages\ConcertPage.razor"
        
     [Parameter]
     public string Id { get; set; }
@@ -139,12 +139,11 @@ using BusinessLayer;
 
     protected override async Task OnInitializedAsync()
     {
-        foundConcert = await ConcertRepository.GetConcertByIdAsync(Convert.ToInt32(Id));
+        foundConcert = await DataManager.Concerts.GetConcertByIdAsync(Convert.ToInt32(Id));
 
-        var x = await DataManager.ConcertHalls.GetConcertHallByIdAsync(foundConcert.ConcertHallId);
-        foundConcert.ConcertHall = x;
+        foundConcert.ConcertHall = await DataManager.ConcertHalls.GetConcertHallByIdAsync(foundConcert.ConcertHallId);
         
-        concertArtists = await ConcertRepository.GetArtistsOfConcertAsync(foundConcert);
+        concertArtists = await DataManager.Concerts.GetArtistsOfConcertAsync(foundConcert);
 
         var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
         currentUser = await userManager.GetUserAsync(authState.User);
@@ -154,27 +153,26 @@ using BusinessLayer;
 
     private async Task DeleteConcert()
     {
-        await ConcertRepository.DeleteConcertAsync(foundConcert);
+        await DataManager.Concerts.DeleteConcertAsync(foundConcert);
         NavigationManager.NavigateTo("map");
     }
 
     private async Task AddComment()
     {
         newComment.Likes = new List<UserComment>();
-        await CommentRepository.AddCommentAsync(newComment, currentUser, foundConcert);
+        await DataManager.Comments.AddCommentAsync(newComment, currentUser, foundConcert);
         newComment = new Comment();
     }
 
     private async Task<List<Comment>> GetAllComments()
     {
-        concertComments = await ConcertRepository.GetCommentsOfConcertAsync(foundConcert);
-        List<Comment> comments = new List<Comment>();
+        concertComments = await DataManager.Concerts.GetCommentsOfConcertAsync(foundConcert);
         foreach (var comment in concertComments)
         {
-            var user = await UserRepository.GetUserByIdAsync(comment.UserId);
+            var user = await DataManager.Users.GetUserByIdAsync(comment.UserId);
             comment.User = user;
 
-            var likes = await CommentRepository.GetLikesOfCommentAsync(comment);
+            var likes = await DataManager.Comments.GetLikesOfCommentAsync(comment);
             comment.Likes = likes;
         }
         return concertComments;
@@ -182,25 +180,22 @@ using BusinessLayer;
 
     private async Task AddLike(Comment comment)
     {
-        await CommentRepository.PressLikeAsync(comment, currentUser);
+        await DataManager.Comments.PressLikeAsync(comment, currentUser);
     }
 
     private async Task<int> LikesCount(Comment comment)
     {
-        return await CommentRepository.LikesCountAsync(comment);
+        return await DataManager.Comments.LikesCountAsync(comment);
     }
 
 
 #line default
 #line hidden
 #nullable disable
-        [global::Microsoft.AspNetCore.Components.InjectAttribute] private IConcertRepository ConcertRepository { get; set; }
         [global::Microsoft.AspNetCore.Components.InjectAttribute] private NavigationManager NavigationManager { get; set; }
-        [global::Microsoft.AspNetCore.Components.InjectAttribute] private IUserRepository UserRepository { get; set; }
         [global::Microsoft.AspNetCore.Components.InjectAttribute] private AuthenticationStateProvider AuthenticationStateProvider { get; set; }
         [global::Microsoft.AspNetCore.Components.InjectAttribute] private UserManager<User> userManager { get; set; }
         [global::Microsoft.AspNetCore.Components.InjectAttribute] private RoleManager<IdentityRole> roleManager { get; set; }
-        [global::Microsoft.AspNetCore.Components.InjectAttribute] private ICommentRepository CommentRepository { get; set; }
         [global::Microsoft.AspNetCore.Components.InjectAttribute] private DataManager DataManager { get; set; }
     }
 }

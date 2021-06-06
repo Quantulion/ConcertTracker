@@ -4,6 +4,7 @@ using DataLayer.Entities;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -37,8 +38,8 @@ namespace BusinessLayer.Implementations
         public async Task DeleteUserAsync(User user)
         {
             var full = _ctx.Users.Include(c => c.Comments);
-            var comments = await full.FirstOrDefaultAsync(c => c.Id == user.Id);
-            _ctx.Comments.RemoveRange(comments.Comments);
+            var users = await full.FirstOrDefaultAsync(c => c.Id == user.Id);
+            _ctx.Comments.RemoveRange(users.Comments);
             _ctx.Users.Remove(user);
             await _ctx.SaveChangesAsync();
         }

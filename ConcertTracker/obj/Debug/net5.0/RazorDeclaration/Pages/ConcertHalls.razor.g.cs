@@ -98,34 +98,41 @@ using Microsoft.EntityFrameworkCore;
 #nullable disable
 #nullable restore
 #line 4 "C:\ConcertTracker\ConcertTracker\Pages\ConcertHalls.razor"
-using BusinessLayer.Interfaces;
-
-#line default
-#line hidden
-#nullable disable
-#nullable restore
-#line 5 "C:\ConcertTracker\ConcertTracker\Pages\ConcertHalls.razor"
 using DataLayer.Entities;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 6 "C:\ConcertTracker\ConcertTracker\Pages\ConcertHalls.razor"
+#line 5 "C:\ConcertTracker\ConcertTracker\Pages\ConcertHalls.razor"
 using DataLayer;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 7 "C:\ConcertTracker\ConcertTracker\Pages\ConcertHalls.razor"
+#line 6 "C:\ConcertTracker\ConcertTracker\Pages\ConcertHalls.razor"
 using System.IO;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
+#line 7 "C:\ConcertTracker\ConcertTracker\Pages\ConcertHalls.razor"
+using BusinessLayer;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
 #line 8 "C:\ConcertTracker\ConcertTracker\Pages\ConcertHalls.razor"
+using ConcertTracker.Areas.PhotoManager;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 9 "C:\ConcertTracker\ConcertTracker\Pages\ConcertHalls.razor"
 using Microsoft.AspNetCore.Hosting;
 
 #line default
@@ -140,14 +147,14 @@ using Microsoft.AspNetCore.Hosting;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 57 "C:\ConcertTracker\ConcertTracker\Pages\ConcertHalls.razor"
+#line 58 "C:\ConcertTracker\ConcertTracker\Pages\ConcertHalls.razor"
        
 
     private ICollection<ConcertHall> concertHalls;
     ConcertHall newConcertHall = new ConcertHall();
     protected override async Task OnInitializedAsync()
     {
-        concertHalls = await ConcertHallRep.GetAllConcertHallsAsync();
+        concertHalls = await DataManager.ConcertHalls.GetAllConcertHallsAsync();
     }
     private async Task InsertConcertHall()
     {
@@ -162,7 +169,7 @@ using Microsoft.AspNetCore.Hosting;
             Photo = newConcertHall.Photo
         };
 
-        await ConcertHallRep.AddConcertHallAsync(p);
+        await DataManager.ConcertHalls.AddConcertHallAsync(p);
 
         concertHalls.Add(p);
 
@@ -196,7 +203,7 @@ using Microsoft.AspNetCore.Hosting;
 #line default
 #line hidden
 #nullable disable
-        [global::Microsoft.AspNetCore.Components.InjectAttribute] private IConcertHallRepository ConcertHallRep { get; set; }
+        [global::Microsoft.AspNetCore.Components.InjectAttribute] private DataManager DataManager { get; set; }
         [global::Microsoft.AspNetCore.Components.InjectAttribute] private IDbContextFactory<ApplicationDbContext> ContextFactory { get; set; }
         [global::Microsoft.AspNetCore.Components.InjectAttribute] private IPhotoManager PhotoManager { get; set; }
         [global::Microsoft.AspNetCore.Components.InjectAttribute] private IWebHostEnvironment env { get; set; }

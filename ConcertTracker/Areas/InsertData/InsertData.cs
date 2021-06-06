@@ -3,13 +3,13 @@ using System.Linq;
 using System.Threading.Tasks;
 using Bogus;
 using Bogus.Locations;
+using BusinessLayer;
 using DataLayer;
 using DataLayer.Entities;
 using Microsoft.AspNetCore.Identity;
-using  BusinessLayer.Interfaces;
 using Radzen;
 
-namespace BusinessLayer.Implementations
+namespace ConcertTracker.Areas.InsertData
 {
     public class InsertData : IInsertData
     {
@@ -25,16 +25,16 @@ namespace BusinessLayer.Implementations
             _dataManager = dataManager;
         }
 
-        public async Task InsertAllData()
+        public async Task InsertAllData(int number)
         {
-            /*await InsertUsers();
-            await InsertArtists();
-            await InsertConcertHalls();*/
-            await InsertConcerts();
-            await InsertComments();
+            await InsertUsers(number);
+            await InsertArtists(number);
+            await InsertConcertHalls(number);
+            await InsertConcerts(number);
+            await InsertComments(number);
         }
 
-        public async Task InsertUsers()
+        public async Task InsertUsers(int number)
         {
             var userFaker = new Faker<User>()
                 .RuleFor(x => x.UserName, x => x.Person.UserName)
@@ -44,16 +44,15 @@ namespace BusinessLayer.Implementations
                 .RuleFor(x => x.Photo, x => x.Internet.Avatar())
                 .RuleFor(x => x.PhoneNumber, x => x.Person.Phone);
 
-            for (int i = 0; i < 2000; i++)
+            for (int i = 0; i < number; i++)
             {
                 var user = userFaker.Generate();
                 var x = new Faker().Internet.Password();
                 await _userManager.CreateAsync(user, x);
             }
-            
         }
 
-        public async Task InsertArtists()
+        public async Task InsertArtists(int number)
         {
             var artistFakes = new Faker<Artist>()
                 .RuleFor(x => x.UserName, x => x.Person.UserName)
@@ -63,7 +62,7 @@ namespace BusinessLayer.Implementations
                 .RuleFor(x => x.Photo, x => x.Internet.Avatar())
                 .RuleFor(x => x.PhoneNumber, x => x.Person.Phone);
 
-            for (int i = 0; i < 2000; i++)
+            for (int i = 0; i < number; i++)
             {
                 var artist = artistFakes.Generate();
                 var x = new Faker().Internet.Password();
@@ -74,15 +73,15 @@ namespace BusinessLayer.Implementations
 
         }
 
-        public async Task InsertConcertHalls()
+        public async Task InsertConcertHalls(int number)
         {
             var concertHallFaker = new Faker<ConcertHall>()
                 .RuleFor(x => x.Address, x => x.Address.StreetAddress())
                 .RuleFor(x => x.Description, x => x.Company.CatchPhrase())
                 .RuleFor(x => x.Name, x => x.Company.CompanyName())
-                .RuleFor(x => x.Photo, x => x.Image.PlaceImgUrl());
+                .RuleFor(x => x.Photo, x => x.Image.PicsumUrl());
             
-            for (int i = 0; i < 2000; i++)
+            for (int i = 0; i < number; i++)
             {
                 var concertHall = concertHallFaker.Generate();
                 _ctx.ConcertHalls.Add(concertHall);
@@ -90,13 +89,13 @@ namespace BusinessLayer.Implementations
             }
         }
 
-        public async Task InsertConcerts()
+        public async Task InsertConcerts(int number)
         {
             var concertFaker = new Faker<Concert>()
                 .RuleFor(x => x.Date, x => x.Date.Future())
                 .RuleFor(x => x.Description, x => x.Company.CatchPhrase());
 
-            for (int i = 0; i < 2000; i++)
+            for (int i = 0; i < number; i++)
             {
                 var x = new Faker().Location().AreaCircle(55.7491, 37.6258, 100000).Latitude;
                 var y = new Faker().Location().AreaCircle(55.7491, 37.6258, 100000).Longitude;
@@ -113,11 +112,12 @@ namespace BusinessLayer.Implementations
             }
         }
 
-        public async Task InsertComments()
+        public async Task InsertComments(int number)
         {
             var commentFaker = new Faker<Comment>()
                 .RuleFor(x => x.Content, x => x.Company.CatchPhrase());
-            for (int i = 0; i < 2000; i++)
+            
+            for (int i = 0; i < number; i++)
             {
                 var comment = commentFaker.Generate();
                 var artist = await GetRandomArtist();

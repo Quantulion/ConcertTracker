@@ -91,14 +91,14 @@ using Radzen.Blazor;
 #nullable disable
 #nullable restore
 #line 3 "C:\ConcertTracker\ConcertTracker\Pages\ConcertHallPage.razor"
-using BusinessLayer.Interfaces;
+using DataLayer.Entities;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
 #line 4 "C:\ConcertTracker\ConcertTracker\Pages\ConcertHallPage.razor"
-using DataLayer.Entities;
+using BusinessLayer;
 
 #line default
 #line hidden
@@ -118,18 +118,18 @@ using DataLayer.Entities;
     [Parameter]
     public string Id { get; set; }
 
-    protected ConcertHall foundConcertHall = new ConcertHall();
-    protected List<Concert> concertHallConcerts = new List<Concert>();
+    private ConcertHall foundConcertHall = new ConcertHall();
+    private List<Concert> concertHallConcerts = new List<Concert>();
 
     protected override async Task OnInitializedAsync()
     {
-        foundConcertHall = await ConcertHallRepository.GetConcertHallByIdAsync(Convert.ToInt32(Id));
-        concertHallConcerts = await ConcertHallRepository.GetConcertsOfConcertHallAsync(foundConcertHall);
+        foundConcertHall = await DataManager.ConcertHalls.GetConcertHallByIdAsync(Convert.ToInt32(Id));
+        concertHallConcerts = await DataManager.ConcertHalls.GetConcertsOfConcertHallAsync(foundConcertHall);
     }
 
     private async Task DeleteConcertHall()
     {
-        await ConcertHallRepository.DeleteConcertHallAsync(foundConcertHall);
+        await DataManager.ConcertHalls.DeleteConcertHallAsync(foundConcertHall);
         NavigationManager.NavigateTo("map");
     }
 
@@ -137,7 +137,7 @@ using DataLayer.Entities;
 #line default
 #line hidden
 #nullable disable
-        [global::Microsoft.AspNetCore.Components.InjectAttribute] private IConcertHallRepository ConcertHallRepository { get; set; }
+        [global::Microsoft.AspNetCore.Components.InjectAttribute] private DataManager DataManager { get; set; }
         [global::Microsoft.AspNetCore.Components.InjectAttribute] private NavigationManager NavigationManager { get; set; }
     }
 }

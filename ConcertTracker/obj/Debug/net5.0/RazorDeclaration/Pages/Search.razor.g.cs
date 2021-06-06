@@ -91,14 +91,14 @@ using Radzen.Blazor;
 #nullable disable
 #nullable restore
 #line 3 "C:\ConcertTracker\ConcertTracker\Pages\Search.razor"
-using BusinessLayer.Interfaces;
+using DataLayer.Entities;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
 #line 4 "C:\ConcertTracker\ConcertTracker\Pages\Search.razor"
-using DataLayer.Entities;
+using BusinessLayer;
 
 #line default
 #line hidden
@@ -112,11 +112,9 @@ using DataLayer.Entities;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 88 "C:\ConcertTracker\ConcertTracker\Pages\Search.razor"
+#line 86 "C:\ConcertTracker\ConcertTracker\Pages\Search.razor"
        
-
-
-
+    
     public class SearchModel
     {
         public string SearchText { get; set; }
@@ -175,9 +173,9 @@ using DataLayer.Entities;
 
     protected override async Task OnInitializedAsync()
     {
-        searchModel.ConcertHalls = await ConcertHallRepository.GetAllConcertHallsAsync();
-        searchModel.Genres = await GenreRepository.GetAllGenresAsync();
-        searchModel.Artists = await ArtistRepository.GetAllArtistsAsync();
+        searchModel.ConcertHalls = await DataManager.ConcertHalls.GetAllConcertHallsAsync();
+        searchModel.Genres = await DataManager.Genres.GetAllGenresAsync();
+        searchModel.Artists = await DataManager.Artists.GetAllArtistsAsync();
         searchModel.SelectedGenres = searchModel.Genres;
         await GetArtistsWithGenres(searchModel.Artists);
 
@@ -191,7 +189,34 @@ using DataLayer.Entities;
         searchModel.GetObjects();
     }
     
-    private void search()
+    private async Task GetArtistsWithGenres(ICollection<Artist> artists)
+    {
+        foreach (var artist in artists)
+        {
+            artist.Genres = await DataManager.Genres.GetGenresOfArtistAsync(artist) as List<Genre>;
+        }
+    }
+    
+    private int index = 0;
+    
+    private void incI()
+    {
+        if (index < searchModel.ObjectsList.Count() - 3)
+            index += 3;
+        else index = 0;
+    }
+
+    private void decI()
+    {
+        if (index > 2)
+            index -= 3;
+        else if (index%3 != 0 || index < 3) 
+            index = (searchModel.ObjectsList.Count() / 3) * 3;
+        else 
+            index = (searchModel.ObjectsList.Count() / 3 - 1) * 3;
+    }
+    
+    private void SearchObjects()
     {
         List<object> x = new List<object>();
         foreach (var item in searchModel.GetObjects())
@@ -200,34 +225,7 @@ using DataLayer.Entities;
                 x.Add(item);
         }
         searchModel.ObjectsList = x;
-        i = 0;
-    }
-
-    private int i = 0;
-
-    private void incI()
-    {
-        if (i < searchModel.ObjectsList.Count() - 3)
-            i += 3;
-        else i = 0;
-    }
-
-    private void decI()
-    {
-        if (i > 2)
-            i -= 3;
-        else if (i%3 != 0 || i < 3) 
-            i = (searchModel.ObjectsList.Count() / 3) * 3;
-        else 
-            i = (searchModel.ObjectsList.Count() / 3 - 1) * 3;
-    }
-
-    private async Task GetArtistsWithGenres(ICollection<Artist> artists)
-    {
-        foreach (var artist in artists)
-        {
-            artist.Genres = await GenreRepository.GetGenresOfArtistAsync(artist) as List<Genre>;
-        }
+        index = 0;
     }
 
     private async Task OnChange()
@@ -235,7 +233,7 @@ using DataLayer.Entities;
         List<Genre> genreList = new List<Genre>();
         foreach (var genre in allGenres)
         {
-            var x = await GenreRepository.GetGenreByNameAsync(genre);
+            var x = await DataManager.Genres.GetGenreByNameAsync(genre);
             genreList.Add(x);
         }
         searchModel.SelectedGenres = genreList;
@@ -251,9 +249,7 @@ using DataLayer.Entities;
 #line default
 #line hidden
 #nullable disable
-        [global::Microsoft.AspNetCore.Components.InjectAttribute] private IGenreRepository GenreRepository { get; set; }
-        [global::Microsoft.AspNetCore.Components.InjectAttribute] private IArtistRepository ArtistRepository { get; set; }
-        [global::Microsoft.AspNetCore.Components.InjectAttribute] private IConcertHallRepository ConcertHallRepository { get; set; }
+        [global::Microsoft.AspNetCore.Components.InjectAttribute] private DataManager DataManager { get; set; }
     }
 }
 #pragma warning restore 1591
