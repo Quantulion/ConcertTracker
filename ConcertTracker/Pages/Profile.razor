@@ -1,0 +1,136 @@
+﻿@page "/user/{Id}"
+
+@using DataLayer.Entities
+@using BusinessLayer
+
+@inject DataManager DataManager
+@inject NavigationManager NavigationManager
+
+<div class="profilePage">
+    <a href="" class="mainText">ConcertTracker</a>
+    <div class="profileContainer">
+        <div class="profileInfo">
+            <div class="higherInfo">
+                @if (foundUser.Photo != null)
+                {
+                    if (foundUser.Photo.Contains("http"))
+                    {
+                        <img src="@foundUser.Photo">
+                    }
+                    else
+                    {
+                        <img src="/uploads/@foundUser.Photo" alt=""/>
+                    }
+                }
+                <div class="profileLeftInfo">
+                    <p><strong>Name:</strong> @foundUser.UserName</p>
+                    <p><strong>Age:</strong> @foundUser.Age.ToString()</p>
+                    <p><strong>Description:</strong> @foundUser.Description</p>
+                    @if (isArtist)
+                    {
+                        <p>
+                            <strong>Genres: </strong>
+                            @{
+                                int end = artistGenres.Count - 1;
+                                foreach (var genre in artistGenres)
+                                {
+                                    if (artistGenres[end] != genre)
+                                    {
+                                        <span>@genre.Name, </span>
+                                    }
+                                    else
+                                    {
+                                        <span>@genre.Name</span>
+                                    }
+                                }
+                            }
+                        </p>
+                    }
+                </div>
+            </div>
+            @if (isArtist)
+            {
+        <div class="concertsList">
+            <p><strong>Concerts:</strong></p>
+            @foreach (var concert in artistConcerts)
+            {
+                <a href="/concert/@concert.Id.ToString()">Date: @concert.Date.ToString()    Description: @concert.Description</a>
+            }
+        </div>
+            }
+    <AuthorizeView Roles="Admin"><button @onclick="DeleteUser">Delete</button></AuthorizeView>
+        </div>
+        <div class="profileComments">
+            <p id="1" class="hdr">Last commentary:</p>
+            @if (lastComment.Content != null)
+            {
+                <a href="/concert/@lastComment.ConcertId.ToString()" class="commentContent">
+                    <p class="hdr">Concert:</p>
+                    <p>@lastComment.Concert.Date.ToString()</p>
+                    <p class="hdr">Commentary:</p>
+                    <p class="commentText">
+                        @lastComment.Content
+                    </p>
+                </a>
+            }
+        </div>
+    </div>
+    
+</div>
+
+@code {
+
+    [Parameter]
+    public string Id { get; set; }
+
+    private User foundUser = new User();
+    private List<Concert> artistConcerts = new List<Concert>();
+    private List<Genre> artistGenres = new List<Genre>();
+    private Comment lastComment = new Comment();
+    private bool isArtist = false;
+
+    protected override async Task OnInitializedAsync()
+    {
+        foundUser = await DataManager.Users.GetUserByIdAsync(Id);
+        await GetLastComment();
+        if (await IsArtist())
+        {
+            var artist = (Artist)foundUser;
+            artistConcerts = await DataManager.Artists.GetConcertsOfArtistAsync(artist);
+            artistGenres = await DataManager.Genres.GetGenresOfArtistAsync(artist) as List<Genre>;
+        }
+    }
+
+    private async Task<bool> IsArtist()
+    {
+        try
+        {
+            isArtist = await DataManager.Artists.GetArtistByIdAsync(Id) != null;
+        }
+        catch
+        {
+        }
+
+        return isArtist;
+    }
+
+    private async Task GetLastComment()
+    {
+        var comments = await DataManager.Comments.GetCommentsOfUserAsync(foundUser);
+        int end = comments.Count - 1;
+        if(end >= 0)
+            lastComment = comments[end];
+        if (lastComment.ConcertId != 0)
+        {
+            var concert = await DataManager.Concerts.GetConcertByIdAsync(lastComment.ConcertId);
+            lastComment.Concert = concert;
+        }
+    }
+
+    private async Task DeleteUser()
+    {
+        await DataManager.Users.DeleteUserAsync(foundUser);
+        NavigationManager.NavigateTo("map");
+    }
+
+}

@@ -27,13 +27,6 @@ using Microsoft.AspNetCore.Authorization;
 #line hidden
 #nullable disable
 #nullable restore
-#line 3 "C:\ConcertTracker\ConcertTracker\_Imports.razor"
-using Microsoft.AspNetCore.Components.Authorization;
-
-#line default
-#line hidden
-#nullable disable
-#nullable restore
 #line 4 "C:\ConcertTracker\ConcertTracker\_Imports.razor"
 using Microsoft.AspNetCore.Components.Forms;
 
@@ -82,6 +75,27 @@ using ConcertTracker.Shared;
 #line default
 #line hidden
 #nullable disable
+#nullable restore
+#line 11 "C:\ConcertTracker\ConcertTracker\_Imports.razor"
+using Radzen.Blazor;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 1 "C:\ConcertTracker\ConcertTracker\Shared\NavMenu.razor"
+using System.Security.Claims;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 2 "C:\ConcertTracker\ConcertTracker\Shared\NavMenu.razor"
+using Microsoft.AspNetCore.Components.Authorization;
+
+#line default
+#line hidden
+#nullable disable
     public partial class NavMenu : Microsoft.AspNetCore.Components.ComponentBase
     {
         #pragma warning disable 1998
@@ -90,20 +104,22 @@ using ConcertTracker.Shared;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 33 "C:\ConcertTracker\ConcertTracker\Shared\NavMenu.razor"
+#line 48 "C:\ConcertTracker\ConcertTracker\Shared\NavMenu.razor"
        
-    private bool collapseNavMenu = true;
+    private bool isLoggedIn;
 
-    private string NavMenuCssClass => collapseNavMenu ? "collapse" : null;
-
-    private void ToggleNavMenu()
+    protected override async Task OnInitializedAsync()
     {
-        collapseNavMenu = !collapseNavMenu;
+        var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        var user = authState.User;
+        if (user.Identity.IsAuthenticated)
+            isLoggedIn = true;
     }
 
 #line default
 #line hidden
 #nullable disable
+        [global::Microsoft.AspNetCore.Components.InjectAttribute] private AuthenticationStateProvider AuthenticationStateProvider { get; set; }
     }
 }
 #pragma warning restore 1591

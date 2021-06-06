@@ -4,7 +4,7 @@ using System.Text;
 
 namespace DataLayer.Entities
 {
-    public class Admin : Person
+    public class Admin : User
     {
 
     }

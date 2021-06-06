@@ -1,42 +1,58 @@
-﻿<div class="top-row pl-4 navbar navbar-dark">
-    <a class="navbar-brand" href="">ConcertTracker</a>
-    <button class="navbar-toggler" @onclick="ToggleNavMenu">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-</div>
+﻿@using System.Security.Claims
+@using Microsoft.AspNetCore.Components.Authorization
+@inject AuthenticationStateProvider AuthenticationStateProvider
 
-<div class="@NavMenuCssClass" @onclick="ToggleNavMenu">
-    <ul class="nav flex-column">
-        <li class="nav-item px-3">
-            <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
-                <span class="oi oi-home" aria-hidden="true"></span> Home
+
+<ul class="navBar">
+    <li class="leftPage">
+        <a>
+            <NavLink class="nav-link" href="about">
+                About
             </NavLink>
-        </li>
-        <li class="nav-item px-3">
-            <NavLink class="nav-link" href="counter">
-                <span class="oi oi-plus" aria-hidden="true"></span> Counter
+        </a>
+    </li>
+    <li class="commonPage">
+        <a>
+            <NavLink class="nav-link" href="search">
+                Search
             </NavLink>
-        </li>
-        <li class="nav-item px-3">
-            <NavLink class="nav-link" href="fetchdata">
-                <span class="oi oi-list-rich" aria-hidden="true"></span> Fetch data
+        </a>
+    </li>
+    <li class="commonPage">
+        <a>
+            <NavLink class="nav-link" href="map">
+                Map
             </NavLink>
-        </li>
-        <li class="nav-item px-3">
-            <NavLink class="nav-link" href="artists">
-                <span class="oi oi-list-rich" aria-hidden="true"></span> Artists
-            </NavLink>
-        </li>
-    </ul>
-</div>
+        </a>
+    </li>
+    <li class="rightPage">
+        <a>
+            @{
+                if (isLoggedIn == true)
+                {
+                    <NavLink class="nav-link" href="/Identity/Account/Manage">
+                        Profile
+                    </NavLink>
+                }
+                else
+                {
+                    <NavLink class="nav-link" href="/Identity/Account/Login">
+                        Profile
+                    </NavLink>
+                }
+            }
+        </a>
+    </li>
+</ul>
 
 @code {
-    private bool collapseNavMenu = true;
+    private bool isLoggedIn;
 
-    private string NavMenuCssClass => collapseNavMenu ? "collapse" : null;
-
-    private void ToggleNavMenu()
+    protected override async Task OnInitializedAsync()
     {
-        collapseNavMenu = !collapseNavMenu;
+        var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        var user = authState.User;
+        if (user.Identity.IsAuthenticated)
+            isLoggedIn = true;
     }
 }

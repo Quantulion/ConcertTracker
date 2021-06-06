@@ -1,0 +1,11 @@
+* {
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+  text-decoration: none;
+  color: black;
+}
+
+@import "./_about.scss";
+@import "./_authPage.scss";
+@import "./_navBar.scss";

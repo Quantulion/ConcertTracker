@@ -1,16 +1,22 @@
 ﻿using DataLayer.Entities;
 using System;
 using System.Collections.Generic;
-using System.Text;
+using Radzen;
 using System.Threading.Tasks;
 
 namespace BusinessLayer.Interfaces
 {
     public interface IConcertRepository : IDisposable
     {
-        Task<IEnumerable<Concert>> GetAllConcerts();
-        Task<Concert> GetConcertById(int Id);
-        Task UpdateConcert(Concert concert);
-        Task<Concert> AddConcert(Concert concert);
+        Task<ICollection<Concert>> GetAllConcertsAsync();
+        Task<Concert> GetConcertByIdAsync(int id);
+        Task<Concert> GetConcertByPositionAsync(GoogleMapPosition position);
+        Task<Concert> AddConcertAsync(Concert concert);
+        Task<Concert> AddArtistToConcertAsync(Artist artist, Concert concert);
+        Task<Concert> SetConcertHallToConcertAsync(ConcertHall concertHall, Concert concert);
+        Task<List<Artist>> GetArtistsOfConcertAsync(Concert concert);
+        Task<List<Comment>> GetCommentsOfConcertAsync(Concert concert);
+        Task UpdateConcertAsync(Concert concert);
+        Task DeleteConcertAsync(Concert concert);
     }
 }

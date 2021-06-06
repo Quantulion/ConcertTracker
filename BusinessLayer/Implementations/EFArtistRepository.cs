@@ -1,10 +1,9 @@
-﻿using BusinessLayer.Interfaces;
+﻿using System;
+using BusinessLayer.Interfaces;
 using DataLayer;
 using DataLayer.Entities;
 using Microsoft.EntityFrameworkCore;
-using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace BusinessLayer.Implementations
@@ -16,12 +15,82 @@ namespace BusinessLayer.Implementations
         {
             _ctx = ctx;
         }
-
-        public async Task<Artist> AddArtist(Artist artist)
+        public async Task<ICollection<Artist>> GetAllArtistsAsync()
         {
-            _ctx.Artists.Add(artist);
-            await _ctx.SaveChangesAsync();
-            return artist;
+            try
+            {
+                return await _ctx.Artists.ToListAsync();
+            }
+            catch (Exception e)
+            {
+                throw;
+            }
+        }
+
+        public async Task<Artist> GetArtistByIdAsync(string id)
+        {
+            try
+            {
+                var artist = await _ctx.Artists.FirstOrDefaultAsync(f => f.Id == id);
+                
+                if (artist == null)
+                    throw new ArgumentException($"No artist with ID {id} found in the database");
+
+                return artist;
+            }
+            catch (Exception e)
+            {
+                throw;
+            }
+        }
+
+        public async Task<List<Concert>> GetConcertsOfArtistAsync(Artist artist)
+        {
+            try
+            {
+                if (artist == null)
+                    throw new ArgumentNullException("Cannot find null artist");
+                
+                var artistsWithConcerts = _ctx.Artists.Include(c => c.Concerts);
+                var artistWithConcerts = await artistsWithConcerts.FirstOrDefaultAsync(c => c.Id == artist.Id);
+                return artistWithConcerts.Concerts;
+            }
+            catch (Exception e)
+            {
+                throw;
+            }
+        }
+
+        public async Task<Artist> AddArtistAsync(Artist artist)
+        {
+            try
+            {
+                if (artist == null)
+                    throw new ArgumentNullException("Cannot add null artist");
+                
+                _ctx.Artists.Add(artist);
+                await _ctx.SaveChangesAsync();
+                return artist;
+            }
+            catch (Exception e)
+            {
+                throw;
+            }
+        }
+        public async Task UpdateArtistAsync(Artist artist)
+        {
+            try
+            {
+                if (artist == null)
+                    throw new ArgumentNullException("Cannot update null artist");
+                
+                _ctx.Artists.Update(artist);
+                await _ctx.SaveChangesAsync();
+            }
+            catch (Exception e)
+            {
+                throw;
+            }
         }
 
         public void Dispose()
@@ -29,20 +98,5 @@ namespace BusinessLayer.Implementations
             _ctx.Dispose();
         }
 
-        public async Task<List<Artist>> GetAllArtists()
-        {
-            return await _ctx.Artists.ToListAsync();
-        }
-
-        public async Task<Artist> GetArtistById(int id)
-        {
-            return await _ctx.Artists.FirstOrDefaultAsync(f => f.Id == id);
-        }
-
-        public async Task UpdateArtist(Artist artist)
-        {
-            _ctx.Artists.Update(artist);
-            await _ctx.SaveChangesAsync();
-        }
     }
 }

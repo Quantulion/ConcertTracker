@@ -1,0 +1,120 @@
+.concertImage {
+    position: absolute;
+    top: 0;
+    right: 0;
+    -o-object-fit: cover;
+    object-fit: cover;
+    overflow: hidden;
+    height: 100vh;
+}
+
+.concertPage {
+    height: 100vh;
+}
+
+.concertContainer {
+    position: absolute;
+    left: 6.5%;
+    top: 20%;
+    height: 35%;
+    width: 50%;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+}
+
+    .concertContainer a {
+        display: block;
+    }
+
+    .concertContainer .concertItem {
+        margin-bottom: 3%;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+        flex-direction: column;
+    }
+
+        .concertContainer .concertItem p {
+            margin-bottom: 1%;
+            font-size: 28px;
+        }
+
+            .concertContainer .concertItem p.hdr {
+                font-weight: 800;
+            }
+
+.commentSection {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 80vh;
+}
+
+    .commentSection .hdr {
+        font-weight: 800;
+    }
+
+    .commentSection .commentInput {
+        display: flex;
+        flex-direction: column;
+    }
+
+        .commentSection .commentInput textarea {
+            margin-top: 2rem;
+            margin-bottom: .5rem;
+            height: 10rem;
+            width: 20rem;
+        }
+
+    .commentSection .comment {
+        position: relative;
+        margin-top: 2rem;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        border: 3px solid #000000;
+        padding: .5rem;
+        width: 30%;
+        border-radius: 2rem;
+    }
+
+.commentSection .comment button {
+    position: absolute;
+    right: 10%;
+    width: 4rem;
+}
+
+.commentSection .comment .likesCount {
+    position: absolute;
+    right: 5%;
+}
+
+    .commentSection .comment img {
+        width: 4rem;
+        height: 4rem;
+        border-radius: 2rem;
+        margin-left: 1rem;
+        margin-right: 1rem;
+    }
+
+        .commentSection .comment .commentData {
+            display: flex;
+            flex-direction: column;
+            margin-right: 1rem;
+        }
+
+        .commentSection .comment .commentData p {
+            font-size: 18px;
+        }
+/*# sourceMappingURL=asd.css.map */

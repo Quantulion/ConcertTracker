@@ -1,0 +1,66 @@
+﻿@page "/concerthall/{Id}"
+
+@using DataLayer.Entities
+@using BusinessLayer
+
+@inject NavigationManager NavigationManager
+@inject DataManager DataManager
+
+<div class="profilePage">
+    <a href="" class="mainText">ConcertTracker</a>
+    <img class="concertHallImage" src="Images/antoine-julien-Ke6Pr-9A2ac-unsplash 1.png"
+             alt="" />
+    <div class="profileContainer">
+        <div class="profileInfo">
+            <div class="higherInfo">
+                @if (foundConcertHall.Photo != null)
+                {
+                    if (foundConcertHall.Photo.Contains("http"))
+                    {
+                        <img src="@foundConcertHall.Photo" alt=""/>
+                    }
+                    else
+                    {
+                        <img src="/uploads/@foundConcertHall.Photo" alt=""/>
+                    }
+                }
+                <div class="profileLeftInfo">
+                    <p><strong>Name:</strong> @foundConcertHall.Name</p>
+                    <p><strong>Address:</strong> @foundConcertHall.Address</p>
+                    <p><strong>Description:</strong> @foundConcertHall.Description</p>
+                </div>
+            </div>
+            <div class="concertsList">
+                <p><strong>Last concerts:</strong></p>
+                @foreach (var concert in concertHallConcerts)
+                {
+                    <a href="/concert/@concert.Id.ToString()">Date: @concert.Date.ToString()    Description: @concert.Description</a>
+                }
+            </div>
+            <AuthorizeView Roles="Admin"><button @onclick="DeleteConcertHall">Delete</button></AuthorizeView>
+        </div>
+    </div>
+</div>
+
+
+@code {
+
+    [Parameter]
+    public string Id { get; set; }
+
+    private ConcertHall foundConcertHall = new ConcertHall();
+    private List<Concert> concertHallConcerts = new List<Concert>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        foundConcertHall = await DataManager.ConcertHalls.GetConcertHallByIdAsync(Convert.ToInt32(Id));
+        concertHallConcerts = await DataManager.ConcertHalls.GetConcertsOfConcertHallAsync(foundConcertHall);
+    }
+
+    private async Task DeleteConcertHall()
+    {
+        await DataManager.ConcertHalls.DeleteConcertHallAsync(foundConcertHall);
+        NavigationManager.NavigateTo("map");
+    }
+
+}

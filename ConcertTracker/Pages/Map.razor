@@ -1,0 +1,282 @@
+﻿@page "/map"
+
+@using Radzen
+@using BusinessLayer.Interfaces
+@using DataLayer
+@using DataLayer.Entities
+@using Microsoft.AspNetCore.Components.Authorization
+@using Microsoft.AspNetCore.Identity;
+@using Microsoft.EntityFrameworkCore
+@using BusinessLayer.Implementations
+@using BusinessLayer
+
+@inject DataManager DataManager
+@inject RoleManager<IdentityRole> RoleManager
+@inject UserManager<User> UserManager
+@inject AuthenticationStateProvider AuthenticationStateProvider
+
+<div class="mapPage">
+    <a href="" class="mainText">ConcertTracker</a>
+    <div class="mapContainer">
+        <div class="map">
+            <RadzenGoogleMap Style="width:auto; height:100%;" Zoom="@zoom" Center="@(currentPosition)" MapClick="@OnMapClick" MarkerClick="@OnMarkerClick">
+                <Markers>
+                    <RadzenGoogleMapMarker Title="User" Label="Current Marker" Position="@(new GoogleMapPosition() { Lat = currentPosition.Lat, Lng = currentPosition.Lng })"></RadzenGoogleMapMarker>
+                    @if (allConcerts != null)
+                    {
+                        foreach (var concert in allConcerts)
+                        {
+                            <RadzenGoogleMapMarker Title="@concert.Id.ToString()" Label="" Position="@concert.Position"></RadzenGoogleMapMarker>
+                        }
+                    }
+                </Markers>
+            </RadzenGoogleMap>
+        </div>
+        <EditForm Model="@currentConcert" OnValidSubmit="@AddOrUpdateConcert" class="concertInfo">
+            @if (isArtist && (concertArtists.Contains(currentArtist) || concertArtists.Count == 0) || isAdmin)
+            {
+                <a class="hdr">Date:</a>
+                <RadzenDatePicker  @bind-Value="@currentConcert.Date" />
+                <a class="hdr">
+                    Concert hall:
+                    <img @onclick="AddConcertHallClick" src="Images/free-icon-plus-149688.svg" />
+                    @if (addConcertHallClicked == true)
+                    {
+                        <div class="addArtistToConcertArea">
+                                @foreach (var foundConcertHall in allConcertHalls)
+                                {
+                                    <div class="foundArtist">
+                                        @if (foundConcertHall.Photo != null)
+                                        {
+                                            if (foundConcertHall.Photo.Contains("http"))
+                                            {
+                                                <img src="@foundConcertHall.Photo" alt=""/>
+                                            }
+                                            else
+                                            {
+                                                <img src="uploads/@foundConcertHall.Photo">
+                                            }
+                                        }
+                                        <p>@foundConcertHall.Name</p>
+                                        <img @onclick="@(() => AddConcertHallToConcert(foundConcertHall))" src="Images/free-icon-plus-149688.svg"/>
+                                    </div>
+                                }
+                        </div>
+                     }
+                </a>
+                <a href="/concerthall/@currentConcert.ConcertHall.Id.ToString()" class="hdr" Style="font-size:18px; font-weight: 400;">@currentConcert.ConcertHall.Name</a>
+                <a class="hdr">
+                    Artists:
+                    <img @onclick="AddArtistClick" src="Images/free-icon-plus-149688.svg" />
+                        @if (addArtistClicked == true)
+                        {
+                            <div class="addArtistToConcertArea">
+                                    @foreach (var foundArtist in allArtists)
+                                    {
+                                        var artistToList = (Artist)foundArtist;
+                                        <div class="foundArtist">
+                                            @if (foundArtist.Photo != null)
+                                            {
+                                                if (foundArtist.Photo.Contains("http"))
+                                                {
+                                                    <img src="@foundArtist.Photo">
+                                                }
+                                                else
+                                                {
+                                                    <img src="uploads/@foundArtist.Photo">
+                                                }
+                                            }
+                                            <p>@foundArtist.UserName</p>
+                                            <img @onclick="@(() => AddArtistToConcert(artistToList))" src="Images/free-icon-plus-149688.svg"/>
+                                        </div>
+                                    }
+                            </div>
+                         }
+                </a>
+                foreach (var concertArtist in currentConcert.Artists)
+                {
+                    <a href="/user/@concertArtist.Id" class="hdr" style="font-size:18px; font-weight: 400;">@concertArtist.UserName</a>
+                }
+                <a class="hdr">Description:</a>
+                <InputTextArea Style="font-size:18px; padding: 0.5rem;" id="desc" @bind-Value="@currentConcert.Description" class="descInput" />
+                <button type="submit" class="btn btn-primary">Submit</button>
+            }
+            else
+            {
+                <a class="hdr">Date:</a>
+                <RadzenDatePicker @bind-Value="@currentConcert.Date" disabled />
+                if (currentConcert.ConcertHall != null)
+                {
+                    <a class="hdr">Concert hall:</a>
+                    <a href="/concerthall/@currentConcert.ConcertHall.Id.ToString()" class="hdr" Style="font-size:18px; font-weight: 400;">@currentConcert.ConcertHall.Address</a>
+                }
+                <a class="hdr">Artists:</a>
+                foreach (var concertArtist in concertArtists)
+                {
+                    <a href="/user/@concertArtist.Id" class="hdr" style="font-size:18px; font-weight: 400;">@concertArtist.UserName</a>
+                }
+                <a class="hdr">Description:</a>
+                <InputTextArea Style="font-size:18px; padding: 0.5rem;" id="desc" @bind-Value="@currentConcert.Description" class="descInput" disabled />
+            }
+            @if (currentConcert.Id != 0)
+            {
+                <a href="/concert/@currentConcert.Id.ToString()">Details...</a>
+            }
+        </EditForm>
+    </div>
+</div>
+
+@code {
+    int zoom = 15;
+
+    ICollection<Concert> allConcerts;
+    IList<User> allArtists = new List<User>();
+    ICollection<ConcertHall> allConcertHalls;
+    
+    bool isArtist;
+    bool isAdmin;
+    
+    bool addArtistClicked = false;
+    bool addConcertHallClicked = false;
+    
+    List<Artist> concertArtists = new List<Artist>();
+    Artist currentArtist;
+    Admin currentAdmin = new Admin();
+    Concert currentConcert = new Concert
+    {
+        Date = DateTime.Now,
+        Artists = new List<Artist>(),
+        ConcertHall = new ConcertHall()
+    };
+
+    GoogleMapPosition currentPosition = new GoogleMapPosition() { Lat = 55.7491, Lng = 37.6258 };
+
+    protected override async Task OnInitializedAsync()
+    {
+        await InitializeData();
+        await GetUserState();
+    }
+
+    private async Task InitializeData()
+    {
+        allConcerts = await DataManager.Concerts.GetAllConcertsAsync();
+        allArtists = await UserManager.GetUsersInRoleAsync("Artist");
+        allConcertHalls = await DataManager.ConcertHalls.GetAllConcertHallsAsync();
+    }
+
+    private async Task GetUserState()
+    {
+        var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        var auser = authState.User;
+        var user = await UserManager.GetUserAsync(auser);
+        isArtist = auser.IsInRole("Artist");
+
+        if (isArtist)
+            currentArtist = (Artist)user;
+
+        isAdmin = auser.IsInRole("Admin");
+
+        if (isAdmin)
+            currentAdmin = (Admin)user;
+    }
+    
+    private void OnMapClick(GoogleMapClickEventArgs args)
+    {
+        currentPosition.Lat = args.Position.Lat;
+        currentPosition.Lng = args.Position.Lng;
+        currentConcert = new Concert
+        {
+            Date = DateTime.Now,
+            Artists = new List<Artist>(),
+            ConcertHall = new ConcertHall()
+        };
+        concertArtists = new List<Artist>();
+    }
+
+    private async Task OnMarkerClick(RadzenGoogleMapMarker args)
+    {
+        var foundConcert = await DataManager.Concerts.GetConcertByIdAsync(Convert.ToInt32(args.Title));
+        currentConcert = foundConcert;
+        concertArtists = await DataManager.Concerts.GetArtistsOfConcertAsync(foundConcert);
+        currentConcert.Artists = concertArtists;
+        currentPosition.Lat = foundConcert.Position.Lat;
+        currentPosition.Lng = foundConcert.Position.Lng;
+    }
+
+    private async Task AddOrUpdateConcert()
+    {
+        var foundConcert = await DataManager.Concerts.GetConcertByPositionAsync(currentPosition);
+
+        if (foundConcert != null)
+        {
+            await UpdateConcert(foundConcert);
+        }
+
+        else
+        {
+            await AddNewConcert();
+        }
+
+        currentPosition = new GoogleMapPosition() { Lat = 55.7491, Lng = 37.6258 };
+        currentConcert = new Concert
+        {
+            Date = DateTime.Now,
+            Artists = new List<Artist>(),
+            ConcertHall = new ConcertHall()
+        };
+    }
+
+    private async Task AddNewConcert()
+    {
+        currentConcert.Position = currentPosition;
+
+        Concert concert = new Concert
+        {
+            Description = currentConcert.Description,
+            Date = currentConcert.Date,
+            Position = currentConcert.Position,
+            ConcertHall = currentConcert.ConcertHall,
+            ConcertHallId = currentConcert.ConcertHallId,
+            Artists = currentConcert.Artists
+        };
+        concert.Artists.Add(currentArtist);
+        await DataManager.Concerts.AddConcertAsync(concert);
+        allConcerts.Add(concert);
+    }
+
+    private async Task UpdateConcert(Concert concert)
+    {
+        await DataManager.Concerts.UpdateConcertAsync(concert);
+    }
+    
+    private async Task AddArtistToConcert(Artist chosenArtist)
+    {
+        if(currentConcert.Id != 0)
+            await DataManager.Concerts.AddArtistToConcertAsync(chosenArtist, currentConcert);
+        else
+        {
+            currentConcert.Artists.Add(chosenArtist);
+        }
+    }
+    
+    private async Task AddConcertHallToConcert(ConcertHall chosenConcertHall)
+    {
+        if(currentConcert.Id != 0)
+            await DataManager.Concerts.SetConcertHallToConcertAsync(chosenConcertHall, currentConcert);
+        else
+        {
+            currentConcert.ConcertHall = chosenConcertHall;
+        }
+    }
+
+    private void AddArtistClick()
+    {
+        addArtistClicked = !addArtistClicked;
+    }
+    
+    private void AddConcertHallClick()
+    {
+        addConcertHallClicked = !addConcertHallClicked;
+    }
+
+}

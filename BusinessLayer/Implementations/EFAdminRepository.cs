@@ -17,27 +17,54 @@ namespace BusinessLayer.Implementations
         {
             _ctx = ctx;
         }
-
-        public async Task<Admin> AddAdmin(Admin admin)
+        public async Task<ICollection<Admin>> GetAllAdminsAsync()
         {
-            _ctx.Admins.Add(admin);
-            await _ctx.SaveChangesAsync();
-            return admin;
+            try
+            {
+                return await _ctx.Admins.ToListAsync();
+            }
+            catch (Exception e)
+            {
+                throw;
+            }
+        }
+        public async Task<Admin> GetAdminByIdAsync(string id)
+        {
+            try
+            {
+                var admin = await _ctx.Admins.FirstOrDefaultAsync(f => f.Id == id);
+                
+                if (admin == null)
+                    throw new ArgumentException($"No admin with ID {id} found in the database");
+
+                return admin;
+            }
+            catch (Exception e)
+            {
+                throw;
+            }
+        }
+
+        public async Task<Admin> AddAdminAsync(Admin admin)
+        {
+            try
+            {
+                if (admin == null)
+                    throw new ArgumentNullException("Admin cannot be null");
+                
+                _ctx.Admins.Add(admin);
+                await _ctx.SaveChangesAsync();
+                return admin;
+            }
+            catch (Exception e)
+            {
+                throw;
+            }
         }
 
         public void Dispose()
         {
             _ctx.Dispose();
-        }
-
-        public async Task<Admin> GetAdminById(int id)
-        {
-            return await _ctx.Admins.FirstOrDefaultAsync(f => f.Id == id);
-        }
-
-        public async Task<List<Admin>> GetAllAdmins()
-        {
-            return await _ctx.Admins.ToListAsync();
         }
     }
 }

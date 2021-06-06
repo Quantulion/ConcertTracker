@@ -1,0 +1,34 @@
+﻿* {
+    font-family: "Roboto" !important;
+}
+
+.nav-pills .nav-link.active, .nav-pills .show > .nav-link {
+    color: #fff;
+    background-color: Black;
+    border-color: Black;
+}
+
+.btn-primary {
+    color: #fff;
+    background-color: Black;
+    border-color: Black;
+}
+
+a {
+    color: #483838
+}
+
+a:hover {
+    color: #C8C8C8
+}
+
+.btn-link {
+    font-weight: 400;
+    color: #0400ff;
+    text-decoration: none;
+}
+
+    .btn-link:hover {
+        color: #4996FF;
+        text-decoration: underline;
+    }

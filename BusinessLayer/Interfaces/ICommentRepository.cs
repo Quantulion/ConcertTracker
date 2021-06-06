@@ -8,10 +8,13 @@ namespace BusinessLayer.Interfaces
 {
     public interface ICommentRepository : IDisposable
     {
-        Task<Comment> GetCommentById(int Id);
-        Task<Comment> GetAllCommentsByAuthor(Person person);
-        Task<Comment> GetAllCommentsRelatedToConcert(Concert concert);
-        Task UpdateComment(Comment comment);
-        Task<Comment> AddComment(Comment comment);
+        Task<Comment> GetCommentByIdAsync(int Id);
+        Task<List<UserComment>> GetLikesOfCommentAsync(Comment comment);
+        Task<List<Comment>> GetCommentsOfUserAsync(User user);
+        Task<int> LikesCountAsync(Comment comment);
+        Task<Comment> AddCommentAsync(Comment comment, User user, Concert concert);
+        Task PressLikeAsync(Comment comment, User user);
+        Task UpdateCommentAsync(Comment comment);
+        Task DeleteCommentAsync(Comment comment);
     }
 }

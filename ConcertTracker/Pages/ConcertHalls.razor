@@ -1,0 +1,107 @@
+﻿@page "/concerthalls"
+
+@using Microsoft.EntityFrameworkCore
+@using DataLayer.Entities
+@using DataLayer
+@using System.IO
+@using BusinessLayer
+@using ConcertTracker.Areas.PhotoManager
+@using Microsoft.AspNetCore.Hosting;
+
+@inject IWebHostEnvironment Env
+@inject IPhotoManager PhotoManager
+@inject IDbContextFactory<ApplicationDbContext> ContextFactory
+@inject DataManager DataManager
+
+<h4>Insert New Concert Hall</h4>
+<EditForm Model="@newConcertHall" OnValidSubmit="@InsertConcertHall">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <InputText id="Name" @bind-Value="newConcertHall.Name" />
+    <InputText id="address" @bind-Value="newConcertHall.Address" />
+    <InputText id="description" @bind-Value="newConcertHall.Description" />
+    <InputFile OnChange="@LoadFile"></InputFile>
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+</EditForm>
+
+<h3>Concert Halls</h3>
+
+@if (concertHalls is null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Address</th>
+                <th>Description</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var concertHall in concertHalls)
+            {
+                <tr>
+                    <td>@concertHall.Name</td>
+                    <td>@concertHall.Address</td>
+                    <td>@concertHall.Description</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+
+    ICollection<ConcertHall> concertHalls;
+    ConcertHall newConcertHall = new ConcertHall();
+    
+    IBrowserFile selectedFile;
+
+    protected override async Task OnInitializedAsync()
+    {
+        concertHalls = await DataManager.ConcertHalls.GetAllConcertHallsAsync();
+    }
+    private async Task InsertConcertHall()
+    {
+
+        await GetFileAndSetPhoto();
+
+        ConcertHall p = new ConcertHall
+        {
+            Name = newConcertHall.Name,
+            Address = newConcertHall.Address,
+            Description = newConcertHall.Description,
+            Photo = newConcertHall.Photo
+        };
+
+        await DataManager.ConcertHalls.AddConcertHallAsync(p);
+
+        concertHalls.Add(p);
+
+        newConcertHall = new ConcertHall();
+    }
+
+
+    private void LoadFile(InputFileChangeEventArgs e)
+    {
+        selectedFile = e.File;
+        StateHasChanged();
+    }
+
+    private async Task GetFileAndSetPhoto()
+    {
+        Stream stream = selectedFile.OpenReadStream();
+        var path = $"{Env.WebRootPath}\\uploads\\{selectedFile.Name}";
+        newConcertHall.Photo = selectedFile.Name;
+        FileStream fs = File.Create(path);
+        await stream.CopyToAsync(fs);
+        stream.Close();
+        fs.Close();
+        this.StateHasChanged();
+    }
+}

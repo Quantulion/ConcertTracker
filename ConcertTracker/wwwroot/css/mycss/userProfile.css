@@ -1,0 +1,16 @@
+.genreInfo {
+    position: absolute;
+    left: 120%;
+    top: 0;
+}
+
+.genreInfo .form-group {
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;   
+    margin-bottom: .3rem;
+}
+
+.genreInfo .form-group p {
+    margin-right: .4rem;
+}

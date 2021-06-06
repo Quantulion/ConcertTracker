@@ -1,0 +1,155 @@
+﻿.searchPage {
+    height: 100vh;
+    width: 100vw;
+    position: relative;
+    box-sizing: border-box;
+}
+
+    .searchPage .searchContainer {
+        position: relative;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        left: 5%;
+        width: 90%;
+        top: 17%;
+        height: 66%;
+    }
+
+        .searchPage .searchContainer .leftPart {
+            height: 100%;
+            width: 80%;
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            -webkit-box-orient: vertical;
+            -webkit-box-direction: normal;
+            -ms-flex-direction: column;
+            flex-direction: column;
+            -webkit-box-pack: justify;
+            -ms-flex-pack: justify;
+            justify-content: space-between;
+        }
+
+            button {
+                background-color: black;
+                color: white;
+                border-radius: 1rem;
+                border-color: black;
+                height: 2rem !important;
+                cursor: pointer;
+                font-size: 20px;
+                text-align: center;
+                padding: 1px 6px;
+                width: 10rem;
+            }
+
+            .searchPage .searchContainer .leftPart .searchInput {
+                width: 30%;
+                height: 8%;
+            }
+
+            .searchPage .searchContainer .leftPart .foundItems {
+                display: -webkit-box;
+                display: -ms-flexbox;
+                display: flex;
+                -webkit-box-orient: vertical;
+                -webkit-box-direction: normal;
+                -ms-flex-direction: column;
+                flex-direction: column;
+                -webkit-box-pack: justify;
+                -ms-flex-pack: justify;
+                width: 90%;
+                height: 80%;
+            }
+
+                .searchPage .searchContainer .leftPart .foundItems .foundItem {
+                    margin-bottom: 1.5%;
+                    display: flex;
+                    border-radius: 2rem;
+                    align-items: center;
+                    width: 100%;
+                    height: 28%;
+                    border: 3px solid #000000;
+                    padding-left: 2rem;
+                }
+
+                    .searchPage .searchContainer .leftPart .foundItems .foundItem img {
+                        width: 7rem;
+                        height: 7rem;
+                        border-radius: 3.5rem;
+                    }
+
+                    .searchPage .searchContainer .leftPart .foundItems .foundItem .foundItemText {
+                        display: flex;
+                        flex-direction: column;
+                        margin-left: 2%;
+                    }
+
+                    .searchPage .searchContainer .leftPart .foundItems .foundItem .foundItemText p {
+                        font-size: 24px;
+                    }
+
+                        .searchPage .searchContainer .leftPart .foundItems .foundItem .foundItemText p#Name {
+                            font-size: 32px;
+                        }
+
+        .searchPage .searchContainer .rightPart {
+            position: -webkit-sticky;
+            position: sticky;
+            width: 20%;
+            height: 80%;
+            display: flex;
+            flex-direction: column;
+            border: 3px solid #000000;
+        }
+
+        .searchPage .searchContainer .rightPart .hdr {
+            text-align: center;
+        }
+
+        .searchPage .searchContainer .rightPart .filterItem {
+            padding: 0.5rem;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+        }
+
+        .searchPage .searchContainer .rightPart .filterItem p {
+            margin-left: 2%;
+            font-size: 24px;
+        }
+
+    .searchPage .arrows {
+        position: absolute;
+        top: 85%;
+        left: 10%;
+    }
+
+        .searchPage .arrows img {
+            margin-left: 20px;
+            width: 40px;
+            cursor: pointer;
+        }
+
+body:not(.rz-default-scrollbars) ::-webkit-scrollbar-thumb {
+    background: black;
+}
+
+.rz-dropdown-item.rz-state-highlight, .rz-state-highlight.rz-menuitem, .rz-state-highlight.rz-autocomplete-list-item, .rz-state-highlight.rz-multiselect-item, .rz-dropdown-items li.rz-state-highlight, .rz-autocomplete-items li.rz-state-highlight, .rz-multiselect-items li.rz-state-highlight {
+    background: white;
+}
+
+span {
+    font-family: Roboto;
+}
+
+.rz-chkbox-box.rz-state-active {
+    background-color: Black;
+}
+
+    .rz-chkbox-box.rz-state-active:hover {
+        background-color: #777777;
+        border: 1px solid #dadfe2;
+    }
+    /*# sourceMappingURL=asd.css.map */
