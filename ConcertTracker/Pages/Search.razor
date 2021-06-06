@@ -15,11 +15,11 @@
             <div class="foundItems">
                 @for (int j = 0; j < 3; j++)
                 {
-                    if (index + j < searchModel.ObjectsList.Count)
+                    if (index + j < searchModel.ObjectList.Count)
                     {
-                        if (searchModel.ObjectsList[index + j].GetType() == typeof(Artist))
+                        if (searchModel.ObjectList[index + j].GetType() == typeof(Artist))
                         {
-                            Artist foundArtist = (Artist)searchModel.ObjectsList[index + j];
+                            Artist foundArtist = (Artist)searchModel.ObjectList[index + j];
                             <a href="/user/@foundArtist.Id" class="foundItem">
                                 @if (foundArtist.Photo != null)
                                 {
@@ -38,9 +38,9 @@
                                 </div>
                             </a>
                         }
-                        if (searchModel.ObjectsList[index + j].GetType() == typeof(ConcertHall))
+                        if (searchModel.ObjectList[index + j].GetType() == typeof(ConcertHall))
                         {
-                            ConcertHall foundConcertHall = (ConcertHall)searchModel.ObjectsList[index + j];
+                            ConcertHall foundConcertHall = (ConcertHall)searchModel.ObjectList[index + j];
                             <a href="/concerthall/@foundConcertHall.Id.ToString()" class="foundItem">
                                 @if (foundConcertHall.Photo != null)
                                 {
@@ -89,17 +89,17 @@
     {
         public string SearchText { get; set; }
 
-        public ICollection<ConcertHall> ConcertHalls;
+        public ICollection<ConcertHall> ConcertHalls { get; set; }
 
-        public ICollection<Genre> Genres;
+        public ICollection<Genre> Genres { get; set; }
 
-        public ICollection<Genre> SelectedGenres = new List<Genre>();
+        public ICollection<Genre> SelectedGenres { get; set; } = new List<Genre>();
 
-        public ICollection<Artist> Artists;
+        public ICollection<Artist> Artists { get; set; }
 
-        public FilterModel Filter = new FilterModel();
+        public FilterModel Filter { get; set; } = new FilterModel();
 
-        public List<object> ObjectsList = new List<object>();
+        public List<object> ObjectList { get; set; } = new List<object>();
 
         public List<object> GetObjects()
         {
@@ -120,8 +120,8 @@
                         x.Add(artist);
                 }
             }
-            ObjectsList = x;
-            return ObjectsList;
+            ObjectList = x;
+            return ObjectList;
         }
     }
 
@@ -141,6 +141,8 @@
 
     private IEnumerable<string> allGenres = new string[] { "Empty" };
 
+    private int index = 0;
+
     protected override async Task OnInitializedAsync()
     {
         searchModel.ConcertHalls = await DataManager.ConcertHalls.GetAllConcertHallsAsync();
@@ -158,7 +160,7 @@
         
         searchModel.GetObjects();
     }
-    
+
     private async Task GetArtistsWithGenres(ICollection<Artist> artists)
     {
         foreach (var artist in artists)
@@ -166,12 +168,22 @@
             artist.Genres = await DataManager.Genres.GetGenresOfArtistAsync(artist) as List<Genre>;
         }
     }
-    
-    private int index = 0;
-    
+
+    private void SearchObjects()
+    {
+        List<object> x = new List<object>();
+        foreach (var item in searchModel.GetObjects())
+        {
+            if (item.ToString().Contains(searchModel.SearchText))
+                x.Add(item);
+        }
+        searchModel.ObjectList = x;
+        index = 0;
+    }
+
     private void incI()
     {
-        if (index < searchModel.ObjectsList.Count() - 3)
+        if (index < searchModel.ObjectList.Count() - 3)
             index += 3;
         else index = 0;
     }
@@ -181,21 +193,9 @@
         if (index > 2)
             index -= 3;
         else if (index%3 != 0 || index < 3) 
-            index = (searchModel.ObjectsList.Count() / 3) * 3;
+            index = (searchModel.ObjectList.Count() / 3) * 3;
         else 
-            index = (searchModel.ObjectsList.Count() / 3 - 1) * 3;
-    }
-    
-    private void SearchObjects()
-    {
-        List<object> x = new List<object>();
-        foreach (var item in searchModel.GetObjects())
-        {
-            if (item.ToString().Contains(searchModel.SearchText))
-                x.Add(item);
-        }
-        searchModel.ObjectsList = x;
-        index = 0;
+            index = (searchModel.ObjectList.Count() / 3 - 1) * 3;
     }
 
     private async Task OnChange()

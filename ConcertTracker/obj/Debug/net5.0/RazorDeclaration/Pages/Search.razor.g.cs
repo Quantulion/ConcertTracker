@@ -119,17 +119,17 @@ using BusinessLayer;
     {
         public string SearchText { get; set; }
 
-        public ICollection<ConcertHall> ConcertHalls;
+        public ICollection<ConcertHall> ConcertHalls { get; set; }
 
-        public ICollection<Genre> Genres;
+        public ICollection<Genre> Genres { get; set; }
 
-        public ICollection<Genre> SelectedGenres = new List<Genre>();
+        public ICollection<Genre> SelectedGenres { get; set; } = new List<Genre>();
 
-        public ICollection<Artist> Artists;
+        public ICollection<Artist> Artists { get; set; }
 
-        public FilterModel Filter = new FilterModel();
+        public FilterModel Filter { get; set; } = new FilterModel();
 
-        public List<object> ObjectsList = new List<object>();
+        public List<object> ObjectList { get; set; } = new List<object>();
 
         public List<object> GetObjects()
         {
@@ -150,8 +150,8 @@ using BusinessLayer;
                         x.Add(artist);
                 }
             }
-            ObjectsList = x;
-            return ObjectsList;
+            ObjectList = x;
+            return ObjectList;
         }
     }
 
@@ -201,7 +201,7 @@ using BusinessLayer;
     
     private void incI()
     {
-        if (index < searchModel.ObjectsList.Count() - 3)
+        if (index < searchModel.ObjectList.Count() - 3)
             index += 3;
         else index = 0;
     }
@@ -211,9 +211,9 @@ using BusinessLayer;
         if (index > 2)
             index -= 3;
         else if (index%3 != 0 || index < 3) 
-            index = (searchModel.ObjectsList.Count() / 3) * 3;
+            index = (searchModel.ObjectList.Count() / 3) * 3;
         else 
-            index = (searchModel.ObjectsList.Count() / 3 - 1) * 3;
+            index = (searchModel.ObjectList.Count() / 3 - 1) * 3;
     }
     
     private void SearchObjects()
@@ -224,7 +224,7 @@ using BusinessLayer;
             if (item.ToString().Contains(searchModel.SearchText))
                 x.Add(item);
         }
-        searchModel.ObjectsList = x;
+        searchModel.ObjectList = x;
         index = 0;
     }
 

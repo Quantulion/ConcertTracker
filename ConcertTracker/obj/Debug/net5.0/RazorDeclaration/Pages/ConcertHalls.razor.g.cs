@@ -150,8 +150,11 @@ using Microsoft.AspNetCore.Hosting;
 #line 58 "C:\ConcertTracker\ConcertTracker\Pages\ConcertHalls.razor"
        
 
-    private ICollection<ConcertHall> concertHalls;
+    ICollection<ConcertHall> concertHalls;
     ConcertHall newConcertHall = new ConcertHall();
+    
+    IBrowserFile selectedFile;
+
     protected override async Task OnInitializedAsync()
     {
         concertHalls = await DataManager.ConcertHalls.GetAllConcertHallsAsync();
@@ -176,29 +179,24 @@ using Microsoft.AspNetCore.Hosting;
         newConcertHall = new ConcertHall();
     }
 
-    IReadOnlyList<IBrowserFile> selectedFiles;
 
-    async Task LoadFile(InputFileChangeEventArgs e)
+    private void LoadFile(InputFileChangeEventArgs e)
     {
-        selectedFiles = e.GetMultipleFiles();
-        this.StateHasChanged();
+        selectedFile = e.File;
+        StateHasChanged();
     }
 
     private async Task GetFileAndSetPhoto()
     {
-        foreach (var file in selectedFiles)
-        {
-            Stream stream = file.OpenReadStream();
-            var path = $"{env.WebRootPath}\\uploads\\{file.Name}";
-            newConcertHall.Photo = file.Name;
-            FileStream fs = File.Create(path);
-            await stream.CopyToAsync(fs);
-            stream.Close();
-            fs.Close();
-        }
+        Stream stream = selectedFile.OpenReadStream();
+        var path = $"{Env.WebRootPath}\\uploads\\{selectedFile.Name}";
+        newConcertHall.Photo = selectedFile.Name;
+        FileStream fs = File.Create(path);
+        await stream.CopyToAsync(fs);
+        stream.Close();
+        fs.Close();
         this.StateHasChanged();
     }
-
 
 #line default
 #line hidden
@@ -206,7 +204,7 @@ using Microsoft.AspNetCore.Hosting;
         [global::Microsoft.AspNetCore.Components.InjectAttribute] private DataManager DataManager { get; set; }
         [global::Microsoft.AspNetCore.Components.InjectAttribute] private IDbContextFactory<ApplicationDbContext> ContextFactory { get; set; }
         [global::Microsoft.AspNetCore.Components.InjectAttribute] private IPhotoManager PhotoManager { get; set; }
-        [global::Microsoft.AspNetCore.Components.InjectAttribute] private IWebHostEnvironment env { get; set; }
+        [global::Microsoft.AspNetCore.Components.InjectAttribute] private IWebHostEnvironment Env { get; set; }
     }
 }
 #pragma warning restore 1591

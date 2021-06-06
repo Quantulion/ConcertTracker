@@ -158,17 +158,20 @@ using BusinessLayer;
        
     int zoom = 15;
 
-    private ICollection<Concert> allConcerts;
-    private IList<User> allArtists = new List<User>();
-    private ICollection<ConcertHall> allConcertHalls;
-    private bool isArtist;
-    private bool isAdmin;
-    private bool addArtistClicked = false;
-    private bool addConcertHallClicked = false;
-    private List<Artist> ConcertArtists = new List<Artist>();
+    ICollection<Concert> allConcerts;
+    IList<User> allArtists = new List<User>();
+    ICollection<ConcertHall> allConcertHalls;
+    
+    bool isArtist;
+    bool isAdmin;
+    
+    bool addArtistClicked = false;
+    bool addConcertHallClicked = false;
+    
+    List<Artist> concertArtists = new List<Artist>();
     Artist currentArtist;
     Admin currentAdmin = new Admin();
-    Concert newConcert = new Concert
+    Concert currentConcert = new Concert
     {
         Date = DateTime.Now,
         Artists = new List<Artist>(),
@@ -186,7 +189,7 @@ using BusinessLayer;
     private async Task InitializeData()
     {
         allConcerts = await DataManager.Concerts.GetAllConcertsAsync();
-        allArtists = await userManager.GetUsersInRoleAsync("Artist");
+        allArtists = await UserManager.GetUsersInRoleAsync("Artist");
         allConcertHalls = await DataManager.ConcertHalls.GetAllConcertHallsAsync();
     }
 
@@ -194,7 +197,7 @@ using BusinessLayer;
     {
         var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
         var auser = authState.User;
-        var user = await userManager.GetUserAsync(auser);
+        var user = await UserManager.GetUserAsync(auser);
         isArtist = auser.IsInRole("Artist");
 
         if (isArtist)
@@ -210,21 +213,21 @@ using BusinessLayer;
     {
         currentPosition.Lat = args.Position.Lat;
         currentPosition.Lng = args.Position.Lng;
-        newConcert = new Concert
+        currentConcert = new Concert
         {
             Date = DateTime.Now,
             Artists = new List<Artist>(),
             ConcertHall = new ConcertHall()
         };
-        ConcertArtists = new List<Artist>();
+        concertArtists = new List<Artist>();
     }
 
     private async Task OnMarkerClick(RadzenGoogleMapMarker args)
     {
         var foundConcert = await DataManager.Concerts.GetConcertByIdAsync(Convert.ToInt32(args.Title));
-        newConcert = foundConcert;
-        ConcertArtists = await DataManager.Concerts.GetArtistsOfConcertAsync(foundConcert);
-        newConcert.Artists = ConcertArtists;
+        currentConcert = foundConcert;
+        concertArtists = await DataManager.Concerts.GetArtistsOfConcertAsync(foundConcert);
+        currentConcert.Artists = concertArtists;
         currentPosition.Lat = foundConcert.Position.Lat;
         currentPosition.Lng = foundConcert.Position.Lng;
     }
@@ -244,7 +247,7 @@ using BusinessLayer;
         }
 
         currentPosition = new GoogleMapPosition() { Lat = 55.7491, Lng = 37.6258 };
-        newConcert = new Concert
+        currentConcert = new Concert
         {
             Date = DateTime.Now,
             Artists = new List<Artist>(),
@@ -254,16 +257,16 @@ using BusinessLayer;
 
     private async Task AddNewConcert()
     {
-        newConcert.Position = currentPosition;
+        currentConcert.Position = currentPosition;
 
         Concert concert = new Concert
         {
-            Description = newConcert.Description,
-            Date = newConcert.Date,
-            Position = newConcert.Position,
-            ConcertHall = newConcert.ConcertHall,
-            ConcertHallId = newConcert.ConcertHallId,
-            Artists = newConcert.Artists
+            Description = currentConcert.Description,
+            Date = currentConcert.Date,
+            Position = currentConcert.Position,
+            ConcertHall = currentConcert.ConcertHall,
+            ConcertHallId = currentConcert.ConcertHallId,
+            Artists = currentConcert.Artists
         };
         concert.Artists.Add(currentArtist);
         await DataManager.Concerts.AddConcertAsync(concert);
@@ -277,21 +280,21 @@ using BusinessLayer;
     
     private async Task AddArtistToConcert(Artist chosenArtist)
     {
-        if(newConcert.Id != 0)
-            await DataManager.Concerts.AddArtistToConcertAsync(chosenArtist, newConcert);
+        if(currentConcert.Id != 0)
+            await DataManager.Concerts.AddArtistToConcertAsync(chosenArtist, currentConcert);
         else
         {
-            newConcert.Artists.Add(chosenArtist);
+            currentConcert.Artists.Add(chosenArtist);
         }
     }
     
     private async Task AddConcertHallToConcert(ConcertHall chosenConcertHall)
     {
-        if(newConcert.Id != 0)
-            await DataManager.Concerts.SetConcertHallToConcertAsync(chosenConcertHall, newConcert);
+        if(currentConcert.Id != 0)
+            await DataManager.Concerts.SetConcertHallToConcertAsync(chosenConcertHall, currentConcert);
         else
         {
-            newConcert.ConcertHall = chosenConcertHall;
+            currentConcert.ConcertHall = chosenConcertHall;
         }
     }
 
@@ -310,8 +313,8 @@ using BusinessLayer;
 #line hidden
 #nullable disable
         [global::Microsoft.AspNetCore.Components.InjectAttribute] private AuthenticationStateProvider AuthenticationStateProvider { get; set; }
-        [global::Microsoft.AspNetCore.Components.InjectAttribute] private UserManager<User> userManager { get; set; }
-        [global::Microsoft.AspNetCore.Components.InjectAttribute] private RoleManager<IdentityRole> roleManager { get; set; }
+        [global::Microsoft.AspNetCore.Components.InjectAttribute] private UserManager<User> UserManager { get; set; }
+        [global::Microsoft.AspNetCore.Components.InjectAttribute] private RoleManager<IdentityRole> RoleManager { get; set; }
         [global::Microsoft.AspNetCore.Components.InjectAttribute] private DataManager DataManager { get; set; }
     }
 }

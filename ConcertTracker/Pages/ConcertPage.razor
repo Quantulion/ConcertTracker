@@ -1,13 +1,12 @@
 ﻿@page "/concert/{Id}"
 
-@using BusinessLayer.Interfaces
 @using DataLayer.Entities
 @using Microsoft.AspNetCore.Identity;
 @using BusinessLayer
 
 @inject DataManager DataManager
-@inject RoleManager<IdentityRole> roleManager
-@inject UserManager<User> userManager
+@inject RoleManager<IdentityRole> RoleManager
+@inject UserManager<User> UserManager
 @inject AuthenticationStateProvider AuthenticationStateProvider
 @inject NavigationManager NavigationManager
 
@@ -84,11 +83,11 @@
     [Parameter]
     public string Id { get; set; }
 
-    private Concert foundConcert = new Concert();
-    private List<Artist> concertArtists = new List<Artist>();
-    private List<Comment> concertComments = new List<Comment>();
-    private User currentUser = new User();
-    private Comment newComment = new Comment();
+    Concert foundConcert = new Concert();
+    List<Artist> concertArtists = new List<Artist>();
+    List<Comment> concertComments = new List<Comment>();
+    User currentUser = new User();
+    Comment newComment = new Comment();
 
     protected override async Task OnInitializedAsync()
     {
@@ -99,22 +98,9 @@
         concertArtists = await DataManager.Concerts.GetArtistsOfConcertAsync(foundConcert);
 
         var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
-        currentUser = await userManager.GetUserAsync(authState.User);
+        currentUser = await UserManager.GetUserAsync(authState.User);
 
         await GetAllComments();
-    }
-
-    private async Task DeleteConcert()
-    {
-        await DataManager.Concerts.DeleteConcertAsync(foundConcert);
-        NavigationManager.NavigateTo("map");
-    }
-
-    private async Task AddComment()
-    {
-        newComment.Likes = new List<UserComment>();
-        await DataManager.Comments.AddCommentAsync(newComment, currentUser, foundConcert);
-        newComment = new Comment();
     }
 
     private async Task<List<Comment>> GetAllComments()
@@ -131,14 +117,22 @@
         return concertComments;
     }
 
+    private async Task AddComment()
+    {
+        newComment.Likes = new List<UserComment>();
+        await DataManager.Comments.AddCommentAsync(newComment, currentUser, foundConcert);
+        newComment = new Comment();
+    }
+
     private async Task AddLike(Comment comment)
     {
         await DataManager.Comments.PressLikeAsync(comment, currentUser);
     }
 
-    private async Task<int> LikesCount(Comment comment)
+    private async Task DeleteConcert()
     {
-        return await DataManager.Comments.LikesCountAsync(comment);
+        await DataManager.Concerts.DeleteConcertAsync(foundConcert);
+        NavigationManager.NavigateTo("map");
     }
 
 }

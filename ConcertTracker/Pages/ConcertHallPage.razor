@@ -37,7 +37,7 @@
                     <a href="/concert/@concert.Id.ToString()">Date: @concert.Date.ToString()    Description: @concert.Description</a>
                 }
             </div>
-<AuthorizeView Roles="Admin"><button @onclick="DeleteConcertHall">Delete</button></AuthorizeView>
+            <AuthorizeView Roles="Admin"><button @onclick="DeleteConcertHall">Delete</button></AuthorizeView>
         </div>
     </div>
 </div>

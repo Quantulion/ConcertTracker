@@ -91,27 +91,20 @@ using Radzen.Blazor;
 #nullable disable
 #nullable restore
 #line 3 "C:\ConcertTracker\ConcertTracker\Pages\ConcertPage.razor"
-using BusinessLayer.Interfaces;
-
-#line default
-#line hidden
-#nullable disable
-#nullable restore
-#line 4 "C:\ConcertTracker\ConcertTracker\Pages\ConcertPage.razor"
 using DataLayer.Entities;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 5 "C:\ConcertTracker\ConcertTracker\Pages\ConcertPage.razor"
+#line 4 "C:\ConcertTracker\ConcertTracker\Pages\ConcertPage.razor"
 using Microsoft.AspNetCore.Identity;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 6 "C:\ConcertTracker\ConcertTracker\Pages\ConcertPage.razor"
+#line 5 "C:\ConcertTracker\ConcertTracker\Pages\ConcertPage.razor"
 using BusinessLayer;
 
 #line default
@@ -126,16 +119,16 @@ using BusinessLayer;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 83 "C:\ConcertTracker\ConcertTracker\Pages\ConcertPage.razor"
+#line 82 "C:\ConcertTracker\ConcertTracker\Pages\ConcertPage.razor"
        
     [Parameter]
     public string Id { get; set; }
 
-    private Concert foundConcert = new Concert();
-    private List<Artist> concertArtists = new List<Artist>();
-    private List<Comment> concertComments = new List<Comment>();
-    private User currentUser = new User();
-    private Comment newComment = new Comment();
+    Concert foundConcert = new Concert();
+    List<Artist> concertArtists = new List<Artist>();
+    List<Comment> concertComments = new List<Comment>();
+    User currentUser = new User();
+    Comment newComment = new Comment();
 
     protected override async Task OnInitializedAsync()
     {
@@ -146,22 +139,9 @@ using BusinessLayer;
         concertArtists = await DataManager.Concerts.GetArtistsOfConcertAsync(foundConcert);
 
         var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
-        currentUser = await userManager.GetUserAsync(authState.User);
+        currentUser = await UserManager.GetUserAsync(authState.User);
 
         await GetAllComments();
-    }
-
-    private async Task DeleteConcert()
-    {
-        await DataManager.Concerts.DeleteConcertAsync(foundConcert);
-        NavigationManager.NavigateTo("map");
-    }
-
-    private async Task AddComment()
-    {
-        newComment.Likes = new List<UserComment>();
-        await DataManager.Comments.AddCommentAsync(newComment, currentUser, foundConcert);
-        newComment = new Comment();
     }
 
     private async Task<List<Comment>> GetAllComments()
@@ -178,14 +158,22 @@ using BusinessLayer;
         return concertComments;
     }
 
+    private async Task AddComment()
+    {
+        newComment.Likes = new List<UserComment>();
+        await DataManager.Comments.AddCommentAsync(newComment, currentUser, foundConcert);
+        newComment = new Comment();
+    }
+
     private async Task AddLike(Comment comment)
     {
         await DataManager.Comments.PressLikeAsync(comment, currentUser);
     }
 
-    private async Task<int> LikesCount(Comment comment)
+    private async Task DeleteConcert()
     {
-        return await DataManager.Comments.LikesCountAsync(comment);
+        await DataManager.Concerts.DeleteConcertAsync(foundConcert);
+        NavigationManager.NavigateTo("map");
     }
 
 
@@ -194,8 +182,8 @@ using BusinessLayer;
 #nullable disable
         [global::Microsoft.AspNetCore.Components.InjectAttribute] private NavigationManager NavigationManager { get; set; }
         [global::Microsoft.AspNetCore.Components.InjectAttribute] private AuthenticationStateProvider AuthenticationStateProvider { get; set; }
-        [global::Microsoft.AspNetCore.Components.InjectAttribute] private UserManager<User> userManager { get; set; }
-        [global::Microsoft.AspNetCore.Components.InjectAttribute] private RoleManager<IdentityRole> roleManager { get; set; }
+        [global::Microsoft.AspNetCore.Components.InjectAttribute] private UserManager<User> UserManager { get; set; }
+        [global::Microsoft.AspNetCore.Components.InjectAttribute] private RoleManager<IdentityRole> RoleManager { get; set; }
         [global::Microsoft.AspNetCore.Components.InjectAttribute] private DataManager DataManager { get; set; }
     }
 }

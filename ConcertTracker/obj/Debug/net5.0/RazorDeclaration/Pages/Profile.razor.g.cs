@@ -138,16 +138,15 @@ using BusinessLayer;
 
     private async Task<bool> IsArtist()
     {
-        if (await DataManager.Artists.GetArtistByIdAsync(Id) != null)
-            isArtist = true;
-        else isArtist = false;
-        return isArtist;
-    }
+        try
+        {
+            isArtist = await DataManager.Artists.GetArtistByIdAsync(Id) != null;
+        }
+        catch
+        {
+        }
 
-    private async Task DeleteUser()
-    {
-        await DataManager.Users.DeleteUserAsync(foundUser);
-        NavigationManager.NavigateTo("map");
+        return isArtist;
     }
 
     private async Task GetLastComment()
@@ -156,10 +155,19 @@ using BusinessLayer;
         int end = comments.Count - 1;
         if(end >= 0)
             lastComment = comments[end];
-        var concert = await DataManager.Concerts.GetConcertByIdAsync(lastComment.ConcertId);
-        lastComment.Concert = concert;
+        if (lastComment.ConcertId != 0)
+        {
+            var concert = await DataManager.Concerts.GetConcertByIdAsync(lastComment.ConcertId);
+            lastComment.Concert = concert;
+        }
     }
-    
+
+    private async Task DeleteUser()
+    {
+        await DataManager.Users.DeleteUserAsync(foundUser);
+        NavigationManager.NavigateTo("map");
+    }
+
 
 #line default
 #line hidden
